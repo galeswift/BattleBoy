@@ -1,0 +1,4 @@
+Problems starting these applications? 
+Especially Vista Users with a new system may get a 'Problem starting application' message box. 
+
+Solution: You need the .NET Framework 1.1 to be installed.
