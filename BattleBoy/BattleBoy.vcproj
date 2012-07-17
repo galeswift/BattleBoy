@@ -184,22 +184,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Body.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\Body.h"
-			>
-		</File>
-		<File
-			RelativePath=".\Explosion.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\Explosion.h"
-			>
-		</File>
-		<File
 			RelativePath=".\main.cpp"
 			>
 		</File>

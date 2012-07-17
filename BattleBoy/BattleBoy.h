@@ -1,6 +1,5 @@
 #pragma once
 
-#include "Body.h"
 #include "Boy/Environment.h"
 #include "Boy/Font.h"
 #include "Boy/Game.h"
@@ -8,7 +7,6 @@
 #include "Boy/KeyboardListener.h"
 #include "BoyLib/BoyUtil.h"
 #include "BoyLib/Vector2.h"
-#include "Explosion.h"
 
 class BattleBoy: public Boy::Game, public Boy::KeyboardListener
 {
@@ -33,38 +31,5 @@ public:
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 
 private:
-
-	void death();
-	void gameOver();
-	void newGame();
-	void nextLevel();
-
-private:
-
 	static BattleBoy *gInstance;
-
-	Body *mShip;
-	std::vector<Body*> mAsteroids;
-	std::vector<Body*> mBullets;
-	std::vector<Explosion*> mExplosions;
-
-	bool mThrust;
-	bool mLeft;
-	bool mRight;
-	bool mGunArmed;
-
-	int mLevel;
-	int mLives;
-	bool mLoadComplete;
-	Boy::Image *mShipImage;
-	Boy::Image *mThrustImage;
-	Boy::Sound *mBoomSound;
-	Boy::Sound *mFireSound;
-	Boy::Sound *mThrustSound;
-	Boy::Font *mFont;
-	int mScore;
-	bool mGameOver;
-	float mLastRespawn;
-	float mTimeOfDeath;
-	int mDrawCount;
 };
