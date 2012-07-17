@@ -88,6 +88,7 @@ void BattleBoy::draw(Boy::Graphics *g)
 {
 	if( mLoadComplete ) 
 	{
+		mBoard->draw(g);
 		// draw status
 		g->setColorizationEnabled(true);
 		g->setColor(0xffffffff);
@@ -96,7 +97,6 @@ void BattleBoy::draw(Boy::Graphics *g)
 		mFont->drawString(g,mPendingSpawnType,0.5f);
 		g->popTransform();
 		g->setColorizationEnabled(false);
-
 
 	}
 }
