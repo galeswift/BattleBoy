@@ -13,6 +13,8 @@ BattleBoy *BattleBoy::gInstance = NULL;
 
 BattleBoy::BattleBoy()
 {
+	mLoadComplete = false;
+	mPendingSpawnType = "NONE";
 }
 
 BattleBoy::~BattleBoy()
@@ -41,6 +43,10 @@ void BattleBoy::destroy()
 
 void BattleBoy::init()
 {
+	mKeyToSpawnType['q'] = "Spawn Melee";
+	mKeyToSpawnType['w'] = "Spawn Ranged";
+	mKeyToSpawnType['e'] = "Spawn Flyer";
+
 }
 
 void BattleBoy::load()
@@ -58,9 +64,15 @@ void BattleBoy::loadComplete()
 
 	// fetch whatever resources we need:
 	Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
+	
+	mFont = rm->getFont("FONT_MAIN");
+	
+	// set the load complete flag (this will trigger 
+	// the start of the game in the update method):
+	mLoadComplete = true;
+
 	/*mShipImage = rm->getImage("IMAGE_SHIP");
 	mThrustImage = rm->getImage("IMAGE_THRUST");
-	mFont = rm->getFont("FONT_MAIN");
 	mBoomSound = rm->getSound("SOUND_BOOM");
 	mFireSound = rm->getSound("SOUND_FIRE");
 	mThrustSound = rm->getSound("SOUND_THRUST");*/
@@ -72,12 +84,30 @@ void BattleBoy::update(float dt)
 
 void BattleBoy::draw(Boy::Graphics *g)
 {
+	if( mLoadComplete ) 
+	{
+		// draw status
+		g->setColorizationEnabled(true);
+		g->setColor(0xffffffff);
+		g->pushTransform();
+		g->translate(50,50);
+		mFont->drawString(g,mPendingSpawnType,0.5f);
+		g->popTransform();
+		g->setColorizationEnabled(false);
+	}
 }
 
 void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
 {
+	mPendingSpawnType = "NONE";
 }
 
 void BattleBoy::keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
 {
+	// Look through our keybindings and see if we have a result
+	std::map<wchar_t,Boy::UString>::iterator keyBinding = mKeyToSpawnType.find(unicode);
+	if( keyBinding != mKeyToSpawnType.end() )
+	{
+		mPendingSpawnType = (*keyBinding).second;
+	}
 }

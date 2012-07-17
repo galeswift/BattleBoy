@@ -29,7 +29,12 @@ public:
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
+private:
+	Boy::Font *mFont;
+	bool mLoadComplete;
+	Boy::UString mPendingSpawnType;
 
+	std::map<wchar_t,Boy::UString> mKeyToSpawnType;
 private:
 	static BattleBoy *gInstance;
 };
