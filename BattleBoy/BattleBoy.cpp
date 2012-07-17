@@ -24,6 +24,7 @@ BattleBoy *BattleBoy::gInstance = NULL;
 BattleBoy::BattleBoy()
 {
 	mShip = NULL;
+	mBoard = NULL;
 	mThrust = mLeft = mRight = false;
 	mGunArmed = true;
 	mLevel = 0;
@@ -61,6 +62,7 @@ void BattleBoy::destroy()
 
 void BattleBoy::init()
 {
+	mBoard = new Board();
 }
 
 void BattleBoy::load()

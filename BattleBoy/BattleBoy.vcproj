@@ -184,6 +184,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Board.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Board.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Body.cpp"
 			>
 		</File>

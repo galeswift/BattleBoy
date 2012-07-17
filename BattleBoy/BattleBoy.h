@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Body.h"
+#include "Board.h"
 #include "Boy/Environment.h"
 #include "Boy/Font.h"
 #include "Boy/Game.h"
@@ -44,6 +45,7 @@ private:
 	static BattleBoy *gInstance;
 
 	Body *mShip;
+	Board *mBoard;
 	std::vector<Body*> mAsteroids;
 	std::vector<Body*> mBullets;
 	std::vector<Explosion*> mExplosions;
