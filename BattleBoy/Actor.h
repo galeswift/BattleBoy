@@ -4,7 +4,7 @@ class Actor
 {
 public:
 	Actor() : pos() {};
-	Actor(BoyLib::Vector2 _pos, BoyLib::Vector2 _vel);
+	Actor(BoyLib::Vector2 _pos, BoyLib::Vector2 _vel) : pos(_pos), vel(_vel) {};
 	virtual void draw(Boy::Graphics *g) {};
 	void update(float dt);
 	BoyLib::Vector2 pos;
