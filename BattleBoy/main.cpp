@@ -1,5 +1,4 @@
-#include "Boy/Environment.h"
-#include "BattleBoy.h"
+#include "Globals.h"
 
 int main(int argc, char* argv[])
 {

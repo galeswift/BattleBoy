@@ -1,7 +1,5 @@
-#include "Board.h"
 
-#include "Boy/Environment.h"
-#include "Boy/Graphics.h"
+#include "Globals.h"
 
 Board::Board()
 {

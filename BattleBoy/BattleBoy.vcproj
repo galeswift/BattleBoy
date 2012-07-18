@@ -176,6 +176,14 @@
 	</References>
 	<Files>
 		<File
+			RelativePath=".\Actor.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Actor.h"
+			>
+		</File>
+		<File
 			RelativePath=".\BattleBoy.cpp"
 			>
 		</File>
@@ -190,7 +198,11 @@
 		<File
 			RelativePath=".\Board.h"
 			>
-		</File>		
+		</File>
+		<File
+			RelativePath=".\Globals.h"
+			>
+		</File>
 		<File
 			RelativePath=".\main.cpp"
 			>

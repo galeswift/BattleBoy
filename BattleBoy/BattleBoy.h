@@ -1,13 +1,5 @@
 #pragma once
 
-#include "Board.h"
-#include "Boy/Environment.h"
-#include "Boy/Font.h"
-#include "Boy/Game.h"
-#include "Boy/Graphics.h"
-#include "Boy/KeyboardListener.h"
-#include "BoyLib/BoyUtil.h"
-#include "BoyLib/Vector2.h"
 
 class BattleBoy: public Boy::Game, public Boy::KeyboardListener
 {

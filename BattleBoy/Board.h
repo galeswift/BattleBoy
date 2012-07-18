@@ -1,8 +1,6 @@
 #pragma once
 
-#include "Boy/Graphics.h"
-
-class Board 
+class Board : public Actor
 {
 public:
 

@@ -1,14 +1,4 @@
-#include "BattleBoy.h"
-
-#include "Board.h"
-#include <assert.h>
-#include "Boy/Environment.h"
-#include "Boy/GamePad.h"
-#include "Boy/Graphics.h"
-#include "Boy/Mouse.h"
-#include "Boy/ResourceManager.h"
-#include "Boy/SoundPlayer.h"
-#include <string>
+#include "Globals.h"
 
 BattleBoy *BattleBoy::gInstance = NULL;
 
