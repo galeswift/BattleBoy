@@ -13,17 +13,17 @@ void Board::draw(Boy::Graphics *g)
 
 	g->pushTransform();
 
-	g->drawLine(w*0.4, 0, w*0.4, h*0.4);
-	g->drawLine(w*0.6, 0, w*0.6, h*0.4);
+	g->drawLine(int(w*0.4),	0,			int(w*0.4), int(h*0.4));
+	g->drawLine(int(w*0.6),	0,			int(w*0.6), int(h*0.4));
 
-	g->drawLine(w*0.6, h*0.4, w, h*0.4);
-	g->drawLine(w*0.6, h*0.6, w, h*0.6);
+	g->drawLine(int(w*0.6),	int(h*0.4), w,			int(h*0.4));
+	g->drawLine(int(w*0.6),	int(h*0.6), w,			int(h*0.6));
 
-	g->drawLine(w*0.6, h*0.6, w*0.6, h);
-	g->drawLine(w*0.4, h*0.6, w*0.4, h);
+	g->drawLine(int(w*0.6),	int(h*0.6), int(w*0.6),	h);
+	g->drawLine(int(w*0.4),	int(h*0.6), int(w*0.4), h);
 
-	g->drawLine(0, h*0.6, w*0.4, h*0.6);
-	g->drawLine(0, h*0.4, w*0.4, h*0.4);
+	g->drawLine(0,			int(h*0.6), int(w*0.4),	int(h*0.6));
+	g->drawLine(0,			int(h*0.4), int(w*0.4),	int(h*0.4));
 
 	g->popTransform();
 }

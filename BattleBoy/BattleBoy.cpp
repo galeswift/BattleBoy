@@ -37,7 +37,6 @@ void BattleBoy::init()
 {
 	mBoard = new Board();
 
-	mUnits.push_back( new Unit(BoyLib::Vector2(150,150)) );
 	mKeyToSpawnType['q'] = "Spawn Melee";
 	mKeyToSpawnType['w'] = "Spawn Ranged";
 	mKeyToSpawnType['e'] = "Spawn Flyer";
@@ -74,6 +73,10 @@ void BattleBoy::loadComplete()
 
 void BattleBoy::update(float dt)
 {
+	for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+	{
+		(*it)->update(dt);
+	}
 }
 
 void BattleBoy::draw(Boy::Graphics *g)
@@ -101,6 +104,9 @@ void BattleBoy::draw(Boy::Graphics *g)
 
 void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
 {
+	int w = Boy::Environment::screenWidth();
+	int h = Boy::Environment::screenHeight();
+	mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), BoyLib::Vector2(0.0,-25.0)) );
 	mPendingSpawnType = "NONE";
 }
 

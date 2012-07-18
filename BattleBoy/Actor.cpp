@@ -1,5 +1,15 @@
 #include "Globals.h"
 
+Actor::Actor(BoyLib::Vector2 _pos, BoyLib::Vector2 _vel) {
+  pos = _pos;
+  vel = _vel;
+}
+
+void Actor::update(float dt)
+{
+	pos += vel*dt;
+}
+
 void Unit::draw(Boy::Graphics *g)
 {
 	float size = 30;
