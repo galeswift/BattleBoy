@@ -36,6 +36,8 @@ void BattleBoy::destroy()
 void BattleBoy::init()
 {
 	mBoard = new Board();
+
+	mUnits.push_back( new Unit(BoyLib::Vector2(150,150)) );
 	mKeyToSpawnType['q'] = "Spawn Melee";
 	mKeyToSpawnType['w'] = "Spawn Ranged";
 	mKeyToSpawnType['e'] = "Spawn Flyer";
@@ -79,6 +81,12 @@ void BattleBoy::draw(Boy::Graphics *g)
 	if( mLoadComplete ) 
 	{
 		mBoard->draw(g);
+
+		for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+		{
+			(*it)->draw(g);
+		}
+
 		// draw status
 		g->setColorizationEnabled(true);
 		g->setColor(0xffffffff);

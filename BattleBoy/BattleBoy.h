@@ -31,4 +31,5 @@ private:
 private:
 	static BattleBoy *gInstance;
 	Board *mBoard;
+	std::vector<Unit*> mUnits;
 };
