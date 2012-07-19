@@ -106,7 +106,8 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 {
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
-	mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), BoyLib::Vector2(0.0,-25.0)) );
+	mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+	mUnits.back()->SetDestination( BoyLib::Vector2(w/2.0f,100.0) );
 	mPendingSpawnType = "NONE";
 }
 
