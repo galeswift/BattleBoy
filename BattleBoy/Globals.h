@@ -15,6 +15,9 @@
 #include <Ws2tcpip.h>
 #endif 
 
+// Generic
+#include "CommandOptions.h"
+
 // Networking
 #include "Networking.h"
 

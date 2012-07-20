@@ -7,6 +7,8 @@ BattleBoy::BattleBoy()
 	mBoard = NULL;
 	mLoadComplete = false;
 	mPendingSpawnType = "NONE";
+	mRole = Networking::ROLE_None;
+	mNetInterface = NULL;
 }
 
 BattleBoy::~BattleBoy()
@@ -33,11 +35,30 @@ void BattleBoy::destroy()
 	gInstance = NULL;
 }
 
-void BattleBoy::init()
+void BattleBoy::init(int argc, char* argv[])
 {
+	parseCommandArgs(argc, argv);
 	mBoard = new Board();
-	mServer = new Networking::NetworkInterfaceServer();
-	mServer->Init();
+	if( mRole == Networking::ROLE_Authority)
+	{
+		printf("Starting server...\n");
+		mNetInterface = new Networking::NetworkInterfaceServer();
+	}
+	else if( mRole == Networking::ROLE_SimulatedProxy )
+	{
+		printf("Client initialized, trying to connect to %s\n",mPendingAddress.c_str());
+		mNetInterface = new Networking::NetworkInterfaceClient();
+	}
+	
+	if( mNetInterface != NULL )
+	{
+		mNetInterface->Init();
+	}
+	else
+	{
+		printf("Starting offline game...\n");
+	}
+
 	mKeyToSpawnType['q'] = "Spawn Melee";
 	mKeyToSpawnType['w'] = "Spawn Ranged";
 	mKeyToSpawnType['e'] = "Spawn Flyer";
@@ -47,6 +68,20 @@ void BattleBoy::init()
 	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
 	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
 }
+
+void BattleBoy::parseCommandArgs(int argc, char* argv[])
+{
+	if(CommandOptions::cmdOptionExists(argv, argv + argc, "--server"))
+	{
+		mRole = Networking::ROLE_Authority;
+	}
+	else if( CommandOptions::cmdOptionExists(argv, argv + argc, "--client"))
+	{
+		mRole = Networking::ROLE_SimulatedProxy;
+		mPendingAddress = CommandOptions::getCmdOption(argv, argv+argc, "--client");
+	}
+}
+
 
 void BattleBoy::load()
 {

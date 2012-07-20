@@ -200,6 +200,10 @@
 			>
 		</File>
 		<File
+			RelativePath=".\CommandOptions.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Globals.h"
 			>
 		</File>

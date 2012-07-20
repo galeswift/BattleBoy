@@ -37,7 +37,7 @@ namespace Boy
 		 * where the bare-bones initialization tasks (e.g. creating
 		 * the loading screen) should be performed. 
 		 */
-		virtual void init() {}
+		virtual void init(int argc, char* argv[]) {}
 
 		/*
 		 * called after init().  this is where the game should do 

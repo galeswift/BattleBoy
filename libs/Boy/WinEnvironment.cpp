@@ -289,7 +289,7 @@ int loadingProc(void *data)
 	return 0;
 }
 
-void WinEnvironment::startMainLoop()
+void WinEnvironment::startMainLoop(int argc, char* argv[])
 {
 	// bootstrap load
 	mGame->preInitLoad();
@@ -300,7 +300,7 @@ void WinEnvironment::startMainLoop()
 	mPlatformInterface->endScene();
 
 	// initialize the game:
-	mGame->init();
+	mGame->init(argc, argv);
 
 	// semaphore for synchronizing with loading thread:
 	gLoadingSemaphore = NULL;

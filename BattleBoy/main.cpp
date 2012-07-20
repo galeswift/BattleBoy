@@ -13,7 +13,7 @@ int main(int argc, char* argv[])
 		NULL); // no encryption
 
 	// start the main loop
-	Boy::Environment::instance()->startMainLoop();
+	Boy::Environment::instance()->startMainLoop(argc, argv);
 
 	// destroy the game:
 	BattleBoy::destroy();

@@ -2,6 +2,13 @@
 
 namespace Networking
 {
+	enum ENetworkingRole
+	{
+		ROLE_None,
+		ROLE_Authority,
+		ROLE_SimulatedProxy,
+	};
+
 	class NetworkInterface
 	{
 	public:
@@ -15,5 +22,13 @@ namespace Networking
 		virtual ~NetworkInterfaceServer();
 		virtual void Init();
 		HANDLE mWorkerThread;
+	};
+
+	class NetworkInterfaceClient : public NetworkInterface
+	{
+	public:
+		NetworkInterfaceClient() {};
+		virtual ~NetworkInterfaceClient(){};
+		virtual void Init() {};
 	};
 }

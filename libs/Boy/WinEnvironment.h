@@ -43,7 +43,7 @@ namespace Boy
 		virtual PersistenceLayer	*getPersistenceLayer();
 		virtual SoundPlayer			*getSoundPlayer();
 		virtual TriStrip			*createTriStrip(int numVerts);
-		virtual void				startMainLoop();
+		virtual void				startMainLoop(int argc, char* argv[]);
 		virtual void				stopMainLoop();
 		virtual bool				isShuttingDown();
 		virtual void				showError(const std::string &message);

@@ -13,7 +13,8 @@ public:
 	static void destroy();
 
 	// implementation of Game:
-	virtual void init();
+	virtual void init(int argc, char* argv[]);
+	virtual void parseCommandArgs(int argc, char* argv[]);
 	virtual void load();
 	virtual void loadComplete();
 	virtual void update(float dt);
@@ -29,9 +30,24 @@ private:
 
 	std::map<wchar_t,Boy::UString> mKeyToSpawnType;
 private:
+	// Static instance of the battleboy class
 	static BattleBoy *gInstance;
+
+	// The main board actor
 	Board *mBoard;
+
+	// The units that are currently active
 	std::vector<Unit*> mUnits;
-	Networking::NetworkInterfaceServer *mServer;
+
+	// All buildings in this game
 	std::vector<Building*> mBuildings;
+
+	// If we are a server/client, this will hold the network interface for it
+	Networking::NetworkInterface *mNetInterface;
+
+	// The networking role of this game type (Authority for server, simulated proxy for clients
+	Networking::ENetworkingRole mRole;
+
+	// The target ip address that the client is trying to connect to.  Parsed from the --client command line argument
+	std::string mPendingAddress;	
 };

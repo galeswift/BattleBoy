@@ -41,7 +41,7 @@ namespace Boy
 		virtual void				destroy();
 
 		// main loop related:
-		virtual void				startMainLoop() = 0;
+		virtual void				startMainLoop(int argc, char* argv[]) = 0;
 		virtual void				stopMainLoop() = 0;
 		virtual bool				isShuttingDown() = 0;
 
