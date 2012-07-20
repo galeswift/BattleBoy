@@ -33,4 +33,5 @@ private:
 	Board *mBoard;
 	std::vector<Unit*> mUnits;
 	Networking::NetworkInterfaceServer *mServer;
+	std::vector<Building*> mBuildings;
 };
