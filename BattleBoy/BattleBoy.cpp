@@ -36,7 +36,8 @@ void BattleBoy::destroy()
 void BattleBoy::init()
 {
 	mBoard = new Board();
-
+	mServer = new Networking::NetworkInterfaceServer();
+	mServer->Init();
 	mKeyToSpawnType['q'] = "Spawn Melee";
 	mKeyToSpawnType['w'] = "Spawn Ranged";
 	mKeyToSpawnType['e'] = "Spawn Flyer";

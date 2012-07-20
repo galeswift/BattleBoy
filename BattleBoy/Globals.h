@@ -3,6 +3,20 @@
 // Standard headers
 #include <assert.h>
 #include <string>
+#include <process.h>
+#include <iostream>
+#include <stdio.h>
+#include <tchar.h>
+
+// Windows specific headers
+#if defined (_WIN32)
+#include <WinSock2.h>
+#include <windows.h>
+#include <Ws2tcpip.h>
+#endif 
+
+// Networking
+#include "Networking.h"
 
 // BoyLib
 #include "BoyLib/BoyUtil.h"
@@ -22,7 +36,6 @@
 #include "Actor.h"
 #include "Board.h"
 #include "BattleBoy.h"
-
 
 // Battleboy headers
 #include "Actor.h"
