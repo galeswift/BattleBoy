@@ -4,6 +4,7 @@ class Actor
 {
 public:
 	Actor() : pos() , speed() {};
+	Actor(BoyLib::Vector2 _pos) : pos(_pos) {};
 	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) {};
 	virtual void draw(Boy::Graphics *g) {};
 	void update(float dt);
@@ -20,5 +21,13 @@ class Unit : public Actor
 public:
 	Unit() {};
 	Unit(BoyLib::Vector2 _pos, float _speed) : Actor(_pos, _speed) {} ;
+	virtual void draw(Boy::Graphics *g);
+};
+
+class Building : public Actor
+{
+public:
+	Building() {};
+	Building(BoyLib::Vector2 _pos) : Actor(_pos) {} ;
 	virtual void draw(Boy::Graphics *g);
 };

@@ -40,6 +40,11 @@ void BattleBoy::init()
 	mKeyToSpawnType['q'] = "Spawn Melee";
 	mKeyToSpawnType['w'] = "Spawn Ranged";
 	mKeyToSpawnType['e'] = "Spawn Flyer";
+	
+	int w = Boy::Environment::screenWidth();
+	int h = Boy::Environment::screenHeight();
+	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
+	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
 }
 
 void BattleBoy::load()
@@ -86,6 +91,11 @@ void BattleBoy::draw(Boy::Graphics *g)
 		mBoard->draw(g);
 
 		for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+		{
+			(*it)->draw(g);
+		}
+
+		for( std::vector<Building*>::iterator it = mBuildings.begin(); it != mBuildings.end() ; ++it )
 		{
 			(*it)->draw(g);
 		}
