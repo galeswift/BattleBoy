@@ -31,3 +31,27 @@ public:
 	Building(BoyLib::Vector2 _pos) : Actor(_pos) {} ;
 	virtual void draw(Boy::Graphics *g);
 };
+
+class Unit_Rock : public Unit
+{
+public:
+	Unit_Rock() {};
+	Unit_Rock(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) {} ;
+	virtual void draw(Boy::Graphics *g);
+};
+
+class Unit_Paper : public Unit
+{
+public:
+	Unit_Paper() {};
+	Unit_Paper(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) {} ;
+	virtual void draw(Boy::Graphics *g);
+};
+
+class Unit_Scissors : public Unit
+{
+public:
+	Unit_Scissors() {};
+	Unit_Scissors(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) {} ;
+	virtual void draw(Boy::Graphics *g);
+};

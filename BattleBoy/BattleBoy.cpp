@@ -59,9 +59,9 @@ void BattleBoy::init(int argc, char* argv[])
 		printf("Starting offline game...\n");
 	}
 
-	mKeyToSpawnType['q'] = "Spawn Melee";
-	mKeyToSpawnType['w'] = "Spawn Ranged";
-	mKeyToSpawnType['e'] = "Spawn Flyer";
+	mKeyToSpawnType['q'] = "Spawn Rock";
+	mKeyToSpawnType['w'] = "Spawn Paper";
+	mKeyToSpawnType['e'] = "Spawn Scissors";
 	
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
@@ -154,6 +154,9 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	int h = Boy::Environment::screenHeight();
 	mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
 	mUnits.back()->SetDestination( BoyLib::Vector2(w/2.0f,100.0) );
+	
+	// TODO : Spawn Unit based on key hit here.
+
 	mPendingSpawnType = "NONE";
 }
 

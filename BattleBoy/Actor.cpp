@@ -66,3 +66,50 @@ void Building::draw(Boy::Graphics *g)
 	
 	g->popTransform();
 }
+
+void Unit_Rock::draw(Boy::Graphics *g)
+{
+	float size = 30;
+	g->pushTransform();
+
+	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
+
+	g->drawLine(int(pos.x),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y));
+	g->drawLine(int(pos.x + size/2.0f),	int(pos.y), int(pos.x), int(pos.y + size/2.0f));
+
+	g->drawLine(int(pos.x),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y));
+	g->drawLine(int(pos.x - size/2.0f),	int(pos.y),	int(pos.x), int(pos.y - size/2.0f));
+
+	
+	g->popTransform();
+}
+
+void Unit_Paper::draw(Boy::Graphics *g)
+{
+	float size = 30;
+	g->pushTransform();
+
+	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
+
+	g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y - size/2.0f));
+	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x + size/2.0f), int(pos.y + size/2.0f));
+
+	g->drawLine(int(pos.x + size/2.0f),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
+	g->drawLine(int(pos.x - size/2.0f),	int(pos.y + size/2.0f),	int(pos.x - size/2.0f), int(pos.y - size/2.0f));
+
+	
+	g->popTransform();
+}
+
+void Unit_Scissors::draw(Boy::Graphics *g)
+{
+	float size = 30;
+	g->pushTransform();
+
+	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
+
+	g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y + size/2.0f));
+	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
+	
+	g->popTransform();
+}
