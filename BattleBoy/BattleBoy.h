@@ -1,5 +1,12 @@
 #pragma once
 
+enum ESpawnType
+{
+	ESpawnType_NONE = 0,
+	ESpawnType_ROCK = 1,
+	ESpawnType_PAPER = 2,
+	ESpawnType_SCISSORS = 3
+};
 
 class BattleBoy: public Boy::Game, public Boy::KeyboardListener
 {
@@ -26,9 +33,9 @@ public:
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
-	Boy::UString mPendingSpawnType;
+	ESpawnType mPendingSpawnType;
 
-	std::map<wchar_t,Boy::UString> mKeyToSpawnType;
+	std::map<wchar_t,ESpawnType> mKeyToSpawnType;
 private:
 	// Static instance of the battleboy class
 	static BattleBoy *gInstance;

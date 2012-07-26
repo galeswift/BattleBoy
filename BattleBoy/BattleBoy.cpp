@@ -6,7 +6,7 @@ BattleBoy::BattleBoy()
 {
 	mBoard = NULL;
 	mLoadComplete = false;
-	mPendingSpawnType = "NONE";
+	mPendingSpawnType = ESpawnType_NONE;
 	mRole = Networking::ROLE_None;
 	mNetInterface = NULL;
 }
@@ -59,9 +59,9 @@ void BattleBoy::init(int argc, char* argv[])
 		printf("Starting offline game...\n");
 	}
 
-	mKeyToSpawnType['q'] = "Spawn Rock";
-	mKeyToSpawnType['w'] = "Spawn Paper";
-	mKeyToSpawnType['e'] = "Spawn Scissors";
+	mKeyToSpawnType['q'] = ESpawnType_ROCK;
+	mKeyToSpawnType['w'] = ESpawnType_PAPER;
+	mKeyToSpawnType['e'] = ESpawnType_SCISSORS;
 	
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
@@ -141,7 +141,7 @@ void BattleBoy::draw(Boy::Graphics *g)
 		g->setColor(0xffffffff);
 		g->pushTransform();
 		g->translate(50,50);
-		mFont->drawString(g,mPendingSpawnType,0.5f);
+		//mFont->drawString(g,mPendingSpawnType,0.5f);
 		g->popTransform();
 		g->setColorizationEnabled(false);
 
@@ -152,18 +152,32 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 {
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
-	mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
-	mUnits.back()->SetDestination( BoyLib::Vector2(w/2.0f,100.0) );
 	
 	// TODO : Spawn Unit based on key hit here.
+	switch (mPendingSpawnType)
+	{
+		case ESpawnType_ROCK:
+			mUnits.push_back( new Unit_Rock(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			break;
+		case ESpawnType_PAPER:
+			mUnits.push_back( new Unit_Paper(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			break;
+		case ESpawnType_SCISSORS:
+			mUnits.push_back( new Unit_Scissors(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			break;
+		default:
+			mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+	}
 
-	mPendingSpawnType = "NONE";
+
+	mUnits.back()->SetDestination( BoyLib::Vector2(w/2.0f,100.0) );
+	mPendingSpawnType = ESpawnType_NONE;
 }
 
 void BattleBoy::keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
 {
 	// Look through our keybindings and see if we have a result
-	std::map<wchar_t,Boy::UString>::iterator keyBinding = mKeyToSpawnType.find(unicode);
+	std::map<wchar_t,ESpawnType>::iterator keyBinding = mKeyToSpawnType.find(unicode);
 	if( keyBinding != mKeyToSpawnType.end() )
 	{
 		mPendingSpawnType = (*keyBinding).second;
