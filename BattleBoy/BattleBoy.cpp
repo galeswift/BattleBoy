@@ -47,7 +47,7 @@ void BattleBoy::init(int argc, char* argv[])
 	else if( mRole == Networking::ROLE_SimulatedProxy )
 	{
 		printf("Client initialized, trying to connect to %s\n",mPendingAddress.c_str());
-		mNetInterface = new Networking::NetworkInterfaceClient();
+		mNetInterface = new Networking::NetworkInterfaceClient(mPendingAddress);
 	}
 	
 	if( mNetInterface != NULL )

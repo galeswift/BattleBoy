@@ -13,6 +13,7 @@ namespace Networking
 	{
 	public:
 		virtual void Init() {};
+		HANDLE mWorkerThread;
 	};
 
 	class NetworkInterfaceServer : public NetworkInterface
@@ -21,14 +22,15 @@ namespace Networking
 		NetworkInterfaceServer() {};
 		virtual ~NetworkInterfaceServer();
 		virtual void Init();
-		HANDLE mWorkerThread;
 	};
 
 	class NetworkInterfaceClient : public NetworkInterface
 	{
 	public:
-		NetworkInterfaceClient() {};
-		virtual ~NetworkInterfaceClient(){};
-		virtual void Init() {};
+		NetworkInterfaceClient(std::string ipAddress) : mPendingIP(ipAddress) {};
+		virtual ~NetworkInterfaceClient();
+		virtual void Init();
+	private:
+		std::string mPendingIP;
 	};
 }
