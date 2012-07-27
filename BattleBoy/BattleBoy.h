@@ -49,6 +49,9 @@ private:
 	// All buildings in this game
 	std::vector<Building*> mBuildings;
 
+	// All SpawnPoints in this game
+	std::vector<SpawnPoint*> mPlayerSpawnPoints;
+
 	// If we are a server/client, this will hold the network interface for it
 	Networking::NetworkInterface *mNetInterface;
 

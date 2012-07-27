@@ -32,6 +32,13 @@ public:
 	virtual void draw(Boy::Graphics *g);
 };
 
+class SpawnPoint : public Actor
+{
+public:
+	SpawnPoint() {};
+	SpawnPoint(BoyLib::Vector2 _pos) : Actor(_pos) {} ;
+};
+
 class Unit_Rock : public Unit
 {
 public:

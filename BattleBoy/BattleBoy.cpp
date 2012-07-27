@@ -67,6 +67,8 @@ void BattleBoy::init(int argc, char* argv[])
 	int h = Boy::Environment::screenHeight();
 	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
 	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
+	mPlayerSpawnPoints.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,float(h-150))) );
+	mPlayerSpawnPoints.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,150.0)) );
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -81,7 +83,6 @@ void BattleBoy::parseCommandArgs(int argc, char* argv[])
 		mPendingAddress = CommandOptions::getCmdOption(argv, argv+argc, "--client");
 	}
 }
-
 
 void BattleBoy::load()
 {
@@ -153,24 +154,25 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
 	
-	// TODO : Spawn Unit based on key hit here.
+	// TODO: make real player enum
+	int player = rand() % 2;
+
 	switch (mPendingSpawnType)
 	{
 		case ESpawnType_ROCK:
-			mUnits.push_back( new Unit_Rock(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			mUnits.push_back( new Unit_Rock(mPlayerSpawnPoints[player]->pos, 100) );
 			break;
 		case ESpawnType_PAPER:
-			mUnits.push_back( new Unit_Paper(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			mUnits.push_back( new Unit_Paper(mPlayerSpawnPoints[player]->pos, 100) );
 			break;
 		case ESpawnType_SCISSORS:
-			mUnits.push_back( new Unit_Scissors(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			mUnits.push_back( new Unit_Scissors(mPlayerSpawnPoints[player]->pos, 100) );
 			break;
 		default:
-			mUnits.push_back( new Unit(BoyLib::Vector2(w/2.0f,float(h-100)), 100) );
+			mUnits.push_back( new Unit(mPlayerSpawnPoints[player]->pos, 100) );
 	}
 
-
-	mUnits.back()->SetDestination( BoyLib::Vector2(w/2.0f,100.0) );
+	mUnits.back()->SetDestination( mBuildings[abs(player - 1)]->pos );
 	mPendingSpawnType = ESpawnType_NONE;
 }
 
