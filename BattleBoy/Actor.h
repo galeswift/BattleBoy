@@ -1,5 +1,11 @@
 #pragma once
 
+enum EUnitTeam
+{
+	ESpawnType_Players = 0,
+	ESpawnType_AI = 1,
+};
+
 class Actor
 {
 public:
@@ -7,13 +13,24 @@ public:
 	Actor(BoyLib::Vector2 _pos) : pos(_pos) {};
 	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) {};
 	virtual void draw(Boy::Graphics *g) {};
-	void update(float dt);
+	void update(float dt, std::vector<Unit*> Units);
+	bool move(float dt);
+	bool attack(float dt, std::vector<Unit*> Units);
 	BoyLib::Vector2 pos;
+	EUnitTeam Team;
 	float speed;
+	float Range;
+	float Damage;
+	float Health;
+	float AttackRate;
+	bool bDead = false;
 	std::vector<BoyLib::Vector2> destinations;
 	BoyLib::Vector2 dir;
 	BoyLib::Vector2 vel;
 	void SetDestination(BoyLib::Vector2 dest);
+	void TakeDamage(float damageTaken);
+private:
+	float TimeSinceLastAttack; 
 };
 
 class Unit : public Actor

@@ -117,7 +117,11 @@ void BattleBoy::update(float dt)
 {
 	for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
 	{
-		(*it)->update(dt);
+		if ((*it)->bDead)
+		{
+			mUnits.erase(*it);
+		}
+		(*it)->update(dt, mUnits);
 	}
 }
 
@@ -172,6 +176,10 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 			mUnits.push_back( new Unit(mPlayerSpawnPoints[player]->pos, 100) );
 	}
 
+	mUnits.back()->Team = player;
+	mUnits.back()->Range = 50.0f;
+	mUnits.back()->Damage = 2.0f;
+	mUnits.back()->Health = 500.0f;
 	mUnits.back()->SetDestination( mBuildings[abs(player - 1)]->pos );
 	mPendingSpawnType = ESpawnType_NONE;
 }

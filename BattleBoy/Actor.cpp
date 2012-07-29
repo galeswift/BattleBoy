@@ -1,10 +1,20 @@
 #include "Globals.h"
 
-void Actor::update(float dt)
+void Actor::update(float dt, std::vector<Unit*> Units)
+{
+	// Only move if we are not attacking
+	if (!attack(Units))
+	{
+		move(dt);
+	}
+}
+
+void Actor::move(float dt)
 {	
+	bool result = false;
 	if (destinations.size() > 0)
-	{		
-		// Currently hardcode attack range as 10
+	{
+		// Currently hardcode destination reached as 10
 		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < 10)
 		{
 			destinations.erase(destinations.begin());
@@ -14,7 +24,42 @@ void Actor::update(float dt)
 			dir = (destinations.front() - pos).normalize();
 			vel = dir*speed;
 			pos += vel * dt;
+			result = true;
 		}
+	}
+	return result;
+}
+
+void Actor::attack(float dt, std::vector<Unit*> Units)
+{
+	bool result = false;
+
+	if (TimeSinceLastAttack > AttackRate)
+	{
+		TimeSinceLastAttack = 0;
+		for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+		{
+			if (dist(pos.x, pos.y, (*it)->pos.x, (*it)->pos.y) < (*it)->Range)
+			{
+				(*it)->TakeDamage(Damage);
+			}
+		}
+	}
+	else
+	{
+		TimeSinceLastAttack += dt;
+	}
+
+
+	return result;
+}
+
+void Actor::TakeDamage(float damageTaken)
+{
+	Health -= damageTaken;
+	if (Health <= 0)
+	{
+		bDead = true;
 	}
 }
 
