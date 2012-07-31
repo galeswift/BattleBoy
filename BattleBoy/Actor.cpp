@@ -1,15 +1,15 @@
 #include "Globals.h"
 
-void Actor::update(float dt, std::vector<Unit*> Units)
+void Actor::update(float dt, std::vector<Actor*> Units)
 {
 	// Only move if we are not attacking
-	if (!attack(Units))
+	if (!attack(dt, Units))
 	{
 		move(dt);
 	}
 }
 
-void Actor::move(float dt)
+bool Actor::move(float dt)
 {	
 	bool result = false;
 	if (destinations.size() > 0)
@@ -30,14 +30,14 @@ void Actor::move(float dt)
 	return result;
 }
 
-void Actor::attack(float dt, std::vector<Unit*> Units)
+bool Actor::attack(float dt, std::vector<Actor*> Units)
 {
 	bool result = false;
 
 	if (TimeSinceLastAttack > AttackRate)
 	{
 		TimeSinceLastAttack = 0;
-		for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+		for( std::vector<Actor*>::iterator it = Units.begin(); it != Units.end() ; ++it )
 		{
 			if (dist(pos.x, pos.y, (*it)->pos.x, (*it)->pos.y) < (*it)->Range)
 			{

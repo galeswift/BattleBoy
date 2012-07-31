@@ -13,9 +13,9 @@ public:
 	Actor(BoyLib::Vector2 _pos) : pos(_pos) {};
 	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) {};
 	virtual void draw(Boy::Graphics *g) {};
-	void update(float dt, std::vector<Unit*> Units);
+	void update(float dt, std::vector<Actor*> Units);
 	bool move(float dt);
-	bool attack(float dt, std::vector<Unit*> Units);
+	bool attack(float dt, std::vector<Actor*> Units);
 	BoyLib::Vector2 pos;
 	EUnitTeam Team;
 	float speed;
@@ -23,7 +23,7 @@ public:
 	float Damage;
 	float Health;
 	float AttackRate;
-	bool bDead = false;
+	bool bDead;
 	std::vector<BoyLib::Vector2> destinations;
 	BoyLib::Vector2 dir;
 	BoyLib::Vector2 vel;
