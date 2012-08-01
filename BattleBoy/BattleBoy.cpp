@@ -183,7 +183,9 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	mUnits.back()->Team = EUnitTeam(player);
 	mUnits.back()->Range = 50.0f;
 	mUnits.back()->Damage = 2.0f;
-	mUnits.back()->Health = 500.0f;
+	mUnits.back()->MaxHealth = 500.0f;
+	mUnits.back()->Health = mUnits.back()->MaxHealth;
+
 	mUnits.back()->SetDestination( mBuildings[abs(player - 1)]->pos );
 	mPendingSpawnType = ESpawnType_NONE;
 }

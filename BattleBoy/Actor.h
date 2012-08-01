@@ -22,6 +22,7 @@ public:
 	float Range;
 	float Damage;
 	float Health;
+	float MaxHealth;
 	float AttackRate;
 	bool bDead;
 	std::vector<BoyLib::Vector2> destinations;

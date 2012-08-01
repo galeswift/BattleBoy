@@ -81,6 +81,27 @@ void Unit::draw(Boy::Graphics *g)
 	g->drawLine(int(pos.x + size/2.0f),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
 	g->drawLine(int(pos.x - size/2.0f),	int(pos.y + size/2.0f),	int(pos.x - size/2.0f), int(pos.y - size/2.0f));
 
+	// draw status
+	g->setColorizationEnabled(true);
+	g->setColor(0x00ff00ff);
+	float healthPercentage = Health/MaxHealth;
+	if (healthPercentage < 0.25f)
+	{
+		g->setColor(0xff0000ff);
+	}
+	else if (healthPercentage < 0.50)
+	{
+		g->setColor(0xff8c00ff);
+	}
+	g->translate(pos.x + size/2.5f,pos.y - size/2.5f );
+	Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
+	Boy::Font *mFont = rm->getFont("FONT_MAIN");
+
+	// TODO Make string good
+	std::string healthText;
+	healthText = Health + "/" + MaxHealth;
+	mFont->drawString(g,healthText,0.25f);
+	g->setColorizationEnabled(false);
 	
 	g->popTransform();
 }
