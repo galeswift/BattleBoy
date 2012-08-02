@@ -97,9 +97,15 @@ void Unit::draw(Boy::Graphics *g)
 	Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
 	Boy::Font *mFont = rm->getFont("FONT_MAIN");
 
-	// TODO Make string good
-	std::string healthText;
-	healthText = Health + "/" + MaxHealth;
+	char healthText[100];
+	int h1 = int(Health);            // Get the integer part
+	float f1 = Health - h1;     // Get fractional part
+	int h2 = int(f1 * 100);   // Turn into integer
+	int mh1 = int(MaxHealth);            // Get the integer part
+	float f2 = MaxHealth - mh1;     // Get fractional part
+	int mh2 = int(f2 * 100);   // Turn into integer
+
+	sprintf_s(healthText, "%d.%04d/%d.%04d", h1, h2, mh1, mh2);
 	mFont->drawString(g,healthText,0.25f);
 	g->setColorizationEnabled(false);
 	
