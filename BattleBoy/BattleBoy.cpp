@@ -65,10 +65,10 @@ void BattleBoy::init(int argc, char* argv[])
 	
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
-	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
-	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
-	mPlayerSpawnPoints.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,float(h-150))) );
-	mPlayerSpawnPoints.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,150.0)) );
+	mActors.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
+	mActors.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
+	mActors.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,float(h-150))) );
+	mActors.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,150.0)) );
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -115,7 +115,7 @@ void BattleBoy::loadComplete()
 
 void BattleBoy::update(float dt)
 {
-	for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 	{
 		(*it)->update(dt);
 	}
@@ -127,12 +127,7 @@ void BattleBoy::draw(Boy::Graphics *g)
 	{
 		mBoard->draw(g);
 
-		for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
-		{
-			(*it)->draw(g);
-		}
-
-		for( std::vector<Building*>::iterator it = mBuildings.begin(); it != mBuildings.end() ; ++it )
+		for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 		{
 			(*it)->draw(g);
 		}
@@ -160,19 +155,19 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	switch (mPendingSpawnType)
 	{
 		case ESpawnType_ROCK:
-			mUnits.push_back( new Unit_Rock(mPlayerSpawnPoints[player]->pos, 100) );
+			mActors.push_back( new Unit_Rock(mActors[player]->pos, 100) );
 			break;
 		case ESpawnType_PAPER:
-			mUnits.push_back( new Unit_Paper(mPlayerSpawnPoints[player]->pos, 100) );
+			mActors.push_back( new Unit_Paper(mActors[player]->pos, 100) );
 			break;
 		case ESpawnType_SCISSORS:
-			mUnits.push_back( new Unit_Scissors(mPlayerSpawnPoints[player]->pos, 100) );
+			mActors.push_back( new Unit_Scissors(mActors[player]->pos, 100) );
 			break;
 		default:
-			mUnits.push_back( new Unit(mPlayerSpawnPoints[player]->pos, 100) );
+			mActors.push_back( new Unit(mActors[player]->pos, 100) );
 	}
 
-	mUnits.back()->SetDestination( mBuildings[abs(player - 1)]->pos );
+	mActors.back()->SetDestination( getBuildingInfo(abs(player - 1)) );
 	mPendingSpawnType = ESpawnType_NONE;
 }
 
@@ -184,4 +179,19 @@ void BattleBoy::keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::
 	{
 		mPendingSpawnType = (*keyBinding).second;
 	}
+}
+
+BoyLib::Vector2 BattleBoy::getBuildingInfo(int whichPlayer)
+{
+	std::vector<Actor *> buildings;
+
+	for( std::vector<Actor*>::iterator it = BattleBoy::mActors.begin(); it != BattleBoy::mActors.end() ; ++it )
+	{
+		if (dynamic_cast<Building *>(*it))
+		{
+			buildings.push_back(*it);
+		}
+	}
+
+	return buildings[whichPlayer]->pos;
 }

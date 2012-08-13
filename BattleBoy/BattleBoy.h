@@ -30,6 +30,7 @@ public:
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
+	BoyLib::Vector2 getBuildingInfo(int whichPlayer);
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
@@ -43,14 +44,8 @@ private:
 	// The main board actor
 	Board *mBoard;
 
-	// The units that are currently active
-	std::vector<Unit*> mUnits;
-
-	// All buildings in this game
-	std::vector<Building*> mBuildings;
-
-	// All SpawnPoints in this game
-	std::vector<SpawnPoint*> mPlayerSpawnPoints;
+	// All Actors in game
+	std::vector<Actor*> mActors;
 
 	// If we are a server/client, this will hold the network interface for it
 	Networking::NetworkInterface *mNetInterface;
