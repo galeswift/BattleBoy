@@ -164,7 +164,7 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 			mActors.push_back( new Unit_Scissors(mActors[player]->pos, 100) );
 			break;
 		default:
-			mActors.push_back( new Unit(mActors[player]->pos, 100) );
+			break; 
 	}
 
 	mActors.back()->SetDestination( getBuildingInfo(abs(player - 1)) );

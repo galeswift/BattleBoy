@@ -4,8 +4,7 @@ void Actor::update(float dt)
 {	
 	if (destinations.size() > 0)
 	{		
-		// Currently hardcode attack range as 10
-		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < 10)
+		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < range)
 		{
 			destinations.erase(destinations.begin());
 		}
@@ -16,6 +15,12 @@ void Actor::update(float dt)
 			pos += vel * dt;
 		}
 	}
+}
+
+void Actor::InitDamageRange()
+{
+	damage = 0;
+	range = 0;
 }
 
 void Actor::SetDestination(BoyLib::Vector2 dest)
@@ -84,6 +89,12 @@ void Unit_Rock::draw(Boy::Graphics *g)
 	g->popTransform();
 }
 
+void Unit_Rock::InitDamageRange()
+{
+	damage = 10;
+	range = 30;
+}
+
 void Unit_Paper::draw(Boy::Graphics *g)
 {
 	float size = 30;
@@ -101,6 +112,12 @@ void Unit_Paper::draw(Boy::Graphics *g)
 	g->popTransform();
 }
 
+void Unit_Paper::InitDamageRange()
+{
+	damage = 10;
+	range = 60;
+}
+
 void Unit_Scissors::draw(Boy::Graphics *g)
 {
 	float size = 30;
@@ -112,4 +129,10 @@ void Unit_Scissors::draw(Boy::Graphics *g)
 	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
 	
 	g->popTransform();
+}
+
+void Unit_Scissors::InitDamageRange()
+{
+	damage = 10;
+	range = 90;
 }
