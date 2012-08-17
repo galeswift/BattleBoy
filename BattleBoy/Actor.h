@@ -2,17 +2,18 @@
 
 enum EUnitTeam
 {
-	ESpawnType_Players = 0,
+	ESpawnType_Player = 0,
 	ESpawnType_AI = 1,
 };
 
 class Actor
 {
 public:
-	Actor() : pos() , speed() {};
-	Actor(BoyLib::Vector2 _pos) : pos(_pos) {};
-	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) {};
+	Actor() : pos() , speed() { InitStats(); };
+	Actor(BoyLib::Vector2 _pos) : pos(_pos) { InitStats(); };
+	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) { InitStats(); };
 	virtual void draw(Boy::Graphics *g) {};
+	void drawHealth(Boy::Graphics *g);	
 	void update(float dt, std::vector<Actor*> Units);
 	bool move(float dt);
 	bool attack(float dt, std::vector<Actor*> Units);
@@ -30,8 +31,9 @@ public:
 	BoyLib::Vector2 vel;
 	void SetDestination(BoyLib::Vector2 dest);
 	void TakeDamage(float damageTaken);
-private:
-	float TimeSinceLastAttack; 
+	bool bInvulnerable;
+	void InitStats();
+	float TimeSinceLastAttack;
 };
 
 class Unit : public Actor
@@ -39,44 +41,49 @@ class Unit : public Actor
 public:
 	Unit() {};
 	Unit(BoyLib::Vector2 _pos, float _speed) : Actor(_pos, _speed) {} ;
-	virtual void draw(Boy::Graphics *g);
+	virtual void draw(Boy::Graphics *g){};
 };
 
 class Building : public Actor
 {
 public:
-	Building() {};
-	Building(BoyLib::Vector2 _pos) : Actor(_pos) {} ;
+	Building() { InitStats(); };
+	Building(BoyLib::Vector2 _pos) : Actor(_pos) { InitStats(); } ;
 	virtual void draw(Boy::Graphics *g);
+	void InitStats();
 };
 
 class SpawnPoint : public Actor
 {
 public:
-	SpawnPoint() {};
-	SpawnPoint(BoyLib::Vector2 _pos) : Actor(_pos) {} ;
+	SpawnPoint() { InitStats(); };
+	SpawnPoint(BoyLib::Vector2 _pos) : Actor(_pos) { InitStats(); } ;
+	void InitStats();
 };
 
 class Unit_Rock : public Unit
 {
 public:
-	Unit_Rock() {};
-	Unit_Rock(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) {} ;
+	Unit_Rock() { InitStats(); };
+	Unit_Rock(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) { InitStats(); } ;
 	virtual void draw(Boy::Graphics *g);
+	void InitStats();
 };
 
 class Unit_Paper : public Unit
 {
 public:
-	Unit_Paper() {};
-	Unit_Paper(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) {} ;
+	Unit_Paper() { InitStats(); };
+	Unit_Paper(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) { InitStats(); } ;
 	virtual void draw(Boy::Graphics *g);
+	void InitStats();
 };
 
 class Unit_Scissors : public Unit
 {
 public:
-	Unit_Scissors() {};
-	Unit_Scissors(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) {} ;
+	Unit_Scissors() { InitStats(); };
+	Unit_Scissors(BoyLib::Vector2 _pos, float _speed) : Unit(_pos, _speed) { InitStats(); } ;
 	virtual void draw(Boy::Graphics *g);
+	void InitStats();
 };

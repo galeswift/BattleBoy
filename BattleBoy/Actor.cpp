@@ -13,9 +13,8 @@ bool Actor::move(float dt)
 {	
 	bool result = false;
 	if (destinations.size() > 0)
-	{
-		// Currently hardcode destination reached as 10
-		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < 10)
+	{		
+		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < Range)
 		{
 			destinations.erase(destinations.begin());
 		}
@@ -32,16 +31,21 @@ bool Actor::move(float dt)
 
 bool Actor::attack(float dt, std::vector<Actor*> Units)
 {
-	bool result = false;
+	bool result = TimeSinceLastAttack < AttackRate;
 
-	if (TimeSinceLastAttack > AttackRate)
+	if (Damage > 0 && !result)
 	{
-		TimeSinceLastAttack = 0;
 		for( std::vector<Actor*>::iterator it = Units.begin(); it != Units.end() ; ++it )
 		{
 			if (dist(pos.x, pos.y, (*it)->pos.x, (*it)->pos.y) < (*it)->Range)
 			{
-				(*it)->TakeDamage(Damage);
+				if (!(*it)->bInvulnerable && !(*it)->bDead && (*it)->Team != Team)
+				{
+					(*it)->TakeDamage(Damage);
+					TimeSinceLastAttack = 0;
+					result = true;
+					break;
+				}
 			}
 		}
 	}
@@ -63,37 +67,54 @@ void Actor::TakeDamage(float damageTaken)
 	}
 }
 
+void Actor::InitStats()
+{
+	Damage = 0;
+	Range = 0;
+	MaxHealth = 500.0f;
+	Health = MaxHealth;
+	bDead = false;
+	bInvulnerable = false;
+	TimeSinceLastAttack = 0.0f;
+	AttackRate = 0.0f;
+}
+
 void Actor::SetDestination(BoyLib::Vector2 dest)
 {
 	destinations.push_back(dest);
 }
 
-void Unit::draw(Boy::Graphics *g)
+void Actor::drawHealth(Boy::Graphics *g)
 {
+	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
+	if (bDead || bInvulnerable)
+	{
+		return;
+	}
+
 	float size = 30;
-	g->pushTransform();
+	//g->pushTransform();
 
 	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
 
-	g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y - size/2.0f));
-	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x + size/2.0f), int(pos.y + size/2.0f));
+	//g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y - size/2.0f));
+	//g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x + size/2.0f), int(pos.y + size/2.0f));
 
-	g->drawLine(int(pos.x + size/2.0f),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
-	g->drawLine(int(pos.x - size/2.0f),	int(pos.y + size/2.0f),	int(pos.x - size/2.0f), int(pos.y - size/2.0f));
+	//g->drawLine(int(pos.x + size/2.0f),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
+	//g->drawLine(int(pos.x - size/2.0f),	int(pos.y + size/2.0f),	int(pos.x - size/2.0f), int(pos.y - size/2.0f));
 
 	// draw status
 	g->setColorizationEnabled(true);
-	g->setColor(0x00ff00ff);
+	g->setColor(0xff00ff00);
 	float healthPercentage = Health/MaxHealth;
 	if (healthPercentage < 0.25f)
 	{
-		g->setColor(0xff0000ff);
+		g->setColor(0xffff0000);
 	}
 	else if (healthPercentage < 0.50)
 	{
-		g->setColor(0xff8c00ff);
+		g->setColor(0xffff8c00);
 	}
-	g->translate(pos.x + size/2.5f,pos.y - size/2.5f );
 	Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
 	Boy::Font *mFont = rm->getFont("FONT_MAIN");
 
@@ -105,11 +126,16 @@ void Unit::draw(Boy::Graphics *g)
 	float f2 = MaxHealth - mh1;     // Get fractional part
 	int mh2 = int(f2 * 100);   // Turn into integer
 
-	sprintf_s(healthText, "%d.%04d/%d.%04d", h1, h2, mh1, mh2);
+	//sprintf_s(healthText, "%d.%04d/%d.%04d", h1, h2, mh1, mh2);
+	sprintf_s(healthText, "%dl%d", h1, mh1);
+	
+	g->pushTransform();
+	g->translate(pos.x + size/2.5f,pos.y - size/2.5f );
 	mFont->drawString(g,healthText,0.25f);
+	g->popTransform();
+
 	g->setColorizationEnabled(false);
 	
-	g->popTransform();
 }
 
 void Building::draw(Boy::Graphics *g)
@@ -139,9 +165,51 @@ void Building::draw(Boy::Graphics *g)
 	g->popTransform();
 }
 
+void Building::InitStats()
+{
+	Damage = 0.0f;
+	Range = 0.0f;
+	MaxHealth = 50000.0f;
+	Health = MaxHealth;
+	bDead = false;
+	bInvulnerable = false;
+	TimeSinceLastAttack = 0.0f;
+	AttackRate = 0.0f;
+}
+
+void SpawnPoint::InitStats()
+{
+	Damage = 0.0f;
+	Range = 0.0f;
+	MaxHealth = 50000.0f;
+	Health = MaxHealth;
+	bDead = false;
+	bInvulnerable = true;
+	TimeSinceLastAttack = 0.0f;
+	AttackRate = 0.0f;
+}
+
 void Unit_Rock::draw(Boy::Graphics *g)
 {
+	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
+	if (bDead)
+	{
+		return;
+	}
+
 	float size = 30;
+	
+	g->setColorizationEnabled(true);
+
+	if (Team == ESpawnType_Player)
+	{
+		g->setColor(0xff00ffff);
+	}
+	else
+	{
+		g->setColor(0xffff0000);
+	}
+
 	g->pushTransform();
 
 	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
@@ -152,12 +220,44 @@ void Unit_Rock::draw(Boy::Graphics *g)
 	g->drawLine(int(pos.x),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y));
 	g->drawLine(int(pos.x - size/2.0f),	int(pos.y),	int(pos.x), int(pos.y - size/2.0f));
 
-	
-	g->popTransform();
+	g->popTransform();	
+
+	g->setColorizationEnabled(false);
+
+	Unit::draw(g);
+}
+
+void Unit_Rock::InitStats()
+{
+	Damage = 10.0f;
+	Range = 30.0f;
+	MaxHealth = 50.0f;
+	Health = MaxHealth;
+	bDead = false;
+	bInvulnerable = false;
+	AttackRate = 0.5f;
+	TimeSinceLastAttack = AttackRate;
 }
 
 void Unit_Paper::draw(Boy::Graphics *g)
 {
+	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
+	if (bDead)
+	{
+		return;
+	}
+	
+	g->setColorizationEnabled(true);
+
+	if (Team == ESpawnType_Player)
+	{
+		g->setColor(0xff00ffff);
+	}
+	else
+	{
+		g->setColor(0xffff0000);
+	}
+
 	float size = 30;
 	g->pushTransform();
 
@@ -171,10 +271,43 @@ void Unit_Paper::draw(Boy::Graphics *g)
 
 	
 	g->popTransform();
+
+	g->setColorizationEnabled(false);
+
+	Unit::draw(g);
+}
+
+void Unit_Paper::InitStats()
+{
+	Damage = 10.0f;
+	Range = 60.0f;
+	MaxHealth = 50.0f;
+	Health = MaxHealth;
+	bDead = false;
+	bInvulnerable = false;
+	AttackRate = 0.5f;
+	TimeSinceLastAttack = AttackRate;
 }
 
 void Unit_Scissors::draw(Boy::Graphics *g)
 {
+	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
+	if (bDead)
+	{
+		return;
+	}
+	
+	g->setColorizationEnabled(true);
+
+	if (Team == ESpawnType_Player)
+	{
+		g->setColor(0xff00ffff);
+	}
+	else
+	{
+		g->setColor(0xffff0000);
+	}
+
 	float size = 30;
 	g->pushTransform();
 
@@ -184,4 +317,20 @@ void Unit_Scissors::draw(Boy::Graphics *g)
 	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
 	
 	g->popTransform();
+
+	g->setColorizationEnabled(false);
+
+	Unit::draw(g);
+}
+
+void Unit_Scissors::InitStats()
+{
+	Damage = 10.0f;
+	Range = 90.0f;
+	MaxHealth = 50.0f;
+	Health = MaxHealth;
+	bDead = false;
+	bInvulnerable = false;
+	AttackRate = 0.5f;
+	TimeSinceLastAttack = AttackRate;
 }

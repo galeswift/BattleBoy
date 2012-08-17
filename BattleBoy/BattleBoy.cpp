@@ -59,16 +59,23 @@ void BattleBoy::init(int argc, char* argv[])
 		printf("Starting offline game...\n");
 	}
 
-	mKeyToSpawnType['q'] = ESpawnType_ROCK;
-	mKeyToSpawnType['w'] = ESpawnType_PAPER;
-	mKeyToSpawnType['e'] = ESpawnType_SCISSORS;
+	mKeyToSpawnType['q'] = ESpawnType_AI_ROCK;
+	mKeyToSpawnType['w'] = ESpawnType_AI_PAPER;
+	mKeyToSpawnType['e'] = ESpawnType_AI_SCISSORS;
+	mKeyToSpawnType['a'] = ESpawnType_PLAYER_ROCK;
+	mKeyToSpawnType['s'] = ESpawnType_PLAYER_PAPER;
+	mKeyToSpawnType['d'] = ESpawnType_PLAYER_SCISSORS;
 	
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
-	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
-	mBuildings.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
-	mPlayerSpawnPoints.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,float(h-150))) );
-	mPlayerSpawnPoints.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,150.0)) );
+	mActors.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,float(h-150))) );
+	mActors.back()->Team = ESpawnType_Player;
+	mActors.push_back( new SpawnPoint(BoyLib::Vector2(w/2.0f,150.0)) );
+	mActors.back()->Team = ESpawnType_AI;
+	mActors.push_back( new Building(BoyLib::Vector2(w/2.0f,float(h-100))) );
+	mActors.back()->Team = ESpawnType_Player;
+	mActors.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
+	mActors.back()->Team = ESpawnType_AI;
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -115,16 +122,16 @@ void BattleBoy::loadComplete()
 
 void BattleBoy::update(float dt)
 {
-	for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 	{
 		if ((*it)->bDead)
 		{
-			mUnits.erase(it);
-			it--;
+			// TODO MAKE THIS WORK!
+			//it = mActors.erase(it);
 		}
 		else
 		{
-			(*it)->update(dt, mUnits);
+			(*it)->update(dt, mActors);
 		}
 	}
 }
@@ -135,21 +142,21 @@ void BattleBoy::draw(Boy::Graphics *g)
 	{
 		mBoard->draw(g);
 
-		for( std::vector<Unit*>::iterator it = mUnits.begin(); it != mUnits.end() ; ++it )
+		for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 		{
 			(*it)->draw(g);
 		}
 
-		for( std::vector<Building*>::iterator it = mBuildings.begin(); it != mBuildings.end() ; ++it )
+		for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 		{
-			(*it)->draw(g);
+			(*it)->drawHealth(g);
 		}
 
 		// draw status
 		g->setColorizationEnabled(true);
 		g->setColor(0xffffffff);
 		g->pushTransform();
-		g->translate(50,50);
+		//g->translate(50,50);
 		//mFont->drawString(g,mPendingSpawnType,0.5f);
 		g->popTransform();
 		g->setColorizationEnabled(false);
@@ -161,32 +168,43 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 {
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
-	
-	// TODO: make real player enum
-	int player = rand() % 2;
 
 	switch (mPendingSpawnType)
 	{
-		case ESpawnType_ROCK:
-			mUnits.push_back( new Unit_Rock(mPlayerSpawnPoints[player]->pos, 100) );
+		case ESpawnType_AI_ROCK:
+			mActors.push_back( new Unit_Rock(mActors[ESpawnType_AI]->pos, 100) );
+			mActors.back()->Team = ESpawnType_AI;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
 			break;
-		case ESpawnType_PAPER:
-			mUnits.push_back( new Unit_Paper(mPlayerSpawnPoints[player]->pos, 100) );
+		case ESpawnType_AI_PAPER:
+			mActors.push_back( new Unit_Paper(mActors[ESpawnType_AI]->pos, 100) );
+			mActors.back()->Team = ESpawnType_AI;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
 			break;
-		case ESpawnType_SCISSORS:
-			mUnits.push_back( new Unit_Scissors(mPlayerSpawnPoints[player]->pos, 100) );
+		case ESpawnType_AI_SCISSORS:
+			mActors.push_back( new Unit_Scissors(mActors[ESpawnType_AI]->pos, 100) );
+			mActors.back()->Team = ESpawnType_AI;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
+			break;
+		case ESpawnType_PLAYER_ROCK:
+			mActors.push_back( new Unit_Rock(mActors[ESpawnType_Player]->pos, 100) );
+			mActors.back()->Team = ESpawnType_Player;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
+			break;
+		case ESpawnType_PLAYER_PAPER:
+			mActors.push_back( new Unit_Paper(mActors[ESpawnType_Player]->pos, 100) );
+			mActors.back()->Team = ESpawnType_Player;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
+			break;
+		case ESpawnType_PLAYER_SCISSORS:
+			mActors.push_back( new Unit_Scissors(mActors[ESpawnType_Player]->pos, 100) );
+			mActors.back()->Team = ESpawnType_Player;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
 			break;
 		default:
-			mUnits.push_back( new Unit(mPlayerSpawnPoints[player]->pos, 100) );
+			break; 
 	}
 
-	mUnits.back()->Team = EUnitTeam(player);
-	mUnits.back()->Range = 50.0f;
-	mUnits.back()->Damage = 2.0f;
-	mUnits.back()->MaxHealth = 500.0f;
-	mUnits.back()->Health = mUnits.back()->MaxHealth;
-
-	mUnits.back()->SetDestination( mBuildings[abs(player - 1)]->pos );
 	mPendingSpawnType = ESpawnType_NONE;
 }
 
@@ -198,4 +216,19 @@ void BattleBoy::keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::
 	{
 		mPendingSpawnType = (*keyBinding).second;
 	}
+}
+
+BoyLib::Vector2 BattleBoy::getBuildingInfo(int whichPlayer)
+{
+	std::vector<Actor *> buildings;
+
+	for( std::vector<Actor*>::iterator it = BattleBoy::mActors.begin(); it != BattleBoy::mActors.end() ; ++it )
+	{
+		if (dynamic_cast<Building *>(*it))
+		{
+			buildings.push_back(*it);
+		}
+	}
+
+	return buildings[whichPlayer]->pos;
 }
