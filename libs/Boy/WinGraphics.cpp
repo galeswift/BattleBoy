@@ -51,7 +51,7 @@ void WinGraphics::drawImage(Image *img)
 }
 
 void WinGraphics::drawImage(Image *img, int subrectX, int subrectY, int subrectW, int subrectH)
-{
+{	
 	updateTransform();
 	mInterface->drawImage(
 		dynamic_cast<WinImage*>(img), 

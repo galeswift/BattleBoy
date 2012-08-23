@@ -37,7 +37,7 @@ bool Actor::attack(float dt, std::vector<Actor*> Units)
 	{
 		for( std::vector<Actor*>::iterator it = Units.begin(); it != Units.end() ; ++it )
 		{
-			if (dist(pos.x, pos.y, (*it)->pos.x, (*it)->pos.y) < (*it)->Range)
+			if (dist(pos.x, pos.y, (*it)->pos.x, (*it)->pos.y) < Range)
 			{
 				if (!(*it)->bInvulnerable && !(*it)->bDead && (*it)->Team != Team)
 				{
@@ -139,7 +139,18 @@ void Actor::drawHealth(Boy::Graphics *g)
 }
 
 void Building::draw(Boy::Graphics *g)
-{
+{	
+	g->setColorizationEnabled(true);
+
+	if (Team == ESpawnType_Player)
+	{
+		g->setColor(0xff00ffff);
+	}
+	else
+	{
+		g->setColor(0xffff0000);
+	}
+
 	float size = 25.0;
 	g->pushTransform();
 
@@ -163,13 +174,15 @@ void Building::draw(Boy::Graphics *g)
     }
 	
 	g->popTransform();
+
+	g->setColorizationEnabled(false);
 }
 
 void Building::InitStats()
 {
 	Damage = 0.0f;
 	Range = 0.0f;
-	MaxHealth = 50000.0f;
+	MaxHealth = 1000.0f;
 	Health = MaxHealth;
 	bDead = false;
 	bInvulnerable = false;
@@ -223,8 +236,6 @@ void Unit_Rock::draw(Boy::Graphics *g)
 	g->popTransform();	
 
 	g->setColorizationEnabled(false);
-
-	Unit::draw(g);
 }
 
 void Unit_Rock::InitStats()
@@ -273,8 +284,6 @@ void Unit_Paper::draw(Boy::Graphics *g)
 	g->popTransform();
 
 	g->setColorizationEnabled(false);
-
-	Unit::draw(g);
 }
 
 void Unit_Paper::InitStats()
@@ -319,8 +328,6 @@ void Unit_Scissors::draw(Boy::Graphics *g)
 	g->popTransform();
 
 	g->setColorizationEnabled(false);
-
-	Unit::draw(g);
 }
 
 void Unit_Scissors::InitStats()
