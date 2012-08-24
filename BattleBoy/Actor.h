@@ -6,6 +6,13 @@ enum EUnitTeam
 	ESpawnType_AI = 1,
 };
 
+enum EUnitDamageType
+{
+	EUnitDamageType_Rock = 0,
+	EUnitDamageType_Paper = 1,
+	EUnitDamageType_Scissors = 2,
+};
+
 class Actor
 {
 public:
@@ -19,6 +26,9 @@ public:
 	bool attack(float dt, std::vector<Actor*> Units);
 	BoyLib::Vector2 pos;
 	EUnitTeam Team;
+	std::vector<EUnitDamageType> DamageTypes;
+	std::vector<EUnitDamageType> VulnerabilityTypes;
+	std::vector<EUnitDamageType> ResistanceTypes;
 	float speed;
 	float Range;
 	float Damage;
@@ -31,6 +41,7 @@ public:
 	BoyLib::Vector2 vel;
 	void SetDestination(BoyLib::Vector2 dest);
 	void TakeDamage(float damageTaken);
+	float ModifyDamage(float damage, std::vector<EUnitDamageType> AttackingDamageType, std::vector<EUnitDamageType> DefendingVulnerabilityTypes, std::vector<EUnitDamageType> DefendingResistanceTypes);
 	bool bInvulnerable;
 	void InitStats();
 	float TimeSinceLastAttack;

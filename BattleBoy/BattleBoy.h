@@ -33,6 +33,9 @@ public:
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
+
+	virtual void KillAllUnitsCheat();
+
 	BoyLib::Vector2 getBuildingInfo(int whichPlayer);
 private:
 	Boy::Font *mFont;

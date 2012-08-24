@@ -206,6 +206,14 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	}
 
 	mPendingSpawnType = ESpawnType_NONE;
+
+	//CHEATS
+	switch (unicode)
+	{
+		case 'K':
+			KillAllUnitsCheat();
+			break;
+	}
 }
 
 void BattleBoy::keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
@@ -231,4 +239,15 @@ BoyLib::Vector2 BattleBoy::getBuildingInfo(int whichPlayer)
 	}
 
 	return buildings[whichPlayer]->pos;
+}
+
+void BattleBoy::KillAllUnitsCheat()
+{
+	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
+	{
+		if (dynamic_cast<Unit *>(*it))
+		{
+			(*it)->bDead = true;
+		}
+	}
 }

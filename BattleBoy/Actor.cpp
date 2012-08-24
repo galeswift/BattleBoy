@@ -41,7 +41,7 @@ bool Actor::attack(float dt, std::vector<Actor*> Units)
 			{
 				if (!(*it)->bInvulnerable && !(*it)->bDead && (*it)->Team != Team)
 				{
-					(*it)->TakeDamage(Damage);
+					(*it)->TakeDamage(ModifyDamage(Damage, DamageTypes, (*it)->VulnerabilityTypes, (*it)->ResistanceTypes));
 					TimeSinceLastAttack = 0;
 					result = true;
 					break;
@@ -65,6 +65,30 @@ void Actor::TakeDamage(float damageTaken)
 	{
 		bDead = true;
 	}
+}
+
+float Actor::ModifyDamage(float damage, std::vector<EUnitDamageType> AttackingDamageTypes, std::vector<EUnitDamageType> DefendingVulnerabilityTypes, std::vector<EUnitDamageType> DefendingResistanceTypes)
+{
+	float modifier = 1.0f;
+	for(int d = 0; d < AttackingDamageTypes.size(); d++)
+	{
+		for(int v = 0; v < DefendingVulnerabilityTypes.size(); v++)
+		{
+			if (AttackingDamageTypes[d] == DefendingVulnerabilityTypes[v])
+			{
+				modifier += 0.5f;
+			}
+		}
+		for(int r = 0; r < DefendingResistanceTypes.size(); r++)
+		{
+			if (AttackingDamageTypes[d] == DefendingResistanceTypes[r])
+			{
+				modifier -= 0.5f;
+			}
+		}
+	}
+	modifier = std::max<float>(0.0f, modifier);
+	return (damage*modifier);
 }
 
 void Actor::InitStats()
@@ -248,6 +272,9 @@ void Unit_Rock::InitStats()
 	bInvulnerable = false;
 	AttackRate = 0.5f;
 	TimeSinceLastAttack = AttackRate;
+	DamageTypes.push_back(EUnitDamageType_Rock);
+	VulnerabilityTypes.push_back(EUnitDamageType_Paper);
+	ResistanceTypes.push_back(EUnitDamageType_Scissors);
 }
 
 void Unit_Paper::draw(Boy::Graphics *g)
@@ -296,6 +323,9 @@ void Unit_Paper::InitStats()
 	bInvulnerable = false;
 	AttackRate = 0.5f;
 	TimeSinceLastAttack = AttackRate;
+	DamageTypes.push_back(EUnitDamageType_Paper);
+	VulnerabilityTypes.push_back(EUnitDamageType_Scissors);
+	ResistanceTypes.push_back(EUnitDamageType_Rock);
 }
 
 void Unit_Scissors::draw(Boy::Graphics *g)
@@ -340,4 +370,7 @@ void Unit_Scissors::InitStats()
 	bInvulnerable = false;
 	AttackRate = 0.5f;
 	TimeSinceLastAttack = AttackRate;
+	DamageTypes.push_back(EUnitDamageType_Scissors);
+	VulnerabilityTypes.push_back(EUnitDamageType_Rock);
+	ResistanceTypes.push_back(EUnitDamageType_Paper);
 }
