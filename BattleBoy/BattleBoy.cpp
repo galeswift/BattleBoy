@@ -76,6 +76,11 @@ void BattleBoy::init(int argc, char* argv[])
 	mActors.back()->Team = ESpawnType_Player;
 	mActors.push_back( new Building(BoyLib::Vector2(w/2.0f,100.0)) );
 	mActors.back()->Team = ESpawnType_AI;
+
+	PlayerCredits = 0;
+	AICredits = 0;
+
+	bAutoPlay = false;
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -134,6 +139,32 @@ void BattleBoy::update(float dt)
 			(*it)->update(dt, mActors);
 		}
 	}
+
+	// HACK Play AI versus AI
+	if (bAutoPlay)
+	{
+		// HACK Should add based on time, not every tick
+		PlayerCredits += 1;
+		AICredits += 1;
+
+		// HACK Need unit costs
+		int UnitCost = 500;
+
+		// HACK AI
+		if (PlayerCredits > UnitCost)
+		{
+			PlayerCredits -= UnitCost;
+			ESpawnType unitType = ESpawnType(rand() % 3 + 4);
+			SpawnUnit(unitType);
+		}
+
+		if (AICredits > UnitCost)
+		{
+			AICredits -= UnitCost;
+			ESpawnType unitType = ESpawnType(rand() % 3 + 1);
+			SpawnUnit(unitType);
+		}
+	}
 }
 
 void BattleBoy::draw(Boy::Graphics *g)
@@ -160,7 +191,6 @@ void BattleBoy::draw(Boy::Graphics *g)
 		//mFont->drawString(g,mPendingSpawnType,0.5f);
 		g->popTransform();
 		g->setColorizationEnabled(false);
-
 	}
 }
 
@@ -169,41 +199,7 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
 
-	switch (mPendingSpawnType)
-	{
-		case ESpawnType_AI_ROCK:
-			mActors.push_back( new Unit_Rock(mActors[ESpawnType_AI]->pos, 100) );
-			mActors.back()->Team = ESpawnType_AI;
-			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
-			break;
-		case ESpawnType_AI_PAPER:
-			mActors.push_back( new Unit_Paper(mActors[ESpawnType_AI]->pos, 100) );
-			mActors.back()->Team = ESpawnType_AI;
-			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
-			break;
-		case ESpawnType_AI_SCISSORS:
-			mActors.push_back( new Unit_Scissors(mActors[ESpawnType_AI]->pos, 100) );
-			mActors.back()->Team = ESpawnType_AI;
-			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
-			break;
-		case ESpawnType_PLAYER_ROCK:
-			mActors.push_back( new Unit_Rock(mActors[ESpawnType_Player]->pos, 100) );
-			mActors.back()->Team = ESpawnType_Player;
-			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
-			break;
-		case ESpawnType_PLAYER_PAPER:
-			mActors.push_back( new Unit_Paper(mActors[ESpawnType_Player]->pos, 100) );
-			mActors.back()->Team = ESpawnType_Player;
-			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
-			break;
-		case ESpawnType_PLAYER_SCISSORS:
-			mActors.push_back( new Unit_Scissors(mActors[ESpawnType_Player]->pos, 100) );
-			mActors.back()->Team = ESpawnType_Player;
-			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
-			break;
-		default:
-			break; 
-	}
+	SpawnUnit(mPendingSpawnType);
 
 	mPendingSpawnType = ESpawnType_NONE;
 
@@ -212,6 +208,9 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 	{
 		case 'K':
 			KillAllUnitsCheat();
+			break;
+		case 'V':
+			bAutoPlay = !bAutoPlay;
 			break;
 	}
 }
@@ -249,5 +248,44 @@ void BattleBoy::KillAllUnitsCheat()
 		{
 			(*it)->bDead = true;
 		}
+	}
+}
+
+void BattleBoy::SpawnUnit(ESpawnType Unit)
+{
+	switch (Unit)
+	{
+		case ESpawnType_AI_ROCK:
+			mActors.push_back( new Unit_Rock(mActors[ESpawnType_AI]->pos, 100) );
+			mActors.back()->Team = ESpawnType_AI;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
+			break;
+		case ESpawnType_AI_PAPER:
+			mActors.push_back( new Unit_Paper(mActors[ESpawnType_AI]->pos, 100) );
+			mActors.back()->Team = ESpawnType_AI;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
+			break;
+		case ESpawnType_AI_SCISSORS:
+			mActors.push_back( new Unit_Scissors(mActors[ESpawnType_AI]->pos, 100) );
+			mActors.back()->Team = ESpawnType_AI;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_Player) );
+			break;
+		case ESpawnType_PLAYER_ROCK:
+			mActors.push_back( new Unit_Rock(mActors[ESpawnType_Player]->pos, 100) );
+			mActors.back()->Team = ESpawnType_Player;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
+			break;
+		case ESpawnType_PLAYER_PAPER:
+			mActors.push_back( new Unit_Paper(mActors[ESpawnType_Player]->pos, 100) );
+			mActors.back()->Team = ESpawnType_Player;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
+			break;
+		case ESpawnType_PLAYER_SCISSORS:
+			mActors.push_back( new Unit_Scissors(mActors[ESpawnType_Player]->pos, 100) );
+			mActors.back()->Team = ESpawnType_Player;
+			mActors.back()->SetDestination( getBuildingInfo(ESpawnType_AI) );
+			break;
+		default:
+			break; 
 	}
 }

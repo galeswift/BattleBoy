@@ -36,6 +36,8 @@ public:
 
 	virtual void KillAllUnitsCheat();
 
+	virtual void SpawnUnit(ESpawnType Unit);
+
 	BoyLib::Vector2 getBuildingInfo(int whichPlayer);
 private:
 	Boy::Font *mFont;
@@ -60,5 +62,12 @@ private:
 	Networking::ENetworkingRole mRole;
 
 	// The target ip address that the client is trying to connect to.  Parsed from the --client command line argument
-	std::string mPendingAddress;	
+	std::string mPendingAddress;
+
+	// HACK Refactor into Players and AI
+	int PlayerCredits;
+	int AICredits;
+
+	// HACK to play AI versus AI only
+	bool bAutoPlay;
 };
