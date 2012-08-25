@@ -147,8 +147,13 @@ void BattleBoy::update(float dt)
 		PlayerCredits += 1;
 		AICredits += 1;
 
-		// HACK Need unit costs
+		// HACK Need unit costs (with some variation)
+		bool bUseRandomCosts = true; // Set to false for no randomness for debugging
 		int UnitCost = 500;
+		if (bUseRandomCosts)
+		{
+			UnitCost = rand() % 200 + 400;
+		}
 
 		// HACK AI
 		if (PlayerCredits > UnitCost)
@@ -156,6 +161,11 @@ void BattleBoy::update(float dt)
 			PlayerCredits -= UnitCost;
 			ESpawnType unitType = ESpawnType(rand() % 3 + 4);
 			SpawnUnit(unitType);
+		}
+
+		if (bUseRandomCosts)
+		{
+			UnitCost = rand() % 200 + 400;
 		}
 
 		if (AICredits > UnitCost)
@@ -183,15 +193,54 @@ void BattleBoy::draw(Boy::Graphics *g)
 			(*it)->drawHealth(g);
 		}
 
-		// draw status
-		g->setColorizationEnabled(true);
-		g->setColor(0xffffffff);
-		g->pushTransform();
-		//g->translate(50,50);
-		//mFont->drawString(g,mPendingSpawnType,0.5f);
-		g->popTransform();
-		g->setColorizationEnabled(false);
+		// draw resources
+		drawResources(g);
+
+		//draw debug text
+		drawDebugText(g);
 	}
+}
+
+void BattleBoy::drawResources(Boy::Graphics *g)
+{
+	char AICreditsText[100];
+	sprintf_s(AICreditsText, "%i", AICredits);
+	char PlayerCreditsText[100];
+	sprintf_s(PlayerCreditsText, "%i", PlayerCredits);
+
+	g->setColorizationEnabled(true);
+	g->setColor(0xffffffff);
+	g->pushTransform();
+	g->translate(50.0f,50.0f);
+	mFont->drawString(g,AICreditsText,0.5f);
+	g->translate(0.0f,50.0f);
+	mFont->drawString(g,PlayerCreditsText,0.5f);
+	g->popTransform();
+	g->setColorizationEnabled(false);
+}
+
+void BattleBoy::drawDebugText(Boy::Graphics *g)
+{
+	char KDebugText[100];
+	sprintf_s(KDebugText, "K to kill all units");
+	char VDebugText[100];
+	sprintf_s(VDebugText, "V to start autoplay");
+	char RDebugText[100];
+	sprintf_s(RDebugText, "R to restart");
+
+	int h = Boy::Environment::screenHeight();
+
+	g->setColorizationEnabled(true);
+	g->setColor(0xffffffff);
+	g->pushTransform();
+	g->translate(50.0f,h - 150.0f);
+	mFont->drawString(g,KDebugText,0.25f);
+	g->translate(0.0f,50.0f);
+	mFont->drawString(g,VDebugText,0.25f);
+	g->translate(0.0f,50.0f);
+	mFont->drawString(g,RDebugText,0.25f);
+	g->popTransform();
+	g->setColorizationEnabled(false);
 }
 
 void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
@@ -210,7 +259,10 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 			KillAllUnitsCheat();
 			break;
 		case 'V':
-			bAutoPlay = !bAutoPlay;
+			SetAutoplay(!bAutoPlay);
+			break;
+		case 'R':
+			Restart();
 			break;
 	}
 }
@@ -248,6 +300,23 @@ void BattleBoy::KillAllUnitsCheat()
 		{
 			(*it)->bDead = true;
 		}
+	}
+}
+
+void BattleBoy::SetAutoplay(bool bOn)
+{
+	bAutoPlay = bOn;
+}
+
+void BattleBoy::Restart()
+{
+	SetAutoplay(false);
+	AICredits = 0;
+	PlayerCredits = 0;
+	KillAllUnitsCheat();
+	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
+	{
+		(*it)->Health = (*it)->MaxHealth;
 	}
 }
 

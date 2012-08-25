@@ -29,12 +29,16 @@ public:
 	virtual void loadComplete();
 	virtual void update(float dt);
 	virtual void draw(Boy::Graphics *g);
+	virtual void drawResources(Boy::Graphics *g);
+	virtual void drawDebugText(Boy::Graphics *g);
 
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 
 	virtual void KillAllUnitsCheat();
+	virtual void SetAutoplay(bool bOn);
+	virtual void Restart();
 
 	virtual void SpawnUnit(ESpawnType Unit);
 
