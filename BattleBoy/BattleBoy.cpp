@@ -115,6 +115,19 @@ void BattleBoy::loadComplete()
 	mBoomSound = rm->getSound("SOUND_BOOM");
 	mFireSound = rm->getSound("SOUND_FIRE");
 	mThrustSound = rm->getSound("SOUND_THRUST");*/
+
+	int w = Boy::Environment::screenWidth();
+	int h = Boy::Environment::screenHeight();
+
+	Unit_Building *newBuilding = new Unit_Building(BoyLib::Vector2(w/2.0f,float(h-100)));
+	newBuilding->initStats();
+	newBuilding->setTeamIdx(0);
+	mActors.push_back(newBuilding);
+
+	newBuilding = new Unit_Building(BoyLib::Vector2(w/2.0f,100.0));
+	newBuilding->initStats();
+	newBuilding->setTeamIdx(1);
+	mActors.push_back(newBuilding);
 }
 
 void BattleBoy::update(float dt)
