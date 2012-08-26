@@ -1,20 +1,20 @@
 #include "Globals.h"
 
-void Actor::update(float dt, std::vector<Actor*> Units)
+void Unit::update(float dt)
 {
 	// Only move if we are not attacking
-	if (!attack(dt, Units))
+	if (!attack(dt))
 	{
 		move(dt);
 	}
 }
 
-bool Actor::move(float dt)
+bool Unit::move(float dt)
 {	
 	bool result = false;
 	if (destinations.size() > 0)
 	{		
-		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < Range)
+		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < range)
 		{
 			destinations.erase(destinations.begin());
 		}
@@ -29,59 +29,63 @@ bool Actor::move(float dt)
 	return result;
 }
 
-bool Actor::attack(float dt, std::vector<Actor*> Units)
+bool Unit::attack(float dt)
 {
-	bool result = TimeSinceLastAttack < AttackRate;
+	bool result = timeSinceLastAttack < attackRate;
 
-	if (Damage > 0 && !result)
+	if (damage > 0 && !result)
 	{
-		for( std::vector<Actor*>::iterator it = Units.begin(); it != Units.end() ; ++it )
+		for( std::vector<Actor*>::iterator it = game->getActors().begin(); it != game->getActors().end() ; ++it )
 		{
-			if (dist(pos.x, pos.y, (*it)->pos.x, (*it)->pos.y) < Range)
+			Unit* unit = dynamic_cast<Unit*>(*it);
+			if( unit )
 			{
-				if (!(*it)->bInvulnerable && !(*it)->bDead && (*it)->Team != Team)
+				if (dist(getPos().x, getPos().y, unit->getPos().x, unit->getPos().y) < range)
 				{
-					(*it)->TakeDamage(ModifyDamage(Damage, DamageTypes, (*it)->VulnerabilityTypes, (*it)->ResistanceTypes));
-					TimeSinceLastAttack = 0;
-					result = true;
-					break;
+					if (unit->getTeamIdx() != getTeamIdx())
+					{
+						unit->takeDamage(modifyDamage(damage, damageTypes, unit->vulnerabilityTypes, unit->resistanceTypes));
+						timeSinceLastAttack = 0;
+						result = true;
+						break;
+					}
 				}
 			}
 		}
 	}
 	else
 	{
-		TimeSinceLastAttack += dt;
+		timeSinceLastAttack += dt;
 	}
 
 
 	return result;
 }
 
-void Actor::TakeDamage(float damageTaken)
+void Unit::takeDamage(float damageTaken)
 {
-	Health -= damageTaken;
-	if (Health <= 0)
+	health -= damageTaken;
+	if (health <= 0)
 	{
-		bDead = true;
+		bDestroyed = true;
 	}
 }
 
-float Actor::ModifyDamage(float damage, std::vector<EUnitDamageType> AttackingDamageTypes, std::vector<EUnitDamageType> DefendingVulnerabilityTypes, std::vector<EUnitDamageType> DefendingResistanceTypes)
+float Unit::modifyDamage(float damage, std::vector<EUnitDamageType> attackingDamageTypes, std::vector<EUnitDamageType> defendingVulnerabilityTypes, std::vector<EUnitDamageType> defendingResistanceTypes)
 {
 	float modifier = 1.0f;
-	for(int d = 0; d < AttackingDamageTypes.size(); d++)
+	for(unsigned int d = 0; d < attackingDamageTypes.size(); d++)
 	{
-		for(int v = 0; v < DefendingVulnerabilityTypes.size(); v++)
+		for(unsigned int v = 0; v < defendingVulnerabilityTypes.size(); v++)
 		{
-			if (AttackingDamageTypes[d] == DefendingVulnerabilityTypes[v])
+			if (attackingDamageTypes[d] == defendingVulnerabilityTypes[v])
 			{
 				modifier += 0.5f;
 			}
 		}
-		for(int r = 0; r < DefendingResistanceTypes.size(); r++)
+		for(unsigned int r = 0; r < defendingResistanceTypes.size(); r++)
 		{
-			if (AttackingDamageTypes[d] == DefendingResistanceTypes[r])
+			if (attackingDamageTypes[d] == defendingResistanceTypes[r])
 			{
 				modifier -= 0.5f;
 			}
@@ -91,46 +95,40 @@ float Actor::ModifyDamage(float damage, std::vector<EUnitDamageType> AttackingDa
 	return (damage*modifier);
 }
 
-void Actor::InitStats()
+void Actor::initStats()
 {
-	Damage = 0;
-	Range = 0;
-	MaxHealth = 500.0f;
-	Health = MaxHealth;
-	bDead = false;
-	bInvulnerable = false;
-	TimeSinceLastAttack = 0.0f;
-	AttackRate = 0.0f;
+	size = 15;
+	bDestroyed = false;
 }
 
-void Actor::SetDestination(BoyLib::Vector2 dest)
+void Unit::setDestination(BoyLib::Vector2 dest)
 {
 	destinations.push_back(dest);
 }
 
-void Actor::drawHealth(Boy::Graphics *g)
+void Unit::draw(Boy::Graphics *g)
 {
-	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
-	if (bDead || bInvulnerable)
+	Actor::draw(g);
+
+	g->setColorizationEnabled(true);
+
+	if (getTeamIdx() == 0)
 	{
-		return;
+		g->setColor(0xff00ffff);
 	}
+	else
+	{
+		g->setColor(0xffff0000);
+	}
+	drawHealth(g);
+}
 
-	float size = 30;
-	//g->pushTransform();
-
-	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
-
-	//g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y - size/2.0f));
-	//g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x + size/2.0f), int(pos.y + size/2.0f));
-
-	//g->drawLine(int(pos.x + size/2.0f),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
-	//g->drawLine(int(pos.x - size/2.0f),	int(pos.y + size/2.0f),	int(pos.x - size/2.0f), int(pos.y - size/2.0f));
-
+void Unit::drawHealth(Boy::Graphics *g)
+{
 	// draw status
 	g->setColorizationEnabled(true);
 	g->setColor(0xff00ff00);
-	float healthPercentage = Health/MaxHealth;
+	float healthPercentage = health/maxHealth;
 	if (healthPercentage < 0.25f)
 	{
 		g->setColor(0xffff0000);
@@ -143,11 +141,11 @@ void Actor::drawHealth(Boy::Graphics *g)
 	Boy::Font *mFont = rm->getFont("FONT_MAIN");
 
 	char healthText[100];
-	int h1 = int(Health);            // Get the integer part
-	float f1 = Health - h1;     // Get fractional part
+	int h1 = int(health);            // Get the integer part
+	float f1 = health - h1;     // Get fractional part
 	int h2 = int(f1 * 100);   // Turn into integer
-	int mh1 = int(MaxHealth);            // Get the integer part
-	float f2 = MaxHealth - mh1;     // Get fractional part
+	int mh1 = int(maxHealth);            // Get the integer part
+	float f2 = maxHealth - mh1;     // Get fractional part
 	int mh2 = int(f2 * 100);   // Turn into integer
 
 	//sprintf_s(healthText, "%d.%04d/%d.%04d", h1, h2, mh1, mh2);
@@ -162,18 +160,21 @@ void Actor::drawHealth(Boy::Graphics *g)
 	
 }
 
-void Building::draw(Boy::Graphics *g)
-{	
-	g->setColorizationEnabled(true);
+void Unit::initStats()
+{
+	Actor::initStats();
 
-	if (Team == ESpawnType_Player)
-	{
-		g->setColor(0xff00ffff);
-	}
-	else
-	{
-		g->setColor(0xffff0000);
-	}
+	damage = 10.0f;
+	range = 30.0f;
+	maxHealth = 50.0f;
+	health = maxHealth;
+	attackRate = 0.5f;
+	timeSinceLastAttack = attackRate;
+}
+
+void Unit_Building::draw(Boy::Graphics *g)
+{	
+	Unit::draw(g);
 
 	float size = 25.0;
 	g->pushTransform();
@@ -202,51 +203,17 @@ void Building::draw(Boy::Graphics *g)
 	g->setColorizationEnabled(false);
 }
 
-void Building::InitStats()
+void Unit_Building::initStats()
 {
-	Damage = 0.0f;
-	Range = 0.0f;
-	MaxHealth = 1000.0f;
-	Health = MaxHealth;
-	bDead = false;
-	bInvulnerable = false;
-	TimeSinceLastAttack = 0.0f;
-	AttackRate = 0.0f;
-}
-
-void SpawnPoint::InitStats()
-{
-	Damage = 0.0f;
-	Range = 0.0f;
-	MaxHealth = 50000.0f;
-	Health = MaxHealth;
-	bDead = false;
-	bInvulnerable = true;
-	TimeSinceLastAttack = 0.0f;
-	AttackRate = 0.0f;
+	Unit::initStats();
+	maxHealth = 1000.0f;
+	health = maxHealth;
 }
 
 void Unit_Rock::draw(Boy::Graphics *g)
 {
-	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
-	if (bDead)
-	{
-		return;
-	}
-
-	float size = 30;
+	Unit::draw(g);
 	
-	g->setColorizationEnabled(true);
-
-	if (Team == ESpawnType_Player)
-	{
-		g->setColor(0xff00ffff);
-	}
-	else
-	{
-		g->setColor(0xffff0000);
-	}
-
 	g->pushTransform();
 
 	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
@@ -262,41 +229,19 @@ void Unit_Rock::draw(Boy::Graphics *g)
 	g->setColorizationEnabled(false);
 }
 
-void Unit_Rock::InitStats()
+void Unit_Rock::initStats()
 {
-	Damage = 10.0f;
-	Range = 30.0f;
-	MaxHealth = 50.0f;
-	Health = MaxHealth;
-	bDead = false;
-	bInvulnerable = false;
-	AttackRate = 0.5f;
-	TimeSinceLastAttack = AttackRate;
-	DamageTypes.push_back(EUnitDamageType_Rock);
-	VulnerabilityTypes.push_back(EUnitDamageType_Paper);
-	ResistanceTypes.push_back(EUnitDamageType_Scissors);
+	Unit::initStats();
+
+	damageTypes.push_back(EUnitDamageType_Rock);
+	vulnerabilityTypes.push_back(EUnitDamageType_Paper);
+	resistanceTypes.push_back(EUnitDamageType_Scissors);
 }
 
 void Unit_Paper::draw(Boy::Graphics *g)
 {
-	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
-	if (bDead)
-	{
-		return;
-	}
-	
-	g->setColorizationEnabled(true);
+	Unit::draw(g);
 
-	if (Team == ESpawnType_Player)
-	{
-		g->setColor(0xff00ffff);
-	}
-	else
-	{
-		g->setColor(0xffff0000);
-	}
-
-	float size = 30;
 	g->pushTransform();
 
 	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
@@ -313,41 +258,19 @@ void Unit_Paper::draw(Boy::Graphics *g)
 	g->setColorizationEnabled(false);
 }
 
-void Unit_Paper::InitStats()
+void Unit_Paper::initStats()
 {
-	Damage = 10.0f;
-	Range = 60.0f;
-	MaxHealth = 50.0f;
-	Health = MaxHealth;
-	bDead = false;
-	bInvulnerable = false;
-	AttackRate = 0.5f;
-	TimeSinceLastAttack = AttackRate;
-	DamageTypes.push_back(EUnitDamageType_Paper);
-	VulnerabilityTypes.push_back(EUnitDamageType_Scissors);
-	ResistanceTypes.push_back(EUnitDamageType_Rock);
+	Unit::initStats();
+
+	damageTypes.push_back(EUnitDamageType_Paper);
+	vulnerabilityTypes.push_back(EUnitDamageType_Scissors);
+	resistanceTypes.push_back(EUnitDamageType_Rock);
 }
 
 void Unit_Scissors::draw(Boy::Graphics *g)
 {
-	// Holy Hacks Batman! Remove this when you fix BattleBoy::update dead check removal!
-	if (bDead)
-	{
-		return;
-	}
-	
-	g->setColorizationEnabled(true);
+	Unit::draw(g);
 
-	if (Team == ESpawnType_Player)
-	{
-		g->setColor(0xff00ffff);
-	}
-	else
-	{
-		g->setColor(0xffff0000);
-	}
-
-	float size = 30;
 	g->pushTransform();
 
 	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
@@ -360,17 +283,11 @@ void Unit_Scissors::draw(Boy::Graphics *g)
 	g->setColorizationEnabled(false);
 }
 
-void Unit_Scissors::InitStats()
+void Unit_Scissors::initStats()
 {
-	Damage = 10.0f;
-	Range = 90.0f;
-	MaxHealth = 50.0f;
-	Health = MaxHealth;
-	bDead = false;
-	bInvulnerable = false;
-	AttackRate = 0.5f;
-	TimeSinceLastAttack = AttackRate;
-	DamageTypes.push_back(EUnitDamageType_Scissors);
-	VulnerabilityTypes.push_back(EUnitDamageType_Rock);
-	ResistanceTypes.push_back(EUnitDamageType_Paper);
+	Unit::initStats();
+
+	damageTypes.push_back(EUnitDamageType_Scissors);
+	vulnerabilityTypes.push_back(EUnitDamageType_Rock);
+	resistanceTypes.push_back(EUnitDamageType_Paper);
 }

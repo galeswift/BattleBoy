@@ -39,7 +39,3 @@
 #include "Actor.h"
 #include "Board.h"
 #include "BattleBoy.h"
-
-// Battleboy headers
-#include "Actor.h"
-#include "Board.h"
