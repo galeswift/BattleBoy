@@ -41,14 +41,13 @@ public:
 	virtual void draw(Boy::Graphics *g);
 	void drawHealth(Boy::Graphics *g);	
 	void update(float dt);
-	bool move(float dt);
 	bool attack(float dt);
-	void setDestination(BoyLib::Vector2 dest);
 	void setTeamIdx(int idx){ teamIdx = idx; }
 	int getTeamIdx() { return teamIdx; }
 	void takeDamage(float damageTaken);
 	float modifyDamage(float damage, std::vector<EUnitDamageType> attackingDamageType, std::vector<EUnitDamageType> defendingVulnerabilityTypes, std::vector<EUnitDamageType> defendingResistanceTypes);
 	virtual void initStats();
+	Steering* getSteering() {return steering;}
 protected:
 	float timeSinceLastAttack;
 	float range, damage, health, maxHealth, attackRate;
@@ -56,7 +55,7 @@ protected:
 	std::vector<EUnitDamageType> damageTypes;
 	std::vector<EUnitDamageType> vulnerabilityTypes;
 	std::vector<EUnitDamageType> resistanceTypes;
-	std::vector<BoyLib::Vector2> destinations;
+	Steering* steering;
 };
 
 class Unit_Building : public Unit

@@ -36,6 +36,7 @@
 #include "Boy/SoundPlayer.h"
 
 // Battleboy
+#include "Steering.h"
 #include "Actor.h"
 #include "Board.h"
 #include "BattleBoy.h"

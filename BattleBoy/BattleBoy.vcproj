@@ -223,6 +223,14 @@
 			RelativePath=".\res\resources.xml"
 			>
 		</File>
+		<File
+			RelativePath=".\Steering.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Steering.h"
+			>
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

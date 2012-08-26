@@ -65,6 +65,9 @@ void WinGraphics::drawImage(Image *img, int subrectX, int subrectY, int subrectW
 
 void WinGraphics::drawLine(int x0, int y0, int x1, int y1)
 {
+	D3DXMATRIX identity;
+	D3DXMatrixIdentity(&identity);
+	mInterface->setTransform(identity);
 	mInterface->drawLine(x0,y0,x1,y1,mColor);
 }
 

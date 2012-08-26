@@ -3,30 +3,15 @@
 void Unit::update(float dt)
 {
 	// Only move if we are not attacking
-	if (!attack(dt))
+	if( steering )
+	{
+		steering->update(dt);
+	}
+
+	/*if (!attack(dt))
 	{
 		move(dt);
-	}
-}
-
-bool Unit::move(float dt)
-{	
-	bool result = false;
-	if (destinations.size() > 0)
-	{		
-		if (dist(pos.x,pos.y,destinations[0].x,destinations[0].y) < range)
-		{
-			destinations.erase(destinations.begin());
-		}
-		if (destinations.size() > 0)
-		{
-			dir = (destinations.front() - pos).normalize();
-			vel = dir*speed;
-			pos += vel * dt;
-			result = true;
-		}
-	}
-	return result;
+	}*/
 }
 
 bool Unit::attack(float dt)
@@ -101,11 +86,6 @@ void Actor::initStats()
 	bDestroyed = false;
 }
 
-void Unit::setDestination(BoyLib::Vector2 dest)
-{
-	destinations.push_back(dest);
-}
-
 void Unit::draw(Boy::Graphics *g)
 {
 	Actor::draw(g);
@@ -164,6 +144,7 @@ void Unit::initStats()
 {
 	Actor::initStats();
 
+	steering = new Steering(this);
 	damage = 10.0f;
 	range = 30.0f;
 	maxHealth = 50.0f;
@@ -215,6 +196,7 @@ void Unit_Rock::draw(Boy::Graphics *g)
 	Unit::draw(g);
 	
 	g->pushTransform();
+	g->translate(pos.x,pos.y);
 
 	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
 
