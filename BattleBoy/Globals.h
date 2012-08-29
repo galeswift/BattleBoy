@@ -38,5 +38,6 @@
 // Battleboy
 #include "Steering.h"
 #include "Actor.h"
-#include "Board.h"
+#include "Player.h"
+#include "Map.h"
 #include "BattleBoy.h"

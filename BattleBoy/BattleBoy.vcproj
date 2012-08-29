@@ -192,14 +192,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Board.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\Board.h"
-			>
-		</File>
-		<File
 			RelativePath=".\CommandOptions.h"
 			>
 		</File>
@@ -212,11 +204,27 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Map.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Map.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Networking.cpp"
 			>
 		</File>
 		<File
 			RelativePath=".\Networking.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Player.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Player.h"
 			>
 		</File>
 		<File

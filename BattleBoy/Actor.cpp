@@ -52,7 +52,7 @@ void Unit::takeDamage(float damageTaken)
 	health -= damageTaken;
 	if (health <= 0)
 	{
-		bDestroyed = true;
+		setDestroyed(true);
 	}
 }
 
@@ -83,7 +83,7 @@ float Unit::modifyDamage(float damage, std::vector<EUnitDamageType> attackingDam
 void Actor::initStats()
 {
 	size = 15;
-	bDestroyed = false;
+	setDestroyed(false);
 }
 
 void Unit::draw(Boy::Graphics *g)

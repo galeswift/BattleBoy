@@ -6,6 +6,7 @@ enum ESpawnType
 	ESpawnType_ROCK = 1,
 	ESpawnType_PAPER = 2,
 	ESpawnType_SCISSORS = 3,
+	ESpawnType_MAX = 3, // DON'T INCLUDE ESpawnType_NONE
 };
 
 struct SpawnInfo
@@ -43,7 +44,6 @@ public:
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 
 	virtual void killAllUnitsCheat();
-	virtual void setAutoplay(bool bOn);
 	virtual void restart();
 	virtual std::vector<Actor*>& getActors() {return mActors;};
 	
@@ -58,11 +58,14 @@ private:
 	// Static instance of the battleboy class
 	static BattleBoy *gInstance;
 
-	// The main board actor
-	Board *mBoard;
+	// The main Map actor
+	Map *mMap;
 
 	// All Actors in game
 	std::vector<Actor*> mActors;
+
+	// All Players in game
+	std::vector<Player*> mPlayers;
 
 	// If we are a server/client, this will hold the network interface for it
 	Networking::NetworkInterface *mNetInterface;
@@ -72,11 +75,4 @@ private:
 
 	// The target ip address that the client is trying to connect to.  Parsed from the --client command line argument
 	std::string mPendingAddress;
-
-	// HACK Refactor into Players and AI
-	int PlayerCredits;
-	int AICredits;
-
-	// HACK to play AI versus AI only
-	bool bAutoPlay;
 };

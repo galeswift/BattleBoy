@@ -4,7 +4,7 @@ BattleBoy *BattleBoy::gInstance = NULL;
 
 BattleBoy::BattleBoy()
 {
-	mBoard = NULL;
+	mMap = NULL;
 	mLoadComplete = false;
 	mRole = Networking::ROLE_None;
 	mNetInterface = NULL;
@@ -37,7 +37,7 @@ void BattleBoy::destroy()
 void BattleBoy::init(int argc, char* argv[])
 {
 	parseCommandArgs(argc, argv);
-	mBoard = new Board();
+	mMap = new Map();
 	if( mRole == Networking::ROLE_Authority)
 	{
 		printf("Starting server...\n");
@@ -65,14 +65,6 @@ void BattleBoy::init(int argc, char* argv[])
 	mKeyToSpawnInfo['A'] = SpawnInfo(ESpawnType_ROCK,1);
 	mKeyToSpawnInfo['S'] = SpawnInfo(ESpawnType_PAPER,1);
 	mKeyToSpawnInfo['D'] = SpawnInfo(ESpawnType_SCISSORS,1);
-	
-	int w = Boy::Environment::screenWidth();
-	int h = Boy::Environment::screenHeight();
-
-	PlayerCredits = 0;
-	AICredits = 0;
-
-	bAutoPlay = false;
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -128,6 +120,14 @@ void BattleBoy::loadComplete()
 	newBuilding->initStats();
 	newBuilding->setTeamIdx(1);
 	mActors.push_back(newBuilding);
+
+	Player *newPlayer = new Player();
+	newPlayer->init();
+	mPlayers.push_back(newPlayer);
+
+	newPlayer = new Player();
+	newPlayer->init();
+	mPlayers.push_back(newPlayer);
 }
 
 void BattleBoy::update(float dt)
@@ -136,7 +136,6 @@ void BattleBoy::update(float dt)
 	{
 		if ((*it)->isDestroyed())
 		{
-			// TODO MAKE THIS WORK!
 			it = mActors.erase(it);
 		}
 		else
@@ -146,40 +145,27 @@ void BattleBoy::update(float dt)
 		}
 	}
 
-	// HACK Play AI versus AI
-	if (bAutoPlay)
+	int playerIdxCount = 0;
+	for( std::vector<Player*>::iterator it = mPlayers.begin(); it != mPlayers.end(); ++it)
 	{
-		// HACK Should add based on time, not every tick
-		PlayerCredits += 1;
-		AICredits += 1;
-
-		// HACK Need unit costs (with some variation)
-		bool bUseRandomCosts = true; // Set to false for no randomness for debugging
-		int UnitCost = 500;
-		if (bUseRandomCosts)
+		// Spawn AI Units
+		if ((*it)->isAI())
 		{
+			// HACK Need unit costs (with some variation)
+			int UnitCost = 500;
+			// some randomization until HACK is fixed
 			UnitCost = rand() % 200 + 400;
-		}
+			// END HACK
 
-		// HACK AI
-		if (PlayerCredits > UnitCost)
-		{
-			PlayerCredits -= UnitCost;
-			ESpawnType unitType = ESpawnType(rand() % 3 + 4);
-			spawnUnit(unitType, 0);
+			int CurrentCredits = (*it)->getCredits();
+			if (CurrentCredits > UnitCost)
+			{
+				(*it)->setCredits(CurrentCredits - UnitCost);
+				ESpawnType unitType = ESpawnType(rand() % ESpawnType_MAX + 1);
+				spawnUnit(unitType, playerIdxCount);
+			}
 		}
-
-		if (bUseRandomCosts)
-		{
-			UnitCost = rand() % 200 + 400;
-		}
-
-		if (AICredits > UnitCost)
-		{
-			AICredits -= UnitCost;
-			ESpawnType unitType = ESpawnType(rand() % 3 + 1);
-			spawnUnit(unitType,1);
-		}
+		playerIdxCount++;
 	}
 }
 
@@ -187,7 +173,7 @@ void BattleBoy::draw(Boy::Graphics *g)
 {
 	if( mLoadComplete ) 
 	{
-		mBoard->draw(g);
+		mMap->draw(g);
 
 		for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 		{
@@ -204,18 +190,18 @@ void BattleBoy::draw(Boy::Graphics *g)
 
 void BattleBoy::drawResources(Boy::Graphics *g)
 {
-	char AICreditsText[100];
-	sprintf_s(AICreditsText, "%i", AICredits);
-	char PlayerCreditsText[100];
-	sprintf_s(PlayerCreditsText, "%i", PlayerCredits);
+	char P1CreditsText[100];
+	sprintf_s(P1CreditsText, "%i", mPlayers[0]->getCredits());
+	char P2CreditsText[100];
+	sprintf_s(P2CreditsText, "%i", mPlayers[1]->getCredits());
 
 	g->setColorizationEnabled(true);
 	g->setColor(0xffffffff);
 	g->pushTransform();
 	g->translate(50.0f,50.0f);
-	mFont->drawString(g,AICreditsText,0.5f);
+	mFont->drawString(g,P1CreditsText,0.5f);
 	g->translate(0.0f,50.0f);
-	mFont->drawString(g,PlayerCreditsText,0.5f);
+	mFont->drawString(g,P2CreditsText,0.5f);
 	g->popTransform();
 	g->setColorizationEnabled(false);
 }
@@ -224,8 +210,10 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 {
 	char KDebugText[100];
 	sprintf_s(KDebugText, "K to kill all units");
+	char TDebugText[100];
+	sprintf_s(TDebugText, "T toggle versus AI(TOP)");
 	char VDebugText[100];
-	sprintf_s(VDebugText, "V to start autoplay");
+	sprintf_s(VDebugText, "V to toggle autoplay");
 	char RDebugText[100];
 	sprintf_s(RDebugText, "R to restart");
 
@@ -237,6 +225,8 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	g->translate(50.0f,h - 150.0f);
 	mFont->drawString(g,KDebugText,0.25f);
 	g->translate(0.0f,50.0f);
+	mFont->drawString(g,TDebugText,0.25f);
+	g->translate(0.0f,50.0f);
 	mFont->drawString(g,VDebugText,0.25f);
 	g->translate(0.0f,50.0f);
 	mFont->drawString(g,RDebugText,0.25f);
@@ -246,9 +236,6 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 
 void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
 {
-	int w = Boy::Environment::screenWidth();
-	int h = Boy::Environment::screenHeight();
-
 	// Look through our keybindings and see if we have a result
 	std::map<wchar_t,SpawnInfo>::iterator keyBinding = mKeyToSpawnInfo.find(unicode);
 	SpawnInfo spawnInfo;
@@ -268,8 +255,11 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 		case 'K':
 			killAllUnitsCheat();
 			break;
+		case 'T':
+			mPlayers[0]->setIsAI(!mPlayers[0]->isAI());
 		case 'V':
-			setAutoplay(!bAutoPlay);
+			mPlayers[1]->setIsAI(!mPlayers[1]->isAI());
+			mPlayers[0]->setIsAI(mPlayers[1]->isAI());
 			break;
 		case 'R':
 			restart();
@@ -292,16 +282,10 @@ void BattleBoy::killAllUnitsCheat()
 	}
 }
 
-void BattleBoy::setAutoplay(bool bOn)
-{
-	bAutoPlay = bOn;
-}
-
 void BattleBoy::restart()
 {
-	setAutoplay(false);
-	AICredits = 0;
-	PlayerCredits = 0;
+	mPlayers[0]->init();
+	mPlayers[1]->init();
 	mActors.empty();
 }
 
