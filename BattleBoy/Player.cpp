@@ -4,7 +4,7 @@
 void Player::update(float dt)
 {
 	creditsTime += dt;
-	if (creditsRate > creditsTime)
+	if (creditsRate <= creditsTime)
 	{
 		credits += creditsIncrement;
 		creditsTime -= creditsRate;

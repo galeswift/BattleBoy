@@ -148,22 +148,14 @@ void BattleBoy::update(float dt)
 	int playerIdxCount = 0;
 	for( std::vector<Player*>::iterator it = mPlayers.begin(); it != mPlayers.end(); ++it)
 	{
+		// Update the player
+		(*it)->update(dt);
+
 		// Spawn AI Units
 		if ((*it)->isAI())
-		{
-			// HACK Need unit costs (with some variation)
-			int UnitCost = 500;
-			// some randomization until HACK is fixed
-			UnitCost = rand() % 200 + 400;
-			// END HACK
-
-			int CurrentCredits = (*it)->getCredits();
-			if (CurrentCredits > UnitCost)
-			{
-				(*it)->setCredits(CurrentCredits - UnitCost);
-				ESpawnType unitType = ESpawnType(rand() % ESpawnType_MAX + 1);
-				spawnUnit(unitType, playerIdxCount);
-			}
+		{			
+			ESpawnType unitType = ESpawnType(rand() % ESpawnType_MAX + 1);
+			spawnUnit(unitType, playerIdxCount);
 		}
 		playerIdxCount++;
 	}
@@ -199,9 +191,9 @@ void BattleBoy::drawResources(Boy::Graphics *g)
 	g->setColor(0xffffffff);
 	g->pushTransform();
 	g->translate(50.0f,50.0f);
-	mFont->drawString(g,P1CreditsText,0.5f);
-	g->translate(0.0f,50.0f);
 	mFont->drawString(g,P2CreditsText,0.5f);
+	g->translate(0.0f,50.0f);
+	mFont->drawString(g,P1CreditsText,0.5f);
 	g->popTransform();
 	g->setColorizationEnabled(false);
 }
@@ -211,18 +203,23 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	char KDebugText[100];
 	sprintf_s(KDebugText, "K to kill all units");
 	char TDebugText[100];
-	sprintf_s(TDebugText, "T toggle versus AI(TOP)");
+	sprintf_s(TDebugText, "T toggle vs AI(TOP)");
 	char VDebugText[100];
 	sprintf_s(VDebugText, "V to toggle autoplay");
 	char RDebugText[100];
 	sprintf_s(RDebugText, "R to restart");
+	char PlayerDebugText[100];
+	sprintf_s(PlayerDebugText, "<---- Player");
+	char AIDebugText[100];
+	sprintf_s(AIDebugText, "<---- AI");
 
 	int h = Boy::Environment::screenHeight();
 
 	g->setColorizationEnabled(true);
 	g->setColor(0xffffffff);
+
 	g->pushTransform();
-	g->translate(50.0f,h - 150.0f);
+	g->translate(50.0f,h - 200.0f);
 	mFont->drawString(g,KDebugText,0.25f);
 	g->translate(0.0f,50.0f);
 	mFont->drawString(g,TDebugText,0.25f);
@@ -231,6 +228,27 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	g->translate(0.0f,50.0f);
 	mFont->drawString(g,RDebugText,0.25f);
 	g->popTransform();
+	
+	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
+	{
+		Unit_Building* building = dynamic_cast<Unit_Building*>(*it);
+		if (building)
+		{
+			g->pushTransform();				
+			g->translate(building->getPos().x, building->getPos().y);
+			g->translate(100.0f,30.0f);
+			if (mPlayers[building->getTeamIdx()]->isAI())
+			{
+				mFont->drawString(g,AIDebugText,0.25f);
+			}
+			else
+			{
+				mFont->drawString(g,PlayerDebugText,0.25f);
+			}
+			g->popTransform();
+		}
+	}
+
 	g->setColorizationEnabled(false);
 }
 
@@ -256,10 +274,11 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 			killAllUnitsCheat();
 			break;
 		case 'T':
-			mPlayers[0]->setIsAI(!mPlayers[0]->isAI());
-		case 'V':
 			mPlayers[1]->setIsAI(!mPlayers[1]->isAI());
-			mPlayers[0]->setIsAI(mPlayers[1]->isAI());
+			break;
+		case 'V':
+			mPlayers[0]->setIsAI(!mPlayers[0]->isAI());
+			mPlayers[1]->setIsAI(mPlayers[0]->isAI());
 			break;
 		case 'R':
 			restart();
@@ -275,7 +294,7 @@ void BattleBoy::killAllUnitsCheat()
 {
 	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 	{
-		if (dynamic_cast<Unit *>(*it))
+		if (dynamic_cast<Unit *>(*it) && !dynamic_cast<Unit_Building *>(*it))
 		{
 			(*it)->setDestroyed( true );
 		}
@@ -286,34 +305,46 @@ void BattleBoy::restart()
 {
 	mPlayers[0]->init();
 	mPlayers[1]->init();
-	mActors.empty();
+	killAllUnitsCheat();
 }
 
 void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
 {
-	Unit *newUnit = NULL;
-	BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
-	switch (unitType)
-	{
-		case ESpawnType_ROCK:
-			newUnit = new Unit_Rock(spawnPos, 100) ;		
-			break;
-		case ESpawnType_PAPER:
-			newUnit = new Unit_Paper(spawnPos, 100) ;
-			break;
-		case ESpawnType_SCISSORS:
-			newUnit = new Unit_Scissors(spawnPos, 100) ;
-			break;
-		default:
-			break; 
-	}
+	// HACK Need unit costs (with some variation)
+	int UnitCost = 500;
+	// some randomization until HACK is fixed
+	UnitCost = rand() % 200 + 400;
+	// END HACK
 
-	if( newUnit != NULL )
+	int CurrentCredits = mPlayers[teamIdx]->getCredits();
+	if (CurrentCredits > UnitCost)
 	{
-		newUnit->initStats();
-		newUnit->setOwningGame(this);
-		newUnit->setTeamIdx(teamIdx);
-		mActors.push_back(newUnit);	
+		mPlayers[teamIdx]->setCredits(CurrentCredits - UnitCost);
+
+		Unit *newUnit = NULL;
+		BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
+		switch (unitType)
+		{
+			case ESpawnType_ROCK:
+				newUnit = new Unit_Rock(spawnPos, 100) ;		
+				break;
+			case ESpawnType_PAPER:
+				newUnit = new Unit_Paper(spawnPos, 100) ;
+				break;
+			case ESpawnType_SCISSORS:
+				newUnit = new Unit_Scissors(spawnPos, 100) ;
+				break;
+			default:
+				break; 
+		}
+
+		if( newUnit != NULL )
+		{
+			newUnit->initStats();
+			newUnit->setOwningGame(this);
+			newUnit->setTeamIdx(teamIdx);
+			mActors.push_back(newUnit);	
+		}
 	}
 }
 
@@ -326,8 +357,10 @@ const BoyLib::Vector2 BattleBoy::getSpawnPos( int playerIdx )
 	{
 	case 0:
 		result = BoyLib::Vector2(w/2.0f,float(h-150));
+		break;
 	case 1:
-		result = BoyLib::Vector2(w/2.0f,100.0);
+		result = BoyLib::Vector2(w/2.0f,150.0);
+		break;
 	}
 	return result;
 }

@@ -157,7 +157,6 @@ void Unit_Building::draw(Boy::Graphics *g)
 {	
 	Unit::draw(g);
 
-	float size = 25.0;
 	g->pushTransform();
 
 	int segments = 100;
@@ -189,6 +188,7 @@ void Unit_Building::initStats()
 	Unit::initStats();
 	maxHealth = 1000.0f;
 	health = maxHealth;
+	size = 25.0;
 }
 
 void Unit_Rock::draw(Boy::Graphics *g)
