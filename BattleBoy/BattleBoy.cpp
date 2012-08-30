@@ -155,7 +155,7 @@ void BattleBoy::update(float dt)
 		if ((*it)->isAI())
 		{			
 			ESpawnType unitType = ESpawnType(rand() % ESpawnType_MAX + 1);
-			spawnUnit(unitType, playerIdxCount);
+			spawnUnit(unitType, playerIdxCount, 6);
 		}
 		playerIdxCount++;
 	}
@@ -264,7 +264,7 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 
 	if( spawnInfo.type != ESpawnType_NONE )
 	{
-		spawnUnit(spawnInfo.type, spawnInfo.playerIdx);
+		spawnUnit(spawnInfo.type, spawnInfo.playerIdx, 6);
 	}
 
 	//CHEATS
@@ -308,13 +308,13 @@ void BattleBoy::restart()
 	killAllUnitsCheat();
 }
 
-void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
+void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx, int amount)
 {
 	Unit *newUnit = NULL;
 	// HACK Need unit costs (with some variation)
-	int UnitCost = 20;
+	int UnitCost = 180;
 	int CurrentCredits = mPlayers[teamIdx]->getCredits();
-	if (CurrentCredits > UnitCost)
+	if (CurrentCredits >= UnitCost)
 	{
 		mPlayers[teamIdx]->setCredits(CurrentCredits - UnitCost);
 
@@ -323,30 +323,33 @@ void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
 		BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
 		BoyLib::Vector2 targetPos = getSpawnPos(teamIdx == 0 ? 1 : 0);
 
-		switch (unitType)
+		for (int i = 0; i < amount; i++)
 		{
-			case ESpawnType_ROCK:
-				newUnit = new Unit_Rock(spawnPos, 100) ;		
-				break;
-			case ESpawnType_PAPER:
-				newUnit = new Unit_Paper(spawnPos, 100) ;
-				break;
-			case ESpawnType_SCISSORS:
-				newUnit = new Unit_Scissors(spawnPos, 100) ;
-				break;
-			default:
-				break; 
-		}
+			switch (unitType)
+			{
+				case ESpawnType_ROCK:
+					newUnit = new Unit_Rock(spawnPos, 100) ;		
+					break;
+				case ESpawnType_PAPER:
+					newUnit = new Unit_Paper(spawnPos, 100) ;
+					break;
+				case ESpawnType_SCISSORS:
+					newUnit = new Unit_Scissors(spawnPos, 100) ;
+					break;
+				default:
+					break; 
+			}
 
-		if( newUnit != NULL )
-		{
-			newUnit->initStats();
-			newUnit->setOwningGame(this);
-			newUnit->setTeamIdx(teamIdx);
-			newUnit->getSteering()->arriveOn();
-			newUnit->getSteering()->separationOn();
-			newUnit->getSteering()->setTarget(targetPos);
-			mActors.push_back(newUnit);	
+			if( newUnit != NULL )
+			{
+				newUnit->initStats();
+				newUnit->setOwningGame(this);
+				newUnit->setTeamIdx(teamIdx);
+				newUnit->getSteering()->arriveOn();
+				newUnit->getSteering()->separationOn();
+				newUnit->getSteering()->setTarget(targetPos);
+				mActors.push_back(newUnit);	
+			}
 		}
 	}
 }
@@ -355,7 +358,7 @@ const BoyLib::Vector2 BattleBoy::getSpawnPos( int playerIdx )
 {
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
-	BoyLib::Vector2 variance( randf(-5.0f,5.0f),randf(-5.0f,5.0f));
+	BoyLib::Vector2 variance( randf(-15.0f,15.0f),randf(-15.0f,15.0f));
 	BoyLib::Vector2 result;
 	switch(playerIdx)
 	{
@@ -364,7 +367,7 @@ const BoyLib::Vector2 BattleBoy::getSpawnPos( int playerIdx )
 		break;
 		break;
 	case 1:
-		result = BoyLib::Vector2(w/2.0f,150.0);
+		result = variance + BoyLib::Vector2(w/2.0f,150.0);
 		break;
 	}
 	return result;

@@ -11,7 +11,7 @@ void Actor::update(float dt )
 
 void Actor::initStats()
 {
-	size = 15;
+	size = 50;
 	setDestroyed(false);
 	game = NULL;
 }

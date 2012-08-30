@@ -47,7 +47,7 @@ public:
 	virtual void restart();
 	virtual std::vector<Actor*>& getActors() {return mActors;};
 	
-	virtual void spawnUnit(ESpawnType unitType, int teamIdx);
+	virtual void spawnUnit(ESpawnType unitType, int teamIdx, int amount);
 	const BoyLib::Vector2 getSpawnPos( int playerIdx );
 private:
 	Boy::Font *mFont;
