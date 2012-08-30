@@ -132,7 +132,6 @@ void BattleBoy::loadComplete()
 
 void BattleBoy::update(float dt)
 {
-	dt = 0.04f;
 	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; )
 	{
 		if ((*it)->isDestroyed())
