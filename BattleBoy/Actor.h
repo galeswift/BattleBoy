@@ -16,18 +16,25 @@ public:
 	Actor(BoyLib::Vector2 _pos) : pos(_pos) { };
 	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) {};
 	virtual void draw(Boy::Graphics *g) {};
-	virtual void update(float dt) {};
+	virtual void update(float dt);
 	virtual void initStats();
 	void setOwningGame(BattleBoy *_game){ game=_game; }
-
+	BattleBoy* getGame() { return game; }
 	const BoyLib::Vector2& getPos(){ return pos; }
 	const BoyLib::Vector2& getDir(){ return dir; }
 	const BoyLib::Vector2& getVel(){ return vel; }
-	void setDestroyed(bool value){ bDestroyed = value; };
+	const BoyLib::Vector2& getAccel(){ return accel; }
+	float getMaxAccel(){ return 500.0f; }
+	float getMaxSpeed(){ return 200.0f; }
+
+	void setAccel(const BoyLib::Vector2& inAccel) { accel = inAccel; }
+	void setVel(const BoyLib::Vector2& inVel) { vel = inVel; }
+
+	void setDestroyed(bool value){ bDestroyed = value; }
 	bool isDestroyed() {return bDestroyed; }
 protected:
 	BattleBoy *game;
-	BoyLib::Vector2 pos, dir, vel;
+	BoyLib::Vector2 pos, dir, vel, accel;
 	float size, speed;
 	bool bDestroyed;
 };
