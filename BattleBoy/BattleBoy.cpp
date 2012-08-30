@@ -320,11 +320,11 @@ void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx, int amount)
 
 		Unit *newUnit = NULL;
 
-		BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
-		BoyLib::Vector2 targetPos = getSpawnPos(teamIdx == 0 ? 1 : 0);
-
 		for (int i = 0; i < amount; i++)
-		{
+		{		
+			BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
+			BoyLib::Vector2 targetPos = getSpawnPos(teamIdx == 0 ? 1 : 0);
+
 			switch (unitType)
 			{
 				case ESpawnType_ROCK:
