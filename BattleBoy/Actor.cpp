@@ -12,7 +12,7 @@ void Actor::update(float dt )
 void Actor::initStats()
 {
 	size = 15;
-	bDestroyed = false;
+	setDestroyed(false);
 	game = NULL;
 }
 
@@ -94,12 +94,6 @@ float Unit::modifyDamage(float damage, std::vector<EUnitDamageType> attackingDam
 	}
 	modifier = std::max<float>(0.0f, modifier);
 	return (damage*modifier);
-}
-
-void Actor::initStats()
-{
-	size = 15;
-	setDestroyed(false);
 }
 
 void Unit::draw(Boy::Graphics *g)
