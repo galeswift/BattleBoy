@@ -3,9 +3,9 @@
 
   <Resources id="common">
 
-    <Image id="IMAGE_SHIP"               path="res/ship"/>
-    <Image id="IMAGE_THRUST"             path="res/thruster"/>
-    <Image id="IMAGE_BULLET"             path="res/bullet"/>
+    <Image id="IMAGE_ROCK"               path="res/Rock"/>
+    <Image id="IMAGE_PAPER"              path="res/Paper"/>
+    <Image id="IMAGE_SCISSORS"           path="res/Scissors"/>
 
     <Image id="IMAGE_ASTEROID_BIG_1"     path="res/asteroidb1"/>
     <Image id="IMAGE_ASTEROID_BIG_2"     path="res/asteroidb2"/>

@@ -15,7 +15,7 @@ void Player::init()
 {
 	credits = 0;
 	creditsTime = 0.0f;
-	creditsRate = 1.0f;
+	creditsRate = 0.15f;
 	creditsIncrement = 60;
 	bIsAI = false;
 }

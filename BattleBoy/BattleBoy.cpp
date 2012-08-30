@@ -58,13 +58,13 @@ void BattleBoy::init(int argc, char* argv[])
 		printf("Starting offline game...\n");
 	}
 
-	mKeyToSpawnInfo['Q'] = SpawnInfo(ESpawnType_ROCK,0);
-	mKeyToSpawnInfo['W'] = SpawnInfo(ESpawnType_PAPER,0);
-	mKeyToSpawnInfo['E'] = SpawnInfo(ESpawnType_SCISSORS,0);
+	mKeyToSpawnInfo['Q'] = SpawnInfo(ESpawnType_ROCK,1);
+	mKeyToSpawnInfo['W'] = SpawnInfo(ESpawnType_PAPER,1);
+	mKeyToSpawnInfo['E'] = SpawnInfo(ESpawnType_SCISSORS,1);
 	
-	mKeyToSpawnInfo['A'] = SpawnInfo(ESpawnType_ROCK,1);
-	mKeyToSpawnInfo['S'] = SpawnInfo(ESpawnType_PAPER,1);
-	mKeyToSpawnInfo['D'] = SpawnInfo(ESpawnType_SCISSORS,1);
+	mKeyToSpawnInfo['A'] = SpawnInfo(ESpawnType_ROCK,0);
+	mKeyToSpawnInfo['S'] = SpawnInfo(ESpawnType_PAPER,0);
+	mKeyToSpawnInfo['D'] = SpawnInfo(ESpawnType_SCISSORS,0);
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])

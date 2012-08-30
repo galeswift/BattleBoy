@@ -56,6 +56,7 @@ protected:
 	std::vector<EUnitDamageType> vulnerabilityTypes;
 	std::vector<EUnitDamageType> resistanceTypes;
 	Steering* steering;
+	Boy::Image *mImage;
 };
 
 class Unit_Building : public Unit

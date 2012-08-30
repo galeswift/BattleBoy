@@ -101,6 +101,17 @@ void Unit::draw(Boy::Graphics *g)
 		g->setColor(0xffff0000);
 	}
 	drawHealth(g);
+
+	
+	if (mImage != NULL)
+	{
+		g->pushTransform();
+			// TODO Rotation
+			g->rotateDeg((teamIdx - 1)*180.0f);
+			g->translate(pos.x,pos.y);
+			g->drawImage(mImage);
+		g->popTransform();
+	}
 }
 
 void Unit::drawHealth(Boy::Graphics *g)
@@ -151,6 +162,7 @@ void Unit::initStats()
 	health = maxHealth;
 	attackRate = 0.5f;
 	timeSinceLastAttack = attackRate;
+	mImage = NULL;
 }
 
 void Unit_Building::draw(Boy::Graphics *g)
@@ -194,19 +206,6 @@ void Unit_Building::initStats()
 void Unit_Rock::draw(Boy::Graphics *g)
 {
 	Unit::draw(g);
-	
-	g->pushTransform();
-	g->translate(pos.x,pos.y);
-
-	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
-
-	g->drawLine(int(pos.x),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y));
-	g->drawLine(int(pos.x + size/2.0f),	int(pos.y), int(pos.x), int(pos.y + size/2.0f));
-
-	g->drawLine(int(pos.x),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y));
-	g->drawLine(int(pos.x - size/2.0f),	int(pos.y),	int(pos.x), int(pos.y - size/2.0f));
-
-	g->popTransform();	
 
 	g->setColorizationEnabled(false);
 }
@@ -218,24 +217,12 @@ void Unit_Rock::initStats()
 	damageTypes.push_back(EUnitDamageType_Rock);
 	vulnerabilityTypes.push_back(EUnitDamageType_Paper);
 	resistanceTypes.push_back(EUnitDamageType_Scissors);
+	mImage = Boy::Environment::getImage("IMAGE_ROCK");
 }
 
 void Unit_Paper::draw(Boy::Graphics *g)
 {
 	Unit::draw(g);
-
-	g->pushTransform();
-
-	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
-
-	g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y - size/2.0f));
-	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x + size/2.0f), int(pos.y + size/2.0f));
-
-	g->drawLine(int(pos.x + size/2.0f),	int(pos.y + size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
-	g->drawLine(int(pos.x - size/2.0f),	int(pos.y + size/2.0f),	int(pos.x - size/2.0f), int(pos.y - size/2.0f));
-
-	
-	g->popTransform();
 
 	g->setColorizationEnabled(false);
 }
@@ -247,20 +234,12 @@ void Unit_Paper::initStats()
 	damageTypes.push_back(EUnitDamageType_Paper);
 	vulnerabilityTypes.push_back(EUnitDamageType_Scissors);
 	resistanceTypes.push_back(EUnitDamageType_Rock);
+	mImage = Boy::Environment::getImage("IMAGE_PAPER");
 }
 
 void Unit_Scissors::draw(Boy::Graphics *g)
 {
 	Unit::draw(g);
-
-	g->pushTransform();
-
-	//BoyLib::Vector2 topleft, topright, bottomright, bottomleft;
-
-	g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y + size/2.0f));
-	g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
-	
-	g->popTransform();
 
 	g->setColorizationEnabled(false);
 }
@@ -272,4 +251,5 @@ void Unit_Scissors::initStats()
 	damageTypes.push_back(EUnitDamageType_Scissors);
 	vulnerabilityTypes.push_back(EUnitDamageType_Rock);
 	resistanceTypes.push_back(EUnitDamageType_Paper);
+	mImage = Boy::Environment::getImage("IMAGE_SCISSORS");
 }
