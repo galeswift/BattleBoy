@@ -132,6 +132,7 @@ void BattleBoy::loadComplete()
 
 void BattleBoy::update(float dt)
 {
+	dt = 0.04f;
 	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; )
 	{
 		if ((*it)->isDestroyed())
@@ -310,19 +311,19 @@ void BattleBoy::restart()
 
 void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
 {
+	Unit *newUnit = NULL;
 	// HACK Need unit costs (with some variation)
-	int UnitCost = 500;
-	// some randomization until HACK is fixed
-	UnitCost = rand() % 200 + 400;
-	// END HACK
-
+	int UnitCost = 20;
 	int CurrentCredits = mPlayers[teamIdx]->getCredits();
 	if (CurrentCredits > UnitCost)
 	{
 		mPlayers[teamIdx]->setCredits(CurrentCredits - UnitCost);
 
 		Unit *newUnit = NULL;
+
 		BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
+		BoyLib::Vector2 targetPos = getSpawnPos(teamIdx == 0 ? 1 : 0);
+
 		switch (unitType)
 		{
 			case ESpawnType_ROCK:
@@ -343,6 +344,9 @@ void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
 			newUnit->initStats();
 			newUnit->setOwningGame(this);
 			newUnit->setTeamIdx(teamIdx);
+			newUnit->getSteering()->arriveOn();
+			newUnit->getSteering()->separationOn();
+			newUnit->getSteering()->setTarget(targetPos);
 			mActors.push_back(newUnit);	
 		}
 	}
@@ -352,11 +356,13 @@ const BoyLib::Vector2 BattleBoy::getSpawnPos( int playerIdx )
 {
 	int w = Boy::Environment::screenWidth();
 	int h = Boy::Environment::screenHeight();
+	BoyLib::Vector2 variance( randf(-5.0f,5.0f),randf(-5.0f,5.0f));
 	BoyLib::Vector2 result;
 	switch(playerIdx)
 	{
 	case 0:
-		result = BoyLib::Vector2(w/2.0f,float(h-150));
+		result = variance + BoyLib::Vector2(w/2.0f,float(h-150));
+		break;
 		break;
 	case 1:
 		result = BoyLib::Vector2(w/2.0f,150.0);

@@ -1,13 +1,29 @@
 #include "Globals.h"
 
+void Actor::update(float dt )
+{
+	accel.truncate(getMaxAccel());
+
+	vel += accel * dt;
+	vel.truncate(getMaxSpeed());
+	pos += vel * dt;
+}
+
+void Actor::initStats()
+{
+	size = 15;
+	setDestroyed(false);
+	game = NULL;
+}
+
 void Unit::update(float dt)
 {
-	// Only move if we are not attacking
 	if( steering )
 	{
 		steering->update(dt);
 	}
 
+	Actor::update(dt);
 	/*if (!attack(dt))
 	{
 		move(dt);
@@ -80,12 +96,6 @@ float Unit::modifyDamage(float damage, std::vector<EUnitDamageType> attackingDam
 	return (damage*modifier);
 }
 
-void Actor::initStats()
-{
-	size = 15;
-	setDestroyed(false);
-}
-
 void Unit::draw(Boy::Graphics *g)
 {
 	Actor::draw(g);
@@ -148,7 +158,6 @@ void Unit::drawHealth(Boy::Graphics *g)
 	g->popTransform();
 
 	g->setColorizationEnabled(false);
-	
 }
 
 void Unit::initStats()
