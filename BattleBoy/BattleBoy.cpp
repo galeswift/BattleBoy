@@ -201,23 +201,25 @@ void BattleBoy::drawResources(Boy::Graphics *g)
 void BattleBoy::drawDebugText(Boy::Graphics *g)
 {
 	char TUDebugText[100];
-	sprintf_s(TUDebugText, "QWE  pick top Unit");
+	sprintf_s(TUDebugText,	"QWE pick top Unit");
 	char BUDebugText[100];
-	sprintf_s(BUDebugText, "ASD  pick bot Unit");
+	sprintf_s(BUDebugText,	"ASD  pick bot Unit");
 	char LSDebugText[100];
-	sprintf_s(LSDebugText, "123  lane  spawn");
+	sprintf_s(LSDebugText,	"123    lane  spawn");
 	char KDebugText[100];
-	sprintf_s(KDebugText, "K  kill all");
+	sprintf_s(KDebugText,	"K     kill all");
 	char TDebugText[100];
-	sprintf_s(TDebugText, "T  AI(TOP)");
+	sprintf_s(TDebugText,	"T     AI(TOP)");
 	char VDebugText[100];
-	sprintf_s(VDebugText, "V  autoplay");
+	sprintf_s(VDebugText,	"V     autoplay");
 	char RDebugText[100];
-	sprintf_s(RDebugText, "R  restart");
+	sprintf_s(RDebugText,	"R     restart");
 	char PlayerDebugText[100];
 	sprintf_s(PlayerDebugText,	"Player");
 	char AIDebugText[100];
 	sprintf_s(AIDebugText,		"  AI  ");
+	char NSDebugText[100];
+	sprintf_s(NSDebugText, "Next Spawn");
 
 	int h = Boy::Environment::screenHeight();
 
@@ -232,13 +234,45 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	g->translate(0.0f,20.0f);
 	mFont->drawString(g,LSDebugText,0.25f);
 	g->translate(0.0f,20.0f);
-	mFont->drawString(g,TDebugText,0.25f);
+	mFont->drawString(g,KDebugText,0.25f);
 	g->translate(0.0f,20.0f);
 	mFont->drawString(g,TDebugText,0.25f);
 	g->translate(0.0f,20.0f);
 	mFont->drawString(g,VDebugText,0.25f);
 	g->translate(0.0f,20.0f);
 	mFont->drawString(g,RDebugText,0.25f);
+	g->popTransform();
+
+	// Draw next spawn
+	g->pushTransform();
+	g->translate(175.0f,300.0f);
+	mFont->drawString(g,NSDebugText,0.25f);	
+	g->popTransform();
+
+	g->pushTransform();
+	g->translate(265.0f,340.0f);
+	if (mPendingSpawnInfo.playerIdx == 0)
+	{
+		g->drawImage(Boy::Environment::getImage("IMAGE_BLUETEAM"));
+	}
+	else
+	{
+		g->drawImage(Boy::Environment::getImage("IMAGE_REDTEAM"));
+	}
+	switch (mPendingSpawnInfo.type)
+	{
+		case ESpawnType_ROCK:
+			g->drawImage(Boy::Environment::getImage("IMAGE_ROCK"));
+			break;
+		case ESpawnType_PAPER:
+			g->drawImage(Boy::Environment::getImage("IMAGE_PAPER"));
+			break;
+		case ESpawnType_SCISSORS:
+			g->drawImage(Boy::Environment::getImage("IMAGE_SCISSORS"));
+			break;
+		default:
+			break; 
+	}
 	g->popTransform();
 	
 	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
