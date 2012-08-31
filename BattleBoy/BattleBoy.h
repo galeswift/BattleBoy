@@ -47,7 +47,7 @@ public:
 	virtual void restart();
 	virtual std::vector<Actor*>& getActors() {return mActors;};
 	
-	virtual void spawnUnit(ESpawnType unitType, int teamIdx, int amount);
+	virtual void spawnUnit(ESpawnType unitType, int teamIdx, int lane, int amount);
 	const BoyLib::Vector2 getSpawnPos( int playerIdx );
 private:
 	Boy::Font *mFont;
@@ -75,4 +75,7 @@ private:
 
 	// The target ip address that the client is trying to connect to.  Parsed from the --client command line argument
 	std::string mPendingAddress;
+
+	// What spawnInfo to spawn next
+	SpawnInfo mPendingSpawnInfo;
 };

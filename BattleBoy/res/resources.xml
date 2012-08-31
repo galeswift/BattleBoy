@@ -3,9 +3,14 @@
 
   <Resources id="common">
 
-    <Image id="IMAGE_ROCK"               path="res/Rock"/>
-    <Image id="IMAGE_PAPER"              path="res/Paper"/>
-    <Image id="IMAGE_SCISSORS"           path="res/Scissors"/>
+    <Image id="IMAGE_ROCK"               path="res/RockSmall"/>
+    <Image id="IMAGE_PAPER"              path="res/PaperSmall"/>
+    <Image id="IMAGE_SCISSORS"           path="res/ScissorsSmall"/>
+
+    <Image id="IMAGE_BLUETEAM"           path="res/BlueTeam"/>
+    <Image id="IMAGE_REDTEAM"            path="res/RedTeam"/>
+
+    <Image id="IMAGE_MAP"                path="res/Map"/>
 
     <Image id="IMAGE_ASTEROID_BIG_1"     path="res/asteroidb1"/>
     <Image id="IMAGE_ASTEROID_BIG_2"     path="res/asteroidb2"/>

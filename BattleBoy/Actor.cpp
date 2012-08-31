@@ -24,17 +24,20 @@ void Unit::update(float dt)
 	}
 
 	Actor::update(dt);
-	/*if (!attack(dt))
+	
+	// If attacking, stop
+	if (!dynamic_cast<Unit_Building*>(this))
 	{
-		move(dt);
-	}*/
+		// TODO
+		/*steering->SetIsStopped*/(attack(dt));
+	}
 }
 
 bool Unit::attack(float dt)
 {
 	bool result = timeSinceLastAttack < attackRate;
 
-	if (damage > 0 && !result)
+	if (damage > 0 && !result && game)
 	{
 		for( std::vector<Actor*>::iterator it = game->getActors().begin(); it != game->getActors().end() ; ++it )
 		{
@@ -119,6 +122,14 @@ void Unit::draw(Boy::Graphics *g)
 			// TODO Rotation
 			g->rotateDeg((teamIdx - 1)*180.0f);
 			g->translate(pos.x,pos.y);
+			if (getTeamIdx() == 0)
+			{
+				g->drawImage(Boy::Environment::getImage("IMAGE_BLUETEAM"));
+			}
+			else
+			{
+				g->drawImage(Boy::Environment::getImage("IMAGE_REDTEAM"));
+			}
 			g->drawImage(mImage);
 		g->popTransform();
 	}

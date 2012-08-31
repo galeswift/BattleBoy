@@ -108,15 +108,15 @@ void BattleBoy::loadComplete()
 	mFireSound = rm->getSound("SOUND_FIRE");
 	mThrustSound = rm->getSound("SOUND_THRUST");*/
 
-	int w = Boy::Environment::screenWidth();
-	int h = Boy::Environment::screenHeight();
+	//int w = Boy::Environment::screenWidth();
+	//int h = Boy::Environment::screenHeight();
 
-	Unit_Building *newBuilding = new Unit_Building(BoyLib::Vector2(w/2.0f,float(h-100)));
+	Unit_Building *newBuilding = new Unit_Building(BoyLib::Vector2(125.0f,670.0f));
 	newBuilding->initStats();
 	newBuilding->setTeamIdx(0);
 	mActors.push_back(newBuilding);
 
-	newBuilding = new Unit_Building(BoyLib::Vector2(w/2.0f,100.0));
+	newBuilding = new Unit_Building(BoyLib::Vector2(850.0f,100.0f));
 	newBuilding->initStats();
 	newBuilding->setTeamIdx(1);
 	mActors.push_back(newBuilding);
@@ -155,7 +155,7 @@ void BattleBoy::update(float dt)
 		if ((*it)->isAI())
 		{			
 			ESpawnType unitType = ESpawnType(rand() % ESpawnType_MAX + 1);
-			spawnUnit(unitType, playerIdxCount, 6);
+			spawnUnit(unitType, playerIdxCount, rand()%3, 6);
 		}
 		playerIdxCount++;
 	}
@@ -190,9 +190,9 @@ void BattleBoy::drawResources(Boy::Graphics *g)
 	g->setColorizationEnabled(true);
 	g->setColor(0xffffffff);
 	g->pushTransform();
-	g->translate(50.0f,50.0f);
+	g->translate(220.0f,200.0f);
 	mFont->drawString(g,P2CreditsText,0.5f);
-	g->translate(0.0f,50.0f);
+	g->translate(0.0f,40.0f);
 	mFont->drawString(g,P1CreditsText,0.5f);
 	g->popTransform();
 	g->setColorizationEnabled(false);
@@ -200,18 +200,24 @@ void BattleBoy::drawResources(Boy::Graphics *g)
 
 void BattleBoy::drawDebugText(Boy::Graphics *g)
 {
+	char TUDebugText[100];
+	sprintf_s(TUDebugText, "QWE  pick top Unit");
+	char BUDebugText[100];
+	sprintf_s(BUDebugText, "ASD  pick bot Unit");
+	char LSDebugText[100];
+	sprintf_s(LSDebugText, "123  lane  spawn");
 	char KDebugText[100];
-	sprintf_s(KDebugText, "K to kill all units");
+	sprintf_s(KDebugText, "K  kill all");
 	char TDebugText[100];
-	sprintf_s(TDebugText, "T toggle vs AI(TOP)");
+	sprintf_s(TDebugText, "T  AI(TOP)");
 	char VDebugText[100];
-	sprintf_s(VDebugText, "V to toggle autoplay");
+	sprintf_s(VDebugText, "V  autoplay");
 	char RDebugText[100];
-	sprintf_s(RDebugText, "R to restart");
+	sprintf_s(RDebugText, "R  restart");
 	char PlayerDebugText[100];
-	sprintf_s(PlayerDebugText, "<---- Player");
+	sprintf_s(PlayerDebugText,	"Player");
 	char AIDebugText[100];
-	sprintf_s(AIDebugText, "<---- AI");
+	sprintf_s(AIDebugText,		"  AI  ");
 
 	int h = Boy::Environment::screenHeight();
 
@@ -219,13 +225,19 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	g->setColor(0xffffffff);
 
 	g->pushTransform();
-	g->translate(50.0f,h - 200.0f);
-	mFont->drawString(g,KDebugText,0.25f);
-	g->translate(0.0f,50.0f);
+	g->translate(500.0f,460.0f);
+	mFont->drawString(g,TUDebugText,0.25f);
+	g->translate(0.0f,20.0f);
+	mFont->drawString(g,BUDebugText,0.25f);
+	g->translate(0.0f,20.0f);
+	mFont->drawString(g,LSDebugText,0.25f);
+	g->translate(0.0f,20.0f);
 	mFont->drawString(g,TDebugText,0.25f);
-	g->translate(0.0f,50.0f);
+	g->translate(0.0f,20.0f);
+	mFont->drawString(g,TDebugText,0.25f);
+	g->translate(0.0f,20.0f);
 	mFont->drawString(g,VDebugText,0.25f);
-	g->translate(0.0f,50.0f);
+	g->translate(0.0f,20.0f);
 	mFont->drawString(g,RDebugText,0.25f);
 	g->popTransform();
 	
@@ -236,7 +248,14 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 		{
 			g->pushTransform();				
 			g->translate(building->getPos().x, building->getPos().y);
-			g->translate(100.0f,30.0f);
+			if (building->getTeamIdx() == 0)
+			{
+				g->translate(-50.0f,40.0f);
+			}
+			else
+			{
+				g->translate(-50.0f,-40.0f);
+			}
 			if (mPlayers[building->getTeamIdx()]->isAI())
 			{
 				mFont->drawString(g,AIDebugText,0.25f);
@@ -256,15 +275,32 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 {
 	// Look through our keybindings and see if we have a result
 	std::map<wchar_t,SpawnInfo>::iterator keyBinding = mKeyToSpawnInfo.find(unicode);
-	SpawnInfo spawnInfo;
 	if( keyBinding != mKeyToSpawnInfo.end() )
 	{
-		spawnInfo = (*keyBinding).second;
+		mPendingSpawnInfo = (*keyBinding).second;
 	}
 
-	if( spawnInfo.type != ESpawnType_NONE )
+	bool bSpawnUnits = false;
+	int lane = 0;
+	switch (unicode)
 	{
-		spawnUnit(spawnInfo.type, spawnInfo.playerIdx, 6);
+		case '1':
+			lane = 0; //Top
+			bSpawnUnits = true;
+			break;
+		case '2':
+			lane = 1; //Mid
+			bSpawnUnits = true;
+			break;
+		case '3':
+			lane = 2; //Bot
+			bSpawnUnits = true;
+			break;
+	}
+
+	if( bSpawnUnits && mPendingSpawnInfo.type != ESpawnType_NONE )
+	{
+		spawnUnit(mPendingSpawnInfo.type, mPendingSpawnInfo.playerIdx, lane, 6);
 	}
 
 	//CHEATS
@@ -306,9 +342,10 @@ void BattleBoy::restart()
 	mPlayers[0]->init();
 	mPlayers[1]->init();
 	killAllUnitsCheat();
+	// TODO: repair buildings
 }
 
-void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx, int amount)
+void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx, int lane, int amount)
 {
 	Unit *newUnit = NULL;
 	// HACK Need unit costs (with some variation)
@@ -324,6 +361,15 @@ void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx, int amount)
 		{		
 			BoyLib::Vector2 spawnPos = getSpawnPos(teamIdx);
 			BoyLib::Vector2 targetPos = getSpawnPos(teamIdx == 0 ? 1 : 0);
+			// HACK until can do proper pathing/destinations
+			if(lane == 0)
+			{
+				targetPos = BoyLib::Vector2(135.0f,105.0f);
+			}
+			else if (lane == 2)
+			{
+				targetPos = BoyLib::Vector2(845.0f,650.0f);
+			}
 
 			switch (unitType)
 			{
@@ -363,11 +409,11 @@ const BoyLib::Vector2 BattleBoy::getSpawnPos( int playerIdx )
 	switch(playerIdx)
 	{
 	case 0:
-		result = variance + BoyLib::Vector2(w/2.0f,float(h-150));
+		result = variance + BoyLib::Vector2(125.0f,670.0f);
 		break;
 		break;
 	case 1:
-		result = variance + BoyLib::Vector2(w/2.0f,150.0);
+		result = variance + BoyLib::Vector2(850.0f,100.0f);
 		break;
 	}
 	return result;
