@@ -44,6 +44,7 @@ public:
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 
 	virtual void killAllUnitsCheat();
+	virtual void healAllUnitsCheat();
 	virtual void restart();
 	virtual std::vector<Actor*>& getActors() {return mActors;};
 	

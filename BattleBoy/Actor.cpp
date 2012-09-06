@@ -28,7 +28,7 @@ void Unit::update(float dt)
 	// If attacking, stop
 	if (!dynamic_cast<Unit_Building*>(this))
 	{
-		// TODO
+		// TODO Keith from  John, make them stop to attack each other
 		/*steering->SetIsStopped*/(attack(dt));
 	}
 }
@@ -71,6 +71,7 @@ void Unit::takeDamage(float damageTaken)
 	health -= damageTaken;
 	if (health <= 0)
 	{
+		health = 0;
 		setDestroyed(true);
 	}
 }
@@ -103,6 +104,8 @@ void Unit::draw(Boy::Graphics *g)
 {
 	Actor::draw(g);
 
+	drawHealth(g);
+
 	g->setColorizationEnabled(true);
 
 	if (getTeamIdx() == 0)
@@ -113,8 +116,6 @@ void Unit::draw(Boy::Graphics *g)
 	{
 		g->setColor(0xffff0000);
 	}
-	drawHealth(g);
-
 	
 	if (mImage != NULL)
 	{
@@ -164,7 +165,7 @@ void Unit::drawHealth(Boy::Graphics *g)
 	sprintf_s(healthText, "%dl%d", h1, mh1);
 	
 	g->pushTransform();
-	g->translate(pos.x + size/2.5f,pos.y - size/2.5f );
+	g->translate(pos.x - size,pos.y - size/2.0f);
 	mFont->drawString(g,healthText,0.25f);
 	g->popTransform();
 
@@ -200,8 +201,8 @@ void Unit_Building::draw(Boy::Graphics *g)
     for( int n = 0; n <= segments; ++n )
 	{
         float const t = 2.0f*3.14f*float(n)/float(segments);	
-		x = int(pos.x + sin(t)*size);
-		y = int(pos.y + cos(t)*size);
+		x = int(pos.x + sin(t)*(size/2.0f));
+		y = int(pos.y + cos(t)*(size/2.0f));
 		if (lastX != 0 && lastY != 0)
 		{
 			g->drawLine(x, y, lastX, lastY);
@@ -210,7 +211,17 @@ void Unit_Building::draw(Boy::Graphics *g)
 		lastY = y;
     }
 	
-	g->popTransform();
+	g->popTransform();	
+	
+	if (isDestroyed())
+	{
+		g->pushTransform();
+		g->setColorizationEnabled(true);
+		g->setColor(0xffff0000);
+		g->drawLine(int(pos.x - size/2.0f),	int(pos.y - size/2.0f),	int(pos.x + size/2.0f),	int(pos.y + size/2.0f));
+		g->drawLine(int(pos.x + size/2.0f),	int(pos.y - size/2.0f), int(pos.x - size/2.0f), int(pos.y + size/2.0f));
+		g->popTransform();	
+	}
 
 	g->setColorizationEnabled(false);
 }
@@ -220,7 +231,7 @@ void Unit_Building::initStats()
 	Unit::initStats();
 	maxHealth = 1000.0f;
 	health = maxHealth;
-	size = 25.0;
+	size = 50.0;
 }
 
 void Unit_Rock::draw(Boy::Graphics *g)

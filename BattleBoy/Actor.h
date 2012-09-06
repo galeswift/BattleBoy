@@ -55,6 +55,10 @@ public:
 	float modifyDamage(float damage, std::vector<EUnitDamageType> attackingDamageType, std::vector<EUnitDamageType> defendingVulnerabilityTypes, std::vector<EUnitDamageType> defendingResistanceTypes);
 	virtual void initStats();
 	Steering* getSteering() {return steering;}
+	void setHealth(float value){ health = value; }
+	float getHealth() { return health; }
+	void setMaxHealth(float value) { maxHealth = value; }
+	float getMaxHealth() { return maxHealth; }
 protected:
 	float timeSinceLastAttack;
 	float range, damage, health, maxHealth, attackRate;

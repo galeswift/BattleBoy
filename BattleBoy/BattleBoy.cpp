@@ -134,7 +134,7 @@ void BattleBoy::update(float dt)
 {
 	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; )
 	{
-		if ((*it)->isDestroyed())
+		if ((*it)->isDestroyed() && !dynamic_cast<Unit_Building*>(*it))
 		{
 			it = mActors.erase(it);
 		}
@@ -208,6 +208,8 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	sprintf_s(LSDebugText,	"123    lane  spawn");
 	char KDebugText[100];
 	sprintf_s(KDebugText,	"K     kill all");
+	char HDebugText[100];
+	sprintf_s(HDebugText,	"H     heal all");
 	char TDebugText[100];
 	sprintf_s(TDebugText,	"T     AI(TOP)");
 	char VDebugText[100];
@@ -235,6 +237,8 @@ void BattleBoy::drawDebugText(Boy::Graphics *g)
 	mFont->drawString(g,LSDebugText,0.25f);
 	g->translate(0.0f,20.0f);
 	mFont->drawString(g,KDebugText,0.25f);
+	g->translate(0.0f,20.0f);
+	mFont->drawString(g,HDebugText,0.25f);
 	g->translate(0.0f,20.0f);
 	mFont->drawString(g,TDebugText,0.25f);
 	g->translate(0.0f,20.0f);
@@ -343,6 +347,9 @@ void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Mo
 		case 'K':
 			killAllUnitsCheat();
 			break;
+		case 'H':
+			healAllUnitsCheat();
+			break;
 		case 'T':
 			mPlayers[1]->setIsAI(!mPlayers[1]->isAI());
 			break;
@@ -371,12 +378,25 @@ void BattleBoy::killAllUnitsCheat()
 	}
 }
 
+void BattleBoy::healAllUnitsCheat()
+{
+	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
+	{
+		Unit* unit = dynamic_cast<Unit *>(*it);
+		if (unit)
+		{
+			unit->setHealth(unit->getMaxHealth());
+			unit->setDestroyed(false);
+		}
+	}
+}
+
 void BattleBoy::restart()
 {
 	mPlayers[0]->init();
 	mPlayers[1]->init();
 	killAllUnitsCheat();
-	// TODO: repair buildings
+	healAllUnitsCheat();
 }
 
 void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx, int lane, int amount)
