@@ -1,0 +1,15 @@
+TODO:
+
+Projectile System
+Pathing System
+UI
+New Font
+Animation
+Win/Loss
+Make executable available to Yvonne and Zoey
+Add multiple maps
+Add Map Selection
+Add multiple armies
+Add Army Selection
+Add more unit variants (eventually)
+Possible Tower builders and Towers
