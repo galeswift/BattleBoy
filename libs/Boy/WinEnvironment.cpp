@@ -350,7 +350,7 @@ void WinEnvironment::startMainLoop(int argc, char* argv[])
 		draw();
 
 		// print some timing stats:
-		//printTimingStats();
+		printTimingStats();
 
 		// if a pause ended during this iteration:
 		if (mPauseDuration>0)

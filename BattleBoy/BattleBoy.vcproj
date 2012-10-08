@@ -41,13 +41,14 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../libs;../Raknet/Source"
+				AdditionalIncludeDirectories="../libs;../Raknet/Source;../libs/AI"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;GOO_PLATFORM_WIN32"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
 				WarningLevel="3"
+				WarnAsError="true"
 				DebugInformationFormat="4"
 				DisableSpecificWarnings="4995"
 			/>
@@ -119,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../libs;../Raknet/Source"
+				AdditionalIncludeDirectories="../libs;../Raknet/Source;../libs/AI"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;GOO_PLATFORM_WIN32"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -175,6 +176,18 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="States"
+			>
+			<File
+				RelativePath=".\States.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\States.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\Actor.cpp"
 			>
@@ -220,14 +233,6 @@
 			>
 		</File>
 		<File
-			RelativePath=".\Player.cpp"
-			>
-		</File>
-		<File
-			RelativePath=".\Player.h"
-			>
-		</File>
-		<File
 			RelativePath=".\res\resources.xml"
 			>
 		</File>
@@ -237,6 +242,14 @@
 		</File>
 		<File
 			RelativePath=".\Steering.h"
+			>
+		</File>
+		<File
+			RelativePath=".\Unit.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Unit.h"
 			>
 		</File>
 	</Files>

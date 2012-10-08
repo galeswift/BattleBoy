@@ -44,6 +44,7 @@ public:
 	
 	BoyLib::Vector2  target()const{return m_vTarget;}
 	void setTarget(const BoyLib::Vector2 t){m_vTarget = t;}
+	BoyLib::Vector2 force()const{return m_vSteeringForce;}
 	void findNeighbours();
 
 	// Steering functions
@@ -53,7 +54,7 @@ public:
 	void arriveOff(){if(on(ARRIVE)) m_iFlags ^=ARRIVE;}
 	void separationOn(){m_iFlags |= SEPARATION;}
 	void separationOff(){if(on(SEPARATION)) m_iFlags ^=SEPARATION;}
-
+	
 	bool      tagged()const{return m_bTagged;}
 	void      tag(){m_bTagged = true;}
 	void      unTag(){m_bTagged = false;}
@@ -65,6 +66,7 @@ private:
 	int           m_iFlags;
 
 	float		  m_dMultSeparation;
+
 	//the current target 
 	BoyLib::Vector2 m_vTarget;
 

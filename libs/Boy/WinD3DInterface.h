@@ -40,8 +40,10 @@ namespace Boy
 		void drawImage(WinImage *image, DWORD color, float z);
 		void drawImage(WinImage *image, DWORD color, float z, int x, int y, int w, int h);
 		void drawRect(int x, int y, int w, int h, float z, DWORD color);
+		void drawStrip(WinTriStrip *strip, D3DPRIMITIVETYPE type);
 		void drawTriStrip(WinTriStrip *strip);
-		void drawLine(int x0, int y0, int x1, int y1, Color color);
+		void drawLineStrip(WinTriStrip *strip);
+		void drawLine(float x0, float y0, float x1, float y1, Color color);
 
 		// world transformation:
 		void setTransform(D3DXMATRIX &xform);

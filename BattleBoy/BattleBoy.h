@@ -36,20 +36,17 @@ public:
 	virtual void loadComplete();
 	virtual void update(float dt);
 	virtual void draw(Boy::Graphics *g);
-	virtual void drawResources(Boy::Graphics *g);
-	virtual void drawDebugText(Boy::Graphics *g);
 
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
-
-	virtual void killAllUnitsCheat();
-	virtual void healAllUnitsCheat();
-	virtual void restart();
 	virtual std::vector<Actor*>& getActors() {return mActors;};
 	
-	virtual void spawnUnit(ESpawnType unitType, int teamIdx, int lane, int amount);
+	virtual void spawnUnit(ESpawnType unitType, int teamIdx);
 	const BoyLib::Vector2 getSpawnPos( int playerIdx );
+
+	Unit* closestEnemy(Unit* unit, float range = -1);
+
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
@@ -59,14 +56,8 @@ private:
 	// Static instance of the battleboy class
 	static BattleBoy *gInstance;
 
-	// The main Map actor
-	Map *mMap;
-
 	// All Actors in game
 	std::vector<Actor*> mActors;
-
-	// All Players in game
-	std::vector<Player*> mPlayers;
 
 	// If we are a server/client, this will hold the network interface for it
 	Networking::NetworkInterface *mNetInterface;
