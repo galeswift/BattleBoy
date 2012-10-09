@@ -25,7 +25,7 @@ void Unit::update(float dt)
 	//braking force
 	if (steering->force().magnitude() <= 0.0f)
 	{
-		const float brakingRate = 0.0f; 
+		const float brakingRate = 0.8f; 
 
 		setVel( getVel() * brakingRate ); 
 		setAccel(0.0);
