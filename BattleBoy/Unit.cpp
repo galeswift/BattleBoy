@@ -174,9 +174,8 @@ void Unit_Building::draw(Boy::Graphics *g)
 		g->drawLine(pos.x - size/2.0f,	pos.y - size/2.0f,	pos.x + size/2.0f,	pos.y + size/2.0f);
 		g->drawLine(pos.x + size/2.0f,	pos.y - size/2.0f, pos.x - size/2.0f, pos.y + size/2.0f);
 		g->popTransform();	
+		g->setColorizationEnabled(false);
 	}
-
-	g->setColorizationEnabled(false);
 }
 
 void Unit_Building::init()

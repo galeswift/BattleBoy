@@ -9,6 +9,13 @@ enum ESpawnType
 	ESpawnType_MAX = 3, // DON'T INCLUDE ESpawnType_NONE
 };
 
+enum EDrawMode
+{
+	EDebugDrawMode_NONE = 0,
+	EDebugDrawMode_ALL = 1,
+	EDebugDrawMode_MAX = 2,
+};
+
 struct SpawnInfo
 {
 	SpawnInfo() : type(ESpawnType_NONE), playerIdx(-1){};
@@ -31,7 +38,14 @@ public:
 
 	// implementation of Game:
 	virtual void init(int argc, char* argv[]);
+	// Pause/unpause the game
 	virtual void togglePause();
+	// Cycle through the various debug draw modes
+	virtual void toggleDebugDraw();
+	// Return the current debug draw mode
+	virtual int getDebugDrawMode() { return mDebugDrawMode; }
+
+	// Parse command line
 	virtual void parseCommandArgs(int argc, char* argv[]);
 	virtual void load();
 	virtual void loadComplete();
@@ -62,6 +76,9 @@ private:
 
 	// Whether the game is paused or not
 	bool bPaused;
+
+	// Debug draw mode
+	int mDebugDrawMode;
 
 	// All Actors in game
 	std::vector<Actor*> mActors;

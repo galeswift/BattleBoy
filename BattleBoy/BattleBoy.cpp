@@ -7,6 +7,7 @@ BattleBoy::BattleBoy()
 	mLoadComplete = false;
 	bPaused = false;
 	mRole = Networking::ROLE_None;
+	mDebugDrawMode = EDebugDrawMode_ALL;
 	mNetInterface = NULL;
 }
 
@@ -66,11 +67,22 @@ void BattleBoy::init(int argc, char* argv[])
 	mKeyToSpawnInfo['D'] = SpawnInfo(ESpawnType_SCISSORS,0);
 
 	mKeyToCommand['P'] = &BattleBoy::togglePause;
+	mKeyToCommand['O'] = &BattleBoy::toggleDebugDraw;
 }
 
 void BattleBoy::togglePause()
 {
 	bPaused = !bPaused;
+}
+
+void BattleBoy::toggleDebugDraw()
+{
+	mDebugDrawMode++;
+
+	if( mDebugDrawMode == EDebugDrawMode_MAX )
+	{
+		mDebugDrawMode = EDebugDrawMode_NONE;
+	}
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])

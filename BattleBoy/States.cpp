@@ -40,17 +40,19 @@ void StateManager::draw(Boy::Graphics* g)
 	{
 		mStack.back()->draw(g);
 
-		g->pushTransform();
-			
-		g->translate(mOwner->getPos().x,mOwner->getPos().y);
-
-		char stateText[100] = {};
-		Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
-		Boy::Font *mFont = rm->getFont("FONT_MAIN");
-		g->translate(0,-50);
-		sprintf_s(stateText,"%s", getCurrentStateName().c_str());
-		mFont->drawString(g, stateText, 0.15f);
-		g->popTransform();
+		BattleBoy* game = BattleBoy::instance();
+		if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
+		{
+			g->pushTransform();
+			g->translate(mOwner->getPos().x,mOwner->getPos().y);
+			char stateText[100] = {};
+			Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
+			Boy::Font *mFont = rm->getFont("FONT_MAIN");
+			g->translate(0,-50);
+			sprintf_s(stateText,"%s", getCurrentStateName().c_str());
+			mFont->drawString(g, stateText, 0.15f);
+			g->popTransform();
+		}
 	}
 }
 
@@ -87,20 +89,26 @@ void State_Moving::end()
 
 void State_Moving::draw(Boy::Graphics* g)
 {
-	g->pushTransform();
-	g->setColorizationEnabled(true);
+	BattleBoy* game = BattleBoy::instance();
 
-	if (mOwner->getTeamIdx() == 0)
+	if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
 	{
-		g->setColor(0xff0fffff);
+		g->pushTransform();
+		g->setColorizationEnabled(true);
+
+		if (mOwner->getTeamIdx() == 0)
+		{
+			g->setColor(0xff0fffff);
+		}
+		else
+		{
+			g->setColor(0xfffff000);
+		}
+		
+		g->drawLine(mOwner->getPos().x, mOwner->getPos().y,  mOwner->getPos().x + mOwner->getSteering()->force().x, mOwner->getPos().y + mOwner->getSteering()->force().y);
+		g->setColorizationEnabled(false);
+		g->popTransform();
 	}
-	else
-	{
-		g->setColor(0xfffff000);
-	}
-	
-	g->drawLine(mOwner->getPos().x, mOwner->getPos().y,  mOwner->getPos().x + mOwner->getSteering()->force().x, mOwner->getPos().y + mOwner->getSteering()->force().y);
-	g->popTransform();
 }
 
 void State_Moving::update(float dt)
@@ -123,9 +131,13 @@ void State_Attacking::draw(Boy::Graphics* g)
 {
 	if( mCurrentTarget != NULL)
 	{
-		g->pushTransform();	
-		g->drawLine(mOwner->getPos().x,mOwner->getPos().y, mCurrentTarget->getPos().x, mCurrentTarget->getPos().y);
-		g->popTransform();
+		BattleBoy* game = BattleBoy::instance();
+		if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
+		{
+			g->pushTransform();	
+			g->drawLine(mOwner->getPos().x,mOwner->getPos().y, mCurrentTarget->getPos().x, mCurrentTarget->getPos().y);
+			g->popTransform();
+		}
 	}
 }
 
