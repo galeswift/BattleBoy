@@ -53,6 +53,9 @@ public:
 	virtual void draw(Boy::Graphics *g);
 	virtual void addActor(Actor* a);
 
+	// return true if this actor is outside the bounds of the window
+	virtual bool isOutOfBounds(Actor* a);
+
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);

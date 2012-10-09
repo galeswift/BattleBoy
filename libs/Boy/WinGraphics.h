@@ -24,7 +24,7 @@ namespace Boy
 		virtual void drawImage(Image *img, int subrectX, int subrectY, int subrectW, int subrectH);
 
 		virtual void drawLine(float x0, float y0, float x1, float y1);
-		virtual void drawCircle(int x0, int y0, float r, int s);
+		virtual void drawCircle(float x0, float y0, float r, int s);
 		virtual void fillRect(int x0, int y0, int w, int h);
 		virtual void drawTriStrip(TriStrip *strip);
 		virtual void drawLineStrip(TriStrip *strip);

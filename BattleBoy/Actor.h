@@ -24,6 +24,8 @@ public:
 	const BoyLib::Vector2& getDir(){ return dir; }
 	const BoyLib::Vector2& getVel(){ return vel; }
 	const BoyLib::Vector2& getAccel(){ return accel; }
+	float getSize(){ return size; }
+
 	float getMaxAccel(){ return 500.0f; }
 	float getMaxSpeed(){ return 200.0f; }
 
@@ -37,4 +39,15 @@ protected:
 	BoyLib::Vector2 pos, dir, vel, accel;
 	float size, speed;
 	bool bDestroyed;
+};
+
+class Projectile : public Actor
+{
+public:
+	Projectile(BoyLib::Vector2 _pos, BoyLib::Vector2& dir) : Actor(_pos), mDir(dir) {}
+	virtual void init();
+	virtual void update(float dt);
+	virtual void draw(Boy::Graphics *g);
+private:
+	BoyLib::Vector2& mDir;
 };

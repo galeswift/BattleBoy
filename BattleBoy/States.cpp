@@ -143,11 +143,11 @@ void State_Attacking::draw(Boy::Graphics* g)
 
 void State_Attacking::update(float dt)
 {
+	BattleBoy* game = BattleBoy::instance();
+
 	if( !mCurrentTarget || mCurrentTarget->isDestroyed() )
 	{
 		mCurrentTarget = NULL;
-
-		BattleBoy* game = BattleBoy::instance();
 		Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
 		if( enemy != NULL )
 		{
@@ -162,6 +162,7 @@ void State_Attacking::update(float dt)
 		{
 			mAttackDelay = mOwner->getAttackRate();
 			mCurrentTarget->takeDamage(mOwner);
+			game->addActor(new Projectile( mOwner->getPos(),  mCurrentTarget->getPos() - mOwner->getPos() ));
 		}
 	}
 	else

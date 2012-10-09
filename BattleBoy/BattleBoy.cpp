@@ -170,6 +170,25 @@ void BattleBoy::addActor(Actor* a)
 	a->init();
 }
 
+// return true if this actor is outside the bounds of the window
+bool BattleBoy::isOutOfBounds(Actor* a)
+{
+	bool result = false;
+
+	int w = Boy::Environment::screenWidth();
+	int h = Boy::Environment::screenHeight();
+	
+	if( a->getPos().x < -a->getSize() || a->getPos().x > w + a->getSize() ||
+		a->getPos().y < -a->getSize() || a->getPos().y > h + a->getSize() )
+	{
+		result = true;
+	}
+
+	return result;
+
+}
+
+
 void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
 {	
 	mPendingSpawnInfo.type = ESpawnType_NONE;

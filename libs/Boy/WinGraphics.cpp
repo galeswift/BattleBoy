@@ -71,7 +71,7 @@ void WinGraphics::drawLine(float x0, float y0, float x1, float y1)
 	mInterface->drawLine(x0,y0,x1,y1,mColor);
 }
 
-void WinGraphics::drawCircle(int x0, int y0, float r, int s)
+void WinGraphics::drawCircle(float x0, float y0, float r, int s)
 {
 	const double PI = 3.14159;
 

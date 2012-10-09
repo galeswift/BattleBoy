@@ -159,8 +159,8 @@ void Unit_Building::draw(Boy::Graphics *g)
 {	
 	Unit::draw(g);
 
-	int x = int(pos.x);
-	int y = int(pos.y);
+	float x = pos.x;
+	float y = pos.y;
 	
 	g->pushTransform();
 	g->drawCircle(x,y,size/2.0f,12);	
