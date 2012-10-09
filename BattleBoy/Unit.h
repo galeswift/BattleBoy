@@ -24,6 +24,7 @@ public:
 	float getAttackRate() { return attackRate; }
 	StateManager* getStateManager() { return mStateManager; }
 	const std::vector<EUnitDamageType>& getDamageTypes() {return damageTypes;}
+
 protected:
 	float range, damage, health, maxHealth, attackRate;
 	int teamIdx;

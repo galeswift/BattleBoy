@@ -31,11 +31,13 @@ public:
 
 	// implementation of Game:
 	virtual void init(int argc, char* argv[]);
+	virtual void togglePause();
 	virtual void parseCommandArgs(int argc, char* argv[]);
 	virtual void load();
 	virtual void loadComplete();
 	virtual void update(float dt);
 	virtual void draw(Boy::Graphics *g);
+	virtual void addActor(Actor* a);
 
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
@@ -51,10 +53,15 @@ private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
 
+	typedef void (BattleBoy::*keyCommand)(void);
+	std::map<wchar_t,keyCommand> mKeyToCommand;
 	std::map<wchar_t,SpawnInfo> mKeyToSpawnInfo;
 private:
 	// Static instance of the battleboy class
 	static BattleBoy *gInstance;
+
+	// Whether the game is paused or not
+	bool bPaused;
 
 	// All Actors in game
 	std::vector<Actor*> mActors;

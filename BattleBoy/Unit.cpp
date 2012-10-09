@@ -3,7 +3,7 @@
 void Unit::init()
 {
 	Actor::init();
-
+	
 	mStateManager = new StateManager(this);
 	steering = new Steering(this);
 	damage = 10.0f;
@@ -27,7 +27,8 @@ void Unit::update(float dt)
 	{
 		const float brakingRate = 0.0f; 
 
-		setVel( getVel() * brakingRate );                                     
+		setVel( getVel() * brakingRate ); 
+		setAccel(0.0);
 	}
 
  
@@ -46,7 +47,9 @@ void Unit::takeDamage(Unit* attacker)
 	if (health <= 0)
 	{
 		health = 0;
-		setDestroyed(true);
+		setDestroyed(true);	
+		BattleBoy* game = BattleBoy::instance();
+		game->addActor(new Explosion(getPos().x, getPos().y, getRange()/2.0f));
 	}
 }
 
@@ -110,7 +113,7 @@ void Unit::draw(Boy::Graphics *g)
 			{
 				g->drawImage(Boy::Environment::getImage("IMAGE_REDTEAM"));
 			}
-			g->drawCircle((int)pos.x,(int)pos.y,getRange(), 8);
+			//g->drawCircle((int)pos.x,(int)pos.y,getRange(), 8);
 			g->drawImage(mImage);
 		g->popTransform();
 	}

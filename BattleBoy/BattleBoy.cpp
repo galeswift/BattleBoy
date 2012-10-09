@@ -5,6 +5,7 @@ BattleBoy *BattleBoy::gInstance = NULL;
 BattleBoy::BattleBoy()
 {
 	mLoadComplete = false;
+	bPaused = false;
 	mRole = Networking::ROLE_None;
 	mNetInterface = NULL;
 }
@@ -63,6 +64,13 @@ void BattleBoy::init(int argc, char* argv[])
 	mKeyToSpawnInfo['A'] = SpawnInfo(ESpawnType_ROCK,0);
 	mKeyToSpawnInfo['S'] = SpawnInfo(ESpawnType_PAPER,0);
 	mKeyToSpawnInfo['D'] = SpawnInfo(ESpawnType_SCISSORS,0);
+
+	mKeyToCommand['P'] = &BattleBoy::togglePause;
+}
+
+void BattleBoy::togglePause()
+{
+	bPaused = !bPaused;
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -114,16 +122,21 @@ void BattleBoy::loadComplete()
 
 void BattleBoy::update(float dt)
 {
-	for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; )
+	if( bPaused )
 	{
-		if ((*it)->isDestroyed() && !dynamic_cast<Unit_Building*>(*it))
+		return;
+	}
+	for( unsigned int i=0 ; i<mActors.size() ; )
+	{
+		Actor* actor = mActors[i];
+		if (actor->isDestroyed() && !dynamic_cast<Unit_Building*>(actor))
 		{
-			it = mActors.erase(it);
+			mActors.erase(mActors.begin() + i);
 		}
 		else
 		{
-			(*it)->update(dt);
-			++it;
+			actor->update(dt);
+			i++;
 		}
 	}
 }
@@ -139,13 +152,28 @@ void BattleBoy::draw(Boy::Graphics *g)
 	}
 }
 
-void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
+void BattleBoy::addActor(Actor* a)
 {
-	// Look through our keybindings and see if we have a result
-	std::map<wchar_t,SpawnInfo>::iterator keyBinding = mKeyToSpawnInfo.find(unicode);
-	if( keyBinding != mKeyToSpawnInfo.end() )
+	mActors.push_back(a);
+	a->init();
+}
+
+void BattleBoy::keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods)
+{	
+	mPendingSpawnInfo.type = ESpawnType_NONE;
+
+	std::map<wchar_t,keyCommand>::iterator keyBinding = mKeyToCommand.find(unicode);
+	if( keyBinding != mKeyToCommand.end() )
 	{
-		mPendingSpawnInfo = (*keyBinding).second;
+		keyCommand func = keyBinding->second;
+		(this->*func)();
+	}
+
+	// Look through our keybindings and see if we have a result
+	std::map<wchar_t,SpawnInfo>::iterator spawnBinding = mKeyToSpawnInfo.find(unicode);
+	if( spawnBinding != mKeyToSpawnInfo.end() )
+	{
+		mPendingSpawnInfo = (*spawnBinding).second;
 	}
 
 	if( mPendingSpawnInfo.type != ESpawnType_NONE )

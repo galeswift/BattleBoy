@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Boy/Graphics.h"
-#include "BoyLib/Vector2.h"
-
 #define NUM_PARTICLES 20
 
-class Explosion 
+class Explosion : public Actor
 {
 public:
 

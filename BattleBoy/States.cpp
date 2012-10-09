@@ -39,7 +39,37 @@ void StateManager::draw(Boy::Graphics* g)
 	if( !mStack.empty() )
 	{
 		mStack.back()->draw(g);
+
+		g->pushTransform();
+			
+		g->translate(mOwner->getPos().x,mOwner->getPos().y);
+
+		char stateText[100] = {};
+		Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
+		Boy::Font *mFont = rm->getFont("FONT_MAIN");
+		g->translate(0,-50);
+		sprintf_s(stateText,"%s", getCurrentStateName().c_str());
+		mFont->drawString(g, stateText, 0.15f);
+		g->popTransform();
 	}
+}
+
+std::string StateManager::getCurrentStateName() const
+ {
+	std::string result = "none";
+	
+	if( !mStack.empty() )
+	{
+		result = (typeid(*mStack.back()).name());
+
+		//remove the 'class ' part from the front of the string
+		if (result.size() > 5)
+		{
+			result.erase(0, 6);
+		}
+	}
+
+	return result;
 }
 
 void State_Moving::begin()
@@ -52,38 +82,48 @@ void State_Moving::begin()
 void State_Moving::end()
 {
 	mOwner->getSteering()->arriveOff();
+	mOwner->getSteering()->separationOff();
+}
+
+void State_Moving::draw(Boy::Graphics* g)
+{
+	g->pushTransform();
+	g->setColorizationEnabled(true);
+
+	if (mOwner->getTeamIdx() == 0)
+	{
+		g->setColor(0xff0fffff);
+	}
+	else
+	{
+		g->setColor(0xfffff000);
+	}
+	
+	g->drawLine(mOwner->getPos().x, mOwner->getPos().y,  mOwner->getPos().x + mOwner->getSteering()->force().x, mOwner->getPos().y + mOwner->getSteering()->force().y);
+	g->popTransform();
 }
 
 void State_Moving::update(float dt)
 {
 	BattleBoy* game = BattleBoy::instance();
-
 	Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
+	
 	if( enemy != NULL )
 	{
-		mOwner->getStateManager()->pushState( new State_Attacking( mOwner ) );
+		mOwner->getStateManager()->pushState( new State_Attacking( mOwner, enemy ) );
 	}
 }
 
 void State_Attacking::begin()
 {
 	mAttackDelay = mOwner->getAttackRate();
-	BattleBoy* game = BattleBoy::instance();
-	
-	Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
-	if( enemy != NULL )
-	{
-		mCurrentTarget = enemy;
-	}
 }
 
 void State_Attacking::draw(Boy::Graphics* g)
 {
 	if( mCurrentTarget != NULL)
 	{
-		g->pushTransform();
-			
-		g->translate(mOwner->getPos().x,mOwner->getPos().y);
+		g->pushTransform();	
 		g->drawLine(mOwner->getPos().x,mOwner->getPos().y, mCurrentTarget->getPos().x, mCurrentTarget->getPos().y);
 		g->popTransform();
 	}
@@ -91,6 +131,18 @@ void State_Attacking::draw(Boy::Graphics* g)
 
 void State_Attacking::update(float dt)
 {
+	if( !mCurrentTarget || mCurrentTarget->isDestroyed() )
+	{
+		mCurrentTarget = NULL;
+
+		BattleBoy* game = BattleBoy::instance();
+		Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
+		if( enemy != NULL )
+		{
+			mCurrentTarget = enemy;
+		}
+	}
+
 	if( mCurrentTarget )
 	{
 		mAttackDelay -= dt;
@@ -98,17 +150,6 @@ void State_Attacking::update(float dt)
 		{
 			mAttackDelay = mOwner->getAttackRate();
 			mCurrentTarget->takeDamage(mOwner);
-		}
-
-		if( mCurrentTarget->isDestroyed() )
-		{
-			mCurrentTarget = NULL;
-			BattleBoy* game = BattleBoy::instance();
-			Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
-			if( enemy != NULL )
-			{
-				mCurrentTarget = enemy;
-			}
 		}
 	}
 	else

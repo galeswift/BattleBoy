@@ -209,6 +209,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\Explosion.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\Explosion.h"
+			>
+		</File>
+		<File
 			RelativePath=".\Globals.h"
 			>
 		</File>
