@@ -46,9 +46,11 @@ namespace Boy
 		/*
 		 * geometric primitive drawing methods
 		 */
-		virtual void drawLine(int x0, int y0, int x1, int y1) = 0;
+		virtual void drawLine(float x0, float y0, float x1, float y1) = 0;
 		virtual void fillRect(int x0, int y0, int w, int h) = 0;
+		virtual void drawCircle(float x0, float y0, float r, int s) = 0;
 		virtual void drawTriStrip(TriStrip *strip) = 0;
+		virtual void drawLineStrip(TriStrip *strip) = 0;
 
 		/*
 		 * rendering transform modification methods:

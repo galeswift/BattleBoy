@@ -1,8 +1,4 @@
-#include "Explosion.h"
-
-#include "Boy/Environment.h"
-#include "Boy/ResourceManager.h"
-#include "BoyLib/BoyUtil.h"
+#include "Globals.h"
 
 #define PARTICLE_MIN_SPEED 100.0f
 #define PARTICLE_MAX_SPEED 200.0f
@@ -55,6 +51,11 @@ void Explosion::update(float dt)
 	{
 		mParticlePositions[i] += mParticleVelocities[i] * dt;
 		mParticleVelocities[i] *= 1 - (2.7f * dt);
+	}
+
+	if( isOver() )
+	{
+		setDestroyed(true);
 	}
 }
 

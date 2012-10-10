@@ -709,9 +709,9 @@ void WinD3DInterface::drawRect(int x, int y, int w, int h, float z, DWORD color)
 	drawImage(NULL);
 }
 
-void WinD3DInterface::drawTriStrip(WinTriStrip *strip)
+void WinD3DInterface::drawStrip(WinTriStrip *strip, D3DPRIMITIVETYPE type)
 {
-	// make sure beginScene was called:
+// make sure beginScene was called:
 	assert(mRendering);
 
 	// create a vertex buffer:
@@ -738,14 +738,25 @@ void WinD3DInterface::drawTriStrip(WinTriStrip *strip)
 	if(FAILED(hr)) return;
 
 	// render from vertex buffer:
-	hr = DXUTGetD3D9Device()->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, strip->mVertexCount-2);
+	hr = DXUTGetD3D9Device()->DrawPrimitive(type, 0, strip->mVertexCount-2);
 	if(FAILED(hr)) return;
 
 	// release the vertex buffer:
 	vb->Release();
 }
 
-void WinD3DInterface::drawLine(int x0, int y0, int x1, int y1, Color color)
+void WinD3DInterface::drawTriStrip(WinTriStrip *strip)
+{
+	drawStrip(strip, D3DPT_TRIANGLESTRIP);
+}
+
+
+void WinD3DInterface::drawLineStrip(WinTriStrip *strip)
+{
+	drawStrip(strip, D3DPT_LINESTRIP);
+}
+
+void WinD3DInterface::drawLine(float x0, float y0, float x1, float y1, Color color)
 {
 	BoyVertex verts[2];
 	verts[0].x = (float)x0;

@@ -87,7 +87,7 @@ namespace Networking
 
 		// A server
 		puts("Listening on port 1120");
-		strcpy(portstring, "1120");
+		strcpy_s(portstring, "1120");
 		
 		puts("Starting server.");
 		// Starting the server is very simple.  2 players allowed.
@@ -142,7 +142,7 @@ namespace Networking
 		// This sleep keeps RakNet responsive
 		RakSleep(30);
 
-		if (kbhit() )
+		if (_kbhit() )
 		{
 			// Notice what is not here: something to keep our network running.  It's
 			// fine to block on gets or anything we want
@@ -179,7 +179,7 @@ namespace Networking
 				printf("Enter port: ");
 				Gets(portstring,sizeof(portstring));
 				if (portstring[0]==0)
-					strcpy(portstring, "1234");
+					strcpy_s(portstring, "1234");
 				server->Ping(message, atoi(portstring), false);
 
 				continue;
@@ -221,8 +221,8 @@ namespace Networking
 			// All messages to all clients come from the server either directly or by being
 			// relayed from other clients
 			message2[0]=0;
-			strcpy(message2, "Server: ");
-			strcat(message2, message);
+			strcpy_s(message2, "Server: ");
+			strcat_s(message2, message);
 		
 			// message2 is the data to send
 			// strlen(message2)+1 is to send the null terminator
@@ -290,7 +290,7 @@ namespace Networking
 					// Relay the message.  We prefix the name for other clients.  This demonstrates
 					// That messages can be changed on the server before being broadcast
 					// Sending is the same as before
-					sprintf(message, "%s", p->data);
+					sprintf_s(message, "%s", p->data);
 					server->Send(message, (const int) strlen(message)+1, HIGH_PRIORITY, RELIABLE_ORDERED, 0, p->systemAddress, true);
 
 					break;
@@ -352,11 +352,11 @@ namespace Networking
 		printf("Connect to the project 'Chat Example Server'.\n");
 		printf("Difficulty: Beginner\n\n");
 
-		strcpy(clientPort, "1121");
+		strcpy_s(clientPort, "1121");
 		//Gets(ip, sizeof(ip));
 		client->AllowConnectionResponseIPMigration(false);
 		
-		strcpy(serverPort, "1120");
+		strcpy_s(serverPort, "1120");
 
 		// Connecting the client is very simple.  0 means we don't care about
 		// a connectionValidationInteger, and false for low priority threads
@@ -406,7 +406,7 @@ namespace Networking
 	#endif
 
 
-			if (kbhit())
+			if (_kbhit())
 			{
 				// Notice what is not here: something to keep our network running.  It's
 				// fine to block on Gets or anything we want
@@ -436,7 +436,7 @@ namespace Networking
 					char str[32];
 					Gets(str, sizeof(str));
 					if (str[0]==0)
-						strcpy(str,"0");
+						strcpy_s(str,"0");
 					int index = atoi(str);
 					client->CloseConnection(client->GetSystemAddressFromIndex(index),false);
 					printf("Disconnecting.\n");
@@ -466,12 +466,12 @@ namespace Networking
 					printf("Enter server ip: ");
 					Gets(ip, sizeof(ip));
 					if (ip[0]==0)
-						strcpy(ip, "127.0.0.1");
+						strcpy_s(ip, "127.0.0.1");
 
 					printf("Enter server port: ");				
 					Gets(serverPort,sizeof(serverPort));
 					if (serverPort[0]==0)
-						strcpy(serverPort, "1234");
+						strcpy_s(serverPort, "1234");
 
 	#if LIBCAT_SECURITY==1
 					bool b = client->Connect(ip, atoi(serverPort), "Rumpelstiltskin", (int) strlen("Rumpelstiltskin"), &pk)==RakNet::CONNECTION_ATTEMPT_STARTED;	

@@ -63,12 +63,42 @@ void WinGraphics::drawImage(Image *img, int subrectX, int subrectY, int subrectW
 		subrectH);
 }
 
-void WinGraphics::drawLine(int x0, int y0, int x1, int y1)
+void WinGraphics::drawLine(float x0, float y0, float x1, float y1)
 {
 	D3DXMATRIX identity;
 	D3DXMatrixIdentity(&identity);
 	mInterface->setTransform(identity);
 	mInterface->drawLine(x0,y0,x1,y1,mColor);
+}
+
+void WinGraphics::drawCircle(float x0, float y0, float r, int s)
+{
+	const double PI = 3.14159;
+
+	int i;
+	float x;
+	float y;
+	float Theta;
+	float WedgeAngle;	//Size of angle between two points on the circle (single wedge)
+	WinTriStrip *triStrip = new WinTriStrip(s+2);
+	//Precompute WedgeAngle
+	WedgeAngle = (float)((2*PI) / s);
+
+	//Set up vertices for a circle
+	//Used <= in the for statement to ensure last point meets first point (closed circle)
+	for(i=0; i<=s; i++)
+	{
+		//Calculate theta for this vertex
+		Theta = i * WedgeAngle;
+		
+		//Compute x and y locations
+		x = (float)(x0 + r * cos(Theta));
+		y = (float)(y0 - r * sin(Theta));
+		triStrip->setVertPos(i,x,y,0.0f);
+		triStrip->setVertColor(i,0xFFFF0000);
+	}
+	
+	drawLineStrip(triStrip);
 }
 
 void WinGraphics::fillRect(int x0, int y0, int w, int h)
@@ -332,6 +362,17 @@ void WinGraphics::drawTriStrip(TriStrip *strip)
 		D3DXMatrixIdentity(&identity);
 		mInterface->setTransform(identity);
 		mInterface->drawTriStrip(s);
+	popTransform();
+}
+
+void WinGraphics::drawLineStrip(TriStrip *strip)
+{
+	WinTriStrip *s = dynamic_cast<WinTriStrip*>(strip);
+	pushTransform();
+		D3DXMATRIX identity;
+		D3DXMatrixIdentity(&identity);
+		mInterface->setTransform(identity);
+		mInterface->drawLineStrip(s);
 	popTransform();
 }
 

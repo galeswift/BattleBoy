@@ -9,6 +9,13 @@ enum ESpawnType
 	ESpawnType_MAX = 3, // DON'T INCLUDE ESpawnType_NONE
 };
 
+enum EDrawMode
+{
+	EDebugDrawMode_NONE = 0,
+	EDebugDrawMode_ALL = 1,
+	EDebugDrawMode_MAX = 2,
+};
+
 struct SpawnInfo
 {
 	SpawnInfo() : type(ESpawnType_NONE), playerIdx(-1){};
@@ -31,42 +38,53 @@ public:
 
 	// implementation of Game:
 	virtual void init(int argc, char* argv[]);
+	// Pause/unpause the game
+	virtual void togglePause();
+	// Cycle through the various debug draw modes
+	virtual void toggleDebugDraw();
+	// Return the current debug draw mode
+	virtual int getDebugDrawMode() { return mDebugDrawMode; }
+
+	// Parse command line
 	virtual void parseCommandArgs(int argc, char* argv[]);
 	virtual void load();
 	virtual void loadComplete();
 	virtual void update(float dt);
 	virtual void draw(Boy::Graphics *g);
-	virtual void drawResources(Boy::Graphics *g);
-	virtual void drawDebugText(Boy::Graphics *g);
+	virtual void addActor(Actor* a);
+
+	// return true if this actor is outside the bounds of the window
+	virtual bool isOutOfBounds(Actor* a);
 
 	// implementation of KeyboardListener:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
-
-	virtual void killAllUnitsCheat();
-	virtual void healAllUnitsCheat();
-	virtual void restart();
 	virtual std::vector<Actor*>& getActors() {return mActors;};
 	
-	virtual void spawnUnit(ESpawnType unitType, int teamIdx, int lane, int amount);
+	virtual void spawnUnit(ESpawnType unitType, int teamIdx);
 	const BoyLib::Vector2 getSpawnPos( int playerIdx );
+
+	Unit* closestEnemy(Unit* unit, float range = -1);
+
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
 
+	typedef void (BattleBoy::*keyCommand)(void);
+	std::map<wchar_t,keyCommand> mKeyToCommand;
 	std::map<wchar_t,SpawnInfo> mKeyToSpawnInfo;
 private:
 	// Static instance of the battleboy class
 	static BattleBoy *gInstance;
 
-	// The main Map actor
-	Map *mMap;
+	// Whether the game is paused or not
+	bool bPaused;
+
+	// Debug draw mode
+	int mDebugDrawMode;
 
 	// All Actors in game
 	std::vector<Actor*> mActors;
-
-	// All Players in game
-	std::vector<Player*> mPlayers;
 
 	// If we are a server/client, this will hold the network interface for it
 	Networking::NetworkInterface *mNetInterface;

@@ -11,6 +11,7 @@
     <Image id="IMAGE_REDTEAM"            path="res/RedTeam"/>
 
     <Image id="IMAGE_MAP"                path="res/Map"/>
+    <Image id="IMAGE_BULLET"             path="res/bullet"/>
 
     <Image id="IMAGE_ASTEROID_BIG_1"     path="res/asteroidb1"/>
     <Image id="IMAGE_ASTEROID_BIG_2"     path="res/asteroidb2"/>

@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual C++ Express 2008
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo1", "demo1\demo1.vcproj", "{E928559F-B7F1-40AB-BCBB-BF4E29AFF131}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4} = {B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Boy", "libs\Boy\Boy.vcproj", "{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}"
 	ProjectSection(ProjectDependencies) = postProject
+		{43134611-EFC4-4201-97E3-5477E7D79D5F} = {43134611-EFC4-4201-97E3-5477E7D79D5F}
 		{AB583D4F-449B-45E6-926E-41FB0EF41CD6} = {AB583D4F-449B-45E6-926E-41FB0EF41CD6}
 		{2F817971-6C4B-49BC-939B-7AF8E5F50879} = {2F817971-6C4B-49BC-939B-7AF8E5F50879}
 	EndProjectSection
@@ -18,17 +14,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoyLib", "libs\BoyLib\BoyLi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DXUTCore", "libs\dxsdk\200806\Samples\C++\DXUT\Core\DXUTCore_2008.vcproj", "{E0CF097B-F22D-465B-A884-D89E55BD7ECD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libs", "Libs", "{7B183381-168C-4A10-A749-D25FCB9E17FC}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "demo2", "demo2\demo2.vcproj", "{52D69152-DBCF-4E3E-A6D7-D82561F0FDBA}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4} = {B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BattleBoy", "BattleBoy\BattleBoy.vcproj", "{555F1C05-4EAF-48F3-9E0E-2599ADACD1C3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4} = {B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcproj", "{43134611-EFC4-4201-97E3-5477E7D79D5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +27,6 @@ Global
 		Release|Win32 = Release|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{E928559F-B7F1-40AB-BCBB-BF4E29AFF131}.Debug|Win32.ActiveCfg = Debug|Win32
-		{E928559F-B7F1-40AB-BCBB-BF4E29AFF131}.Debug|Win32.Build.0 = Debug|Win32
-		{E928559F-B7F1-40AB-BCBB-BF4E29AFF131}.Release|Win32.ActiveCfg = Release|Win32
-		{E928559F-B7F1-40AB-BCBB-BF4E29AFF131}.Release|Win32.Build.0 = Release|Win32
 		{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}.Debug|Win32.ActiveCfg = Debug|Win32
 		{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}.Debug|Win32.Build.0 = Debug|Win32
 		{B45B83A3-9939-4F13-BA9C-A6A6EAC047C4}.Release|Win32.ActiveCfg = Release|Win32
@@ -56,14 +43,14 @@ Global
 		{E0CF097B-F22D-465B-A884-D89E55BD7ECD}.Debug|Win32.Build.0 = Debug|Win32
 		{E0CF097B-F22D-465B-A884-D89E55BD7ECD}.Release|Win32.ActiveCfg = Release|Win32
 		{E0CF097B-F22D-465B-A884-D89E55BD7ECD}.Release|Win32.Build.0 = Release|Win32
-		{52D69152-DBCF-4E3E-A6D7-D82561F0FDBA}.Debug|Win32.ActiveCfg = Debug|Win32
-		{52D69152-DBCF-4E3E-A6D7-D82561F0FDBA}.Debug|Win32.Build.0 = Debug|Win32
-		{52D69152-DBCF-4E3E-A6D7-D82561F0FDBA}.Release|Win32.ActiveCfg = Release|Win32
-		{52D69152-DBCF-4E3E-A6D7-D82561F0FDBA}.Release|Win32.Build.0 = Release|Win32
 		{555F1C05-4EAF-48F3-9E0E-2599ADACD1C3}.Debug|Win32.ActiveCfg = Debug|Win32
 		{555F1C05-4EAF-48F3-9E0E-2599ADACD1C3}.Debug|Win32.Build.0 = Debug|Win32
 		{555F1C05-4EAF-48F3-9E0E-2599ADACD1C3}.Release|Win32.ActiveCfg = Release|Win32
 		{555F1C05-4EAF-48F3-9E0E-2599ADACD1C3}.Release|Win32.Build.0 = Release|Win32
+		{43134611-EFC4-4201-97E3-5477E7D79D5F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{43134611-EFC4-4201-97E3-5477E7D79D5F}.Debug|Win32.Build.0 = Debug|Win32
+		{43134611-EFC4-4201-97E3-5477E7D79D5F}.Release|Win32.ActiveCfg = Release|Win32
+		{43134611-EFC4-4201-97E3-5477E7D79D5F}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

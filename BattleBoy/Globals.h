@@ -16,6 +16,7 @@
 #endif 
 
 // Generic
+#include "Debug/DebugConsole.h"
 #include "CommandOptions.h"
 
 // Networking
@@ -38,6 +39,8 @@
 // Battleboy
 #include "Steering.h"
 #include "Actor.h"
-#include "Player.h"
+#include "Explosion.h"
+#include "States.h"
+#include "Unit.h"
 #include "Map.h"
 #include "BattleBoy.h"
