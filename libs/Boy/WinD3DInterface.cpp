@@ -904,6 +904,84 @@ IDirect3DTexture9 *WinD3DInterface::loadTexture(const char *filenameUtf8, D3DXIM
 	return tex;
 }
 
+int round(double x)
+{
+	return (int)(x + 0.5);
+}
+
+int nextpoweroftwo(float x)
+{
+	double logbase2 = log(x) / log(2.0f);
+	return round(pow(2,ceil(logbase2)));
+}
+
+IDirect3DTexture9 *WinD3DInterface::loadTexture(SDL_Surface *source, bool warn)
+{
+	IDirect3DTexture9* pTex = NULL;
+	HRESULT            hr   = S_OK;
+
+	int w, h;
+	/* Convert the rendered text to a known format */
+	w = nextpoweroftwo(source->w);
+	h = nextpoweroftwo(source->h);
+
+	hr = DXUTGetD3D9Device()->CreateTexture(
+		(UINT)w,
+		(UINT)h,
+		1,
+		0,
+		D3DFMT_A8R8G8B8,
+		D3DPOOL_MANAGED,
+		&pTex,
+		NULL);
+
+	if (hr!=D3D_OK )
+	{
+		assertSuccess(hr);
+		return NULL;
+	}
+
+	D3DLOCKED_RECT rect;
+    if(FAILED(pTex->LockRect(0, &rect, 0, D3DLOCK_DISCARD))) {
+      pTex->Release();
+      return NULL;
+    }
+	const int stride = source->format->BytesPerPixel;
+    for(int i = 0; i < source->h; ++i)
+      for(unsigned char * dest = reinterpret_cast<unsigned char *>(rect.pBits) + i * rect.Pitch,
+                        * src = reinterpret_cast<unsigned char *>(source->pixels) + i * source->pitch,
+                        * src_end = src + source->w * stride;
+          src != src_end;
+          dest += 4, src += stride)
+      {
+        Uint32 rgba = 0;
+        rgba |= Uint32(src[0]);
+        rgba |= Uint32(src[1]) << 8;
+        rgba |= Uint32(src[2]) << 16;
+        if(stride == 4)
+          rgba |= Uint32(src[3]) << 24;
+
+        dest[0] = static_cast<unsigned char>((rgba >> source->format->Bshift) << source->format->Bloss);
+        dest[1] = static_cast<unsigned char>((rgba >> source->format->Gshift) << source->format->Gloss);
+        dest[2] = static_cast<unsigned char>((rgba >> source->format->Rshift) << source->format->Rloss);
+        dest[3] = static_cast<unsigned char>((rgba >> source->format->Ashift) << source->format->Aloss);
+      }
+
+    if(FAILED(pTex->UnlockRect(0))) {
+      pTex->Release();
+      return NULL;
+    }
+
+    if(FAILED(D3DXFilterTexture(pTex, 0, D3DX_DEFAULT, D3DX_DEFAULT))) {
+      pTex->Release();
+      return NULL;
+    }
+
+    SDL_FreeSurface(source);
+
+    return pTex;
+}
+
 IDirect3DVertexBuffer9 *WinD3DInterface::createVertexBuffer(int numVerts)
 {
 	// create the vertex buffer:

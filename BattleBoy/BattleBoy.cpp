@@ -129,6 +129,7 @@ void BattleBoy::load()
 	rm->loadResourceGroup("common");
 }
 
+
 void BattleBoy::loadComplete()
 {
 	debug_con<<"Debug console created."<<"";

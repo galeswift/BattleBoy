@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../libs;../Raknet/Source;../libs/AI"
+				AdditionalIncludeDirectories="../libs;../Raknet/Source;../libs/AI;../libs/SDL-1.2.12/include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CONSOLE;GOO_PLATFORM_WIN32"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -63,7 +63,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib d3dx9.lib DxErr9.lib irrKlang.lib comctl32.lib ws2_32.lib RakNetLibStaticDebug.lib"
+				AdditionalDependencies="SDL.lib SDL_ttf.lib SDLmain.lib d3dx9.lib DxErr9.lib irrKlang.lib comctl32.lib ws2_32.lib RakNetLibStaticDebug.lib"
 				OutputFile="$(ProjectDir)\$(ProjectName).exe"
 				LinkIncremental="2"
 				AdditionalLibraryDirectories="../libs/dxsdk/200806/Lib/x86;&quot;../libs/SDL-1.2.12/lib&quot;;&quot;../libs/libcurl-7.13.1-ssl-zlib-ares/lib&quot;;&quot;../libs/irrKlang-1.1.0/lib/Win32-visualStudio&quot;;../Raknet/Lib"
@@ -120,7 +120,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../libs;../Raknet/Source;../libs/AI"
+				AdditionalIncludeDirectories="../libs;../Raknet/Source;../libs/AI;../libs/SDL-1.2.12"
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE;GOO_PLATFORM_WIN32"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
@@ -138,7 +138,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="SDL.lib d3dx9.lib d3d9.lib DxErr9.lib irrKlang.lib comctl32.lib ws2_32.lib RakNetLibStaticDebug.lib"
+				AdditionalDependencies="SDL.lib SDL_ttf.lib SDLmain.lib d3dx9.lib d3d9.lib DxErr9.lib irrKlang.lib comctl32.lib ws2_32.lib RakNetLibStaticDebug.lib"
 				OutputFile="$(ProjectDir)\$(ProjectName).exe"
 				LinkIncremental="1"
 				AdditionalLibraryDirectories="../libs/dxsdk/200806/Lib/x86;&quot;../libs/SDL-1.2.12/lib&quot;;&quot;../libs/libcurl-7.13.1-ssl-zlib-ares/lib&quot;;&quot;../libs/irrKlang-1.1.0/lib/Win32-visualStudio&quot;;../Raknet/Lib"

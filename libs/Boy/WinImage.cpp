@@ -14,6 +14,29 @@ WinImage::WinImage(ResourceLoader *loader, const std::string &path) : Image(load
 	mHeight = -1;
 }
 
+WinImage::WinImage(WinD3DInterface *d3dInterface, SDL_Surface* source) : Image(NULL,"")
+{
+	if( source && d3dInterface )
+	{
+		// remember the original image size:
+		setSize(source->w,source->h);
+
+		IDirect3DTexture9 *tex = d3dInterface->loadTexture(source);
+
+		// set the texture:
+		if (tex!=NULL)
+		{	
+			setTexture(tex, true);
+		}
+	}
+	else
+	{
+		mTexture = NULL;
+		mWidth = -1;
+		mHeight = -1;
+	}
+}
+
 WinImage::~WinImage()
 {
 	assert(mTexture == NULL);

@@ -6,6 +6,9 @@
 #include "WinD3DInterface.h"
 #include "WinTriStrip.h"
 
+// SDL
+#include "SDL_ttf.h"
+
 using namespace Boy;
 
 #include "BoyLib/CrtDbgNew.h"
@@ -21,6 +24,7 @@ WinGraphics::WinGraphics(WinD3DInterface *platformInterface)
 	mColor = 0xffffffff;
 	mColorizationEnabled = false;
 	mZ = 0;
+	TTF_Init();
 }
 
 WinGraphics::~WinGraphics()
@@ -374,6 +378,23 @@ void WinGraphics::drawLineStrip(TriStrip *strip)
 		mInterface->setTransform(identity);
 		mInterface->drawLineStrip(s);
 	popTransform();
+}
+
+void WinGraphics::drawString(std::string text, int size)
+{
+	TTF_Font* m_Font = TTF_OpenFont("res/DefaultFont.ttf", size );
+	SDL_Color fontColor;
+	fontColor.r = 255;
+	fontColor.g = 255;
+	fontColor.b = 255;
+	SDL_Surface *img = TTF_RenderText_Blended(m_Font, text.c_str(), fontColor);
+
+	WinImage *winImg = new WinImage(mInterface, img);
+	updateTransform();
+	mInterface->drawImage(
+		winImg, 
+		mColorizationEnabled ? mColor : 0xffffffff,
+		mZ);
 }
 
 int WinGraphics::getWidth()

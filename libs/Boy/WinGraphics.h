@@ -28,6 +28,7 @@ namespace Boy
 		virtual void fillRect(int x0, int y0, int w, int h);
 		virtual void drawTriStrip(TriStrip *strip);
 		virtual void drawLineStrip(TriStrip *strip);
+		virtual void drawString(std::string text, int size);
 
 		virtual void scale(float x, float y);
 		virtual void rotateDeg(float angle);

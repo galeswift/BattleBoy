@@ -108,8 +108,13 @@ void State_Moving::draw(Boy::Graphics* g)
 	if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
 	{
 		g->pushTransform();
-		g->setColorizationEnabled(true);
+		g->setColorizationEnabled(false);
+		g->translate(getOwner()->getPos().x, getOwner()->getPos().y);
+		g->drawString("Hello World", 24);
+		g->popTransform();
 
+		g->pushTransform();
+		
 		if (getUnitOwner()->getTeamIdx() == 0)
 		{
 			g->setColor(0xff0fffff);
@@ -118,7 +123,8 @@ void State_Moving::draw(Boy::Graphics* g)
 		{
 			g->setColor(0xfffff000);
 		}
-		
+	
+		g->setColorizationEnabled(true);
 		g->drawLine(getOwner()->getPos().x, getOwner()->getPos().y,  getOwner()->getPos().x + getUnitOwner()->getSteering()->force().x, getOwner()->getPos().y + getUnitOwner()->getSteering()->force().y);
 		g->setColorizationEnabled(false);
 		g->popTransform();
@@ -138,7 +144,7 @@ void State_Moving::update(float dt)
 
 void State_Attacking::begin()
 {
-	mAttackDelay = getUnitOwner()->getAttackRate();
+	mAttackDelay = 0;
 }
 
 void State_Attacking::draw(Boy::Graphics* g)

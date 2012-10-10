@@ -1,7 +1,6 @@
 #pragma once
 
 #include "BoyLib/CrtDbgInc.h"
-
 #include <string>
 
 namespace Boy

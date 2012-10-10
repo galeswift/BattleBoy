@@ -51,6 +51,7 @@ namespace Boy
 		virtual void drawCircle(float x0, float y0, float r, int s) = 0;
 		virtual void drawTriStrip(TriStrip *strip) = 0;
 		virtual void drawLineStrip(TriStrip *strip) = 0;
+		virtual void drawString(std::string text, int size) = 0;
 
 		/*
 		 * rendering transform modification methods:

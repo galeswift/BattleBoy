@@ -4,6 +4,7 @@
 #include "d3dx9.h"
 #include "Environment.h"
 #include "Graphics.h"
+#include "SDL.h"
 #include <string>
 
 namespace Boy
@@ -50,6 +51,9 @@ namespace Boy
 
 		// texture loading:
 		IDirect3DTexture9 *loadTexture(const char *filenameUtf8, D3DXIMAGE_INFO *imageInfo, bool *scaled, bool warn=true);
+
+		// texture creation from SDL_Surface
+		IDirect3DTexture9 *loadTexture(SDL_Surface *source, bool warn=true);
 
 		// vertex buffer creation:
 		IDirect3DVertexBuffer9 *createVertexBuffer(int numVerts);

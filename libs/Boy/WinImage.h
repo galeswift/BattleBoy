@@ -1,7 +1,10 @@
 #pragma once
 
 #include "Image.h"
+#include "WinD3DInterface.h"
 #include "d3d9.h"
+#include "d3dx9.h"
+#include "SDL.h"
 
 namespace Boy
 {
@@ -10,6 +13,7 @@ namespace Boy
 	public:
 
 		WinImage(ResourceLoader *loader, const std::string &path);
+		WinImage(WinD3DInterface *d3dInterface, SDL_Surface* source);
 		virtual ~WinImage();
 
 		void setSize(int width, int height);
