@@ -68,6 +68,7 @@ void BattleBoy::init(int argc, char* argv[])
 
 	mKeyToCommand['P'] = &BattleBoy::togglePause;
 	mKeyToCommand['O'] = &BattleBoy::toggleDebugDraw;
+	mKeyToCommand['R'] = &BattleBoy::reset;
 }
 
 void BattleBoy::togglePause()
@@ -83,6 +84,28 @@ void BattleBoy::toggleDebugDraw()
 	{
 		mDebugDrawMode = EDebugDrawMode_NONE;
 	}
+}
+
+void BattleBoy::reset()
+{
+	// Clear the actor array
+	mActors.clear();
+
+	// Add the controllers
+	Controller_Player *newPlayer= new Controller_Player();
+	addActor(newPlayer);
+
+	Controller_AI *newAI= new Controller_AI();
+	addActor(newAI);
+
+	// Add the buildings
+	Unit_Building *newBuilding = new Unit_Building(BoyLib::Vector2(125.0f,670.0f));
+	newBuilding->setTeamIdx(0);
+	addActor(newBuilding);
+
+	newBuilding = new Unit_Building(BoyLib::Vector2(850.0f,100.0f));
+	newBuilding->setTeamIdx(1);
+	addActor(newBuilding);
 }
 
 void BattleBoy::parseCommandArgs(int argc, char* argv[])
@@ -121,15 +144,8 @@ void BattleBoy::loadComplete()
 	// the start of the game in the update method):
 	mLoadComplete = true;
 
-	Unit_Building *newBuilding = new Unit_Building(BoyLib::Vector2(125.0f,670.0f));
-	newBuilding->init();
-	newBuilding->setTeamIdx(0);
-	mActors.push_back(newBuilding);
-
-	newBuilding = new Unit_Building(BoyLib::Vector2(850.0f,100.0f));
-	newBuilding->init();
-	newBuilding->setTeamIdx(1);
-	mActors.push_back(newBuilding);
+	// Reset the game
+	reset();
 }
 
 void BattleBoy::update(float dt)
@@ -185,7 +201,6 @@ bool BattleBoy::isOutOfBounds(Actor* a)
 	}
 
 	return result;
-
 }
 
 
@@ -241,11 +256,10 @@ void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
 
 	if( newUnit != NULL )
 	{
-		newUnit->init();
+		addActor(newUnit);	
 		newUnit->setOwningGame(this);
 		newUnit->setTeamIdx(teamIdx);
 		newUnit->getSteering()->setTarget(targetPos);
-		mActors.push_back(newUnit);	
 	}
 }
 

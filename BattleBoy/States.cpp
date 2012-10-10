@@ -1,5 +1,19 @@
 #include "Globals.h"
 
+Actor* State::getOwner() 
+{
+	return mOwner;
+}
+
+Unit* State::getUnitOwner() 
+{
+	return dynamic_cast<Unit*>( getOwner() );
+}
+
+Actor* StateManager::getOwner() 
+{
+	return mOwner;
+}
 
 void StateManager::pushState( State* state )
 {
@@ -44,7 +58,7 @@ void StateManager::draw(Boy::Graphics* g)
 		if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
 		{
 			g->pushTransform();
-			g->translate(mOwner->getPos().x,mOwner->getPos().y);
+			g->translate(getOwner()->getPos().x,getOwner()->getPos().y);
 			char stateText[100] = {};
 			Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
 			Boy::Font *mFont = rm->getFont("FONT_MAIN");
@@ -76,15 +90,15 @@ std::string StateManager::getCurrentStateName() const
 
 void State_Moving::begin()
 {
-	mOwner->getSteering()->arriveOn();
-	mOwner->getSteering()->separationOn();
-	mDest = mOwner->getSteering()->target();
+	getUnitOwner()->getSteering()->arriveOn();
+	getUnitOwner()->getSteering()->separationOn();
+	mDest = getUnitOwner()->getSteering()->target();
 }
 
 void State_Moving::end()
 {
-	mOwner->getSteering()->arriveOff();
-	mOwner->getSteering()->separationOff();
+	getUnitOwner()->getSteering()->arriveOff();
+	getUnitOwner()->getSteering()->separationOff();
 }
 
 void State_Moving::draw(Boy::Graphics* g)
@@ -96,7 +110,7 @@ void State_Moving::draw(Boy::Graphics* g)
 		g->pushTransform();
 		g->setColorizationEnabled(true);
 
-		if (mOwner->getTeamIdx() == 0)
+		if (getUnitOwner()->getTeamIdx() == 0)
 		{
 			g->setColor(0xff0fffff);
 		}
@@ -105,7 +119,7 @@ void State_Moving::draw(Boy::Graphics* g)
 			g->setColor(0xfffff000);
 		}
 		
-		g->drawLine(mOwner->getPos().x, mOwner->getPos().y,  mOwner->getPos().x + mOwner->getSteering()->force().x, mOwner->getPos().y + mOwner->getSteering()->force().y);
+		g->drawLine(getOwner()->getPos().x, getOwner()->getPos().y,  getOwner()->getPos().x + getUnitOwner()->getSteering()->force().x, getOwner()->getPos().y + getUnitOwner()->getSteering()->force().y);
 		g->setColorizationEnabled(false);
 		g->popTransform();
 	}
@@ -114,17 +128,17 @@ void State_Moving::draw(Boy::Graphics* g)
 void State_Moving::update(float dt)
 {
 	BattleBoy* game = BattleBoy::instance();
-	Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
+	Unit* enemy = game->closestEnemy(getUnitOwner(), getUnitOwner()->getRange());
 	
 	if( enemy != NULL )
 	{
-		mOwner->getStateManager()->pushState( new State_Attacking( mOwner, enemy ) );
+		getUnitOwner()->getStateManager()->pushState( new State_Attacking( getOwner(), enemy ) );
 	}
 }
 
 void State_Attacking::begin()
 {
-	mAttackDelay = mOwner->getAttackRate();
+	mAttackDelay = getUnitOwner()->getAttackRate();
 }
 
 void State_Attacking::draw(Boy::Graphics* g)
@@ -135,7 +149,7 @@ void State_Attacking::draw(Boy::Graphics* g)
 		if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
 		{
 			g->pushTransform();	
-			g->drawLine(mOwner->getPos().x,mOwner->getPos().y, mCurrentTarget->getPos().x, mCurrentTarget->getPos().y);
+			g->drawLine(getOwner()->getPos().x,getOwner()->getPos().y, mCurrentTarget->getPos().x, mCurrentTarget->getPos().y);
 			g->popTransform();
 		}
 	}
@@ -148,7 +162,7 @@ void State_Attacking::update(float dt)
 	if( !mCurrentTarget || mCurrentTarget->isDestroyed() )
 	{
 		mCurrentTarget = NULL;
-		Unit* enemy = game->closestEnemy(mOwner, mOwner->getRange());
+		Unit* enemy = game->closestEnemy(getUnitOwner(), getUnitOwner()->getRange());
 		if( enemy != NULL )
 		{
 			mCurrentTarget = enemy;
@@ -160,13 +174,13 @@ void State_Attacking::update(float dt)
 		mAttackDelay -= dt;
 		if( mAttackDelay <= 0 )
 		{
-			mAttackDelay = mOwner->getAttackRate();
-			mCurrentTarget->takeDamage(mOwner);
-			game->addActor(new Projectile( mOwner->getPos(),  mCurrentTarget->getPos() - mOwner->getPos() ));
+			mAttackDelay = getUnitOwner()->getAttackRate();
+			mCurrentTarget->takeDamage(getUnitOwner());
+			game->addActor(new Projectile( getOwner()->getPos(),  mCurrentTarget->getPos() - getOwner()->getPos() ));
 		}
 	}
 	else
 	{
-		mOwner->getStateManager()->popState();
+		getUnitOwner()->getStateManager()->popState();
 	}
 }

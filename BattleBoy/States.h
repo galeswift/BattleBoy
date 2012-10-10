@@ -5,20 +5,23 @@ class owner;
 class State
 {
 public:
-	State(Unit* owner) {mOwner=owner;}
+	State(Actor* owner) {mOwner=owner;}
 	virtual void begin() = 0;
 	virtual void update(float dt) = 0;
 	virtual void end() = 0;
 	virtual void draw(Boy::Graphics* g) = 0;
+	Actor* getOwner();
+	Unit* getUnitOwner();
 
 protected:
-	Unit* mOwner;
+	Actor* mOwner;
 };
 
 class StateManager
 {
 public:
-	StateManager(Unit* owner) {mOwner=owner;}
+	StateManager(Actor* owner) {mOwner=owner;}
+	Actor* getOwner();
 	virtual void pushState( State* state );
 	virtual void popState();
 	virtual void update(float dt);
@@ -27,13 +30,13 @@ public:
 	
 private:
 	std::vector<State*> mStack;
-	Unit* mOwner;
+	Actor* mOwner;
 };
 
 class State_Idle : public State
 {
 public:
-	State_Idle(Unit *owner) : State(owner){};
+	State_Idle(Actor *owner) : State(owner){};
 	virtual void begin(){};
 	virtual void update(float dt) {};
 	virtual void end() {};
@@ -43,7 +46,7 @@ public:
 class State_Moving : public State
 {
 public:
-	State_Moving(Unit *owner) : State(owner){};
+	State_Moving(Actor *owner) : State(owner){};
 	virtual void begin();
 	virtual void update(float dt);
 	virtual void end();
@@ -55,7 +58,7 @@ private:
 class State_Attacking : public State
 {
 public:
-	State_Attacking(Unit *owner, Unit* enemy=NULL) : State(owner), mCurrentTarget(enemy){};
+	State_Attacking(Actor *owner, Unit* enemy=NULL) : State(owner), mCurrentTarget(enemy){};
 	virtual void begin();
 	virtual void update(float dt);
 	virtual void end() {};

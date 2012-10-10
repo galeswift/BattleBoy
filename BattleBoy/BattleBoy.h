@@ -44,6 +44,8 @@ public:
 	virtual void toggleDebugDraw();
 	// Return the current debug draw mode
 	virtual int getDebugDrawMode() { return mDebugDrawMode; }
+	// Reset the game
+	virtual void reset();
 
 	// Parse command line
 	virtual void parseCommandArgs(int argc, char* argv[]);
