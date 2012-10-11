@@ -13,6 +13,7 @@ void Actor::init()
 {
 	size = 50;
 	setDestroyed(false);
+	setShouldErase(true);
 	game = NULL;
 }
 
@@ -40,6 +41,6 @@ void Projectile::update(float dt)
 	
 	if( game->isOutOfBounds(this) )
 	{
-		setDestroyed(true);	
+		setDestroyed(true);
 	}
 }

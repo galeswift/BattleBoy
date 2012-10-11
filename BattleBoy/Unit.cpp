@@ -184,6 +184,7 @@ void Unit_Building::init()
 	maxHealth = 1000.0f;
 	health = maxHealth;
 	size = 50.0;
+	setShouldErase(false);
 }
 
 void Unit_Mob::init()

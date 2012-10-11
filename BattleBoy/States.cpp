@@ -190,3 +190,22 @@ void State_Attacking::update(float dt)
 		getUnitOwner()->getStateManager()->popState();
 	}
 }
+
+void State_Spawning::begin()
+{
+	mSpawnDelay = 0;
+}
+
+void State_Spawning::update(float dt)
+{
+	BattleBoy* game = BattleBoy::instance();
+
+	mSpawnDelay -= dt;
+	if( mSpawnDelay <= 0 )
+	{
+		// temp spawn rate until resources are put in
+		mSpawnDelay = 2.0f + randf(-1.0, 1.0);
+		game->spawnUnit(ESpawnType(randi(ESpawnType_ROCK, ESpawnType_SCISSORS)), dynamic_cast<Controller_AI*>(getOwner())->getTeamIdx());
+	}
+}
+

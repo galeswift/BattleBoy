@@ -7,7 +7,7 @@ public:
 	Unit(BoyLib::Vector2 _pos) : Actor( _pos ) {} ;
 	Unit(BoyLib::Vector2 _pos, float _speed) : Actor(_pos, _speed) {} ;
 	virtual void draw(Boy::Graphics *g);
-	void drawHealth(Boy::Graphics *g);	
+	void drawHealth(Boy::Graphics *g);
 	void update(float dt);
 	void setTeamIdx(int idx){ teamIdx = idx; }
 	int getTeamIdx() { return teamIdx; }

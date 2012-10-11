@@ -67,3 +67,15 @@ private:
 	Unit* mCurrentTarget;
 	float mAttackDelay;
 };
+
+class State_Spawning : public State
+{
+public:
+	State_Spawning(Actor *owner) : State(owner){};
+	virtual void begin();
+	virtual void update(float dt);
+	virtual void end() {};
+	virtual void draw(Boy::Graphics* g) {};
+private:
+	float mSpawnDelay;
+};

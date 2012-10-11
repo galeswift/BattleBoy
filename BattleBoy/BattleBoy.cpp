@@ -93,9 +93,11 @@ void BattleBoy::reset()
 
 	// Add the controllers
 	Controller_Player *newPlayer= new Controller_Player();
+	newPlayer->setTeamIdx(0);
 	addActor(newPlayer);
 
 	Controller_AI *newAI= new Controller_AI();
+	newAI->setTeamIdx(1);
 	addActor(newAI);
 
 	// Add the buildings
@@ -158,7 +160,7 @@ void BattleBoy::update(float dt)
 	for( unsigned int i=0 ; i<mActors.size() ; )
 	{
 		Actor* actor = mActors[i];
-		if (actor->isDestroyed() && !dynamic_cast<Unit_Building*>(actor))
+		if (actor->isDestroyed() && actor->shouldErase())
 		{
 			mActors.erase(mActors.begin() + i);
 		}

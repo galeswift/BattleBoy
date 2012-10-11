@@ -33,12 +33,16 @@ public:
 	void setVel(const BoyLib::Vector2& inVel) { vel = inVel; }
 
 	void setDestroyed(bool value){ bDestroyed = value; }
-	bool isDestroyed() {return bDestroyed; }
+	bool isDestroyed() { return bDestroyed; }
+
+	void setShouldErase(bool value){ bShouldErase = value; }
+	bool shouldErase() { return bShouldErase; }
 protected:
 	BattleBoy *game;
 	BoyLib::Vector2 pos, dir, vel, accel;
 	float size, speed;
 	bool bDestroyed;
+	bool bShouldErase;
 };
 
 class Projectile : public Actor
