@@ -23,6 +23,9 @@
 #include "Networking.h"
 
 // Gui
+#undef min // use __min instead inside this source file
+#undef max // use __max instead inside this source file
+
 #include "CEGUI.h"
 #include "CEGUIDefaultResourceProvider.h"
 
