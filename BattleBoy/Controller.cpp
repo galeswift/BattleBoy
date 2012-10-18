@@ -12,7 +12,7 @@ void Controller_AI::init()
 
 	mStateManager = new StateManager(this);
 	// temporarily disabled until I put in menu
-	//mStateManager->pushState(new State_Spawning(this));
+	mStateManager->pushState(new State_Spawning(this));
 }
 
 void Controller_AI::update(float dt)

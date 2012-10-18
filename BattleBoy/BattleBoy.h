@@ -38,6 +38,8 @@ public:
 
 	// implementation of Game:
 	virtual void init(int argc, char* argv[]);
+	// Crazy Eddie's gui
+	virtual void initGui();
 	// Pause/unpause the game
 	virtual void togglePause();
 	// Cycle through the various debug draw modes
@@ -62,7 +64,7 @@ public:
 	virtual void keyUp(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual void keyDown(wchar_t unicode, Boy::Keyboard::Key key, Boy::Keyboard::Modifiers mods);
 	virtual std::vector<Actor*>& getActors() {return mActors;};
-	
+
 	virtual void spawnUnit(ESpawnType unitType, int teamIdx);
 	const BoyLib::Vector2 getSpawnPos( int playerIdx );
 
@@ -71,6 +73,7 @@ public:
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
+	BattleGui* mGui;
 
 	typedef void (BattleBoy::*keyCommand)(void);
 	std::map<wchar_t,keyCommand> mKeyToCommand;

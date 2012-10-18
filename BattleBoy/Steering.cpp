@@ -139,8 +139,12 @@ BoyLib::Vector2 Steering::arrive(BoyLib::Vector2    target,
     //deceleration
 	float speed =  dist / ((float)deceleration * decelerationTweaker);                    
 
-	speed = min(speed, owner->getMaxSpeed());
-    //from here proceed just like Seek except we don't need to normalize 
+	if( owner->getMaxSpeed() < speed )
+	{
+		speed = owner->getMaxSpeed();
+	}
+	
+	//from here proceed just like Seek except we don't need to normalize 
     //the ToTarget vector because we have already gone to the trouble
     //of calculating its length: dist. 
     BoyLib::Vector2 desiredVelocity =  toTarget * speed / dist;

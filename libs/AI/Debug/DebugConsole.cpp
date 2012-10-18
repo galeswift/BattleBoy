@@ -193,7 +193,7 @@ LRESULT CALLBACK DebugConsole::DebugWindowProc(HWND hwnd,
             StartIndex = iVertPos - PageSize;
           }
 
-		  PageSize= min(m_Buffer.size()-1, PageSize);
+		  PageSize= min(m_Buffer.size()-1, (unsigned int)PageSize);
 
           std::vector<std::string>::iterator beg = m_Buffer.begin() + StartIndex;
           std::vector<std::string>::iterator end = m_Buffer.begin() + StartIndex+PageSize+1;
