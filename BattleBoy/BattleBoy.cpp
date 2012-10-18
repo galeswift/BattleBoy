@@ -95,10 +95,19 @@ void BattleBoy::reset()
 	Controller_Player *newPlayer= new Controller_Player();
 	newPlayer->setTeamIdx(0);
 	addActor(newPlayer);
-
-	Controller_AI *newAI= new Controller_AI();
-	newAI->setTeamIdx(1);
-	addActor(newAI);
+	
+	if (getGameType() == EGameType_Coop)
+	{
+		Controller_AI *newAI= new Controller_AI();
+		newAI->setTeamIdx(1);
+		addActor(newAI);
+	}
+	else
+	{
+		newPlayer= new Controller_Player();
+		newPlayer->setTeamIdx(1);
+		addActor(newPlayer);
+	}
 
 	// Add the buildings
 	Unit_Building *newBuilding = new Unit_Building(BoyLib::Vector2(125.0f,670.0f));

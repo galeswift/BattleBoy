@@ -9,6 +9,12 @@ enum ESpawnType
 	ESpawnType_MAX = 3, // DON'T INCLUDE ESpawnType_NONE
 };
 
+enum EGameType
+{
+	EGameType_Versus = 0,
+	EGameType_Coop = 1,
+};
+
 enum EDrawMode
 {
 	EDebugDrawMode_NONE = 0,
@@ -68,6 +74,9 @@ public:
 
 	Unit* closestEnemy(Unit* unit, float range = -1);
 
+	virtual EGameType getGameType() { return mGameType; }
+	virtual void setGameType(EGameType gameType) { mGameType = gameType; }
+
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
@@ -99,4 +108,7 @@ private:
 
 	// What spawnInfo to spawn next
 	SpawnInfo mPendingSpawnInfo;
+
+	// What kind of game it is, coop or pvp
+	EGameType mGameType;
 };
