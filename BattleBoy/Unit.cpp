@@ -133,9 +133,7 @@ void Unit::drawHealth(Boy::Graphics *g)
 	{
 		g->setColor(0xffff8c00);
 	}
-	Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
-	Boy::Font *mFont = rm->getFont("FONT_MAIN");
-
+	
 	char healthText[100];
 	int h1 = int(health);            // Get the integer part
 	float f1 = health - h1;     // Get fractional part
@@ -145,11 +143,11 @@ void Unit::drawHealth(Boy::Graphics *g)
 	int mh2 = int(f2 * 100);   // Turn into integer
 
 	//sprintf_s(healthText, "%d.%04d/%d.%04d", h1, h2, mh1, mh2);
-	sprintf_s(healthText, "%dl%d", h1, mh1);
+	sprintf_s(healthText, "%d/%d", h1, mh1);
 	
 	g->pushTransform();
 	g->translate(pos.x - size,pos.y - size/2.0f);
-	mFont->drawString(g,healthText,0.25f);
+	g->drawString(healthText, 12);
 	g->popTransform();
 
 	g->setColorizationEnabled(false);

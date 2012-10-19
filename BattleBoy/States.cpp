@@ -59,12 +59,8 @@ void StateManager::draw(Boy::Graphics* g)
 		{
 			g->pushTransform();
 			g->translate(getOwner()->getPos().x,getOwner()->getPos().y);
-			char stateText[100] = {};
-			Boy::ResourceManager *rm = Boy::Environment::instance()->getResourceManager();
-			Boy::Font *mFont = rm->getFont("FONT_MAIN");
 			g->translate(0,-50);
-			sprintf_s(stateText,"%s", getCurrentStateName().c_str());
-			mFont->drawString(g, stateText, 0.15f);
+			g->drawString(getCurrentStateName(), 24);
 			g->popTransform();
 		}
 	}
@@ -110,7 +106,6 @@ void State_Moving::draw(Boy::Graphics* g)
 		g->pushTransform();
 		g->setColorizationEnabled(false);
 		g->translate(getOwner()->getPos().x, getOwner()->getPos().y);
-		g->drawString("Hello World", 24);
 		g->popTransform();
 
 		g->pushTransform();

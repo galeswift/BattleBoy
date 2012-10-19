@@ -22,6 +22,13 @@
 // Networking
 #include "Networking.h"
 
+// Gui
+#undef min // use __min instead inside this source file
+#undef max // use __max instead inside this source file
+
+#include "CEGUI.h"
+#include "CEGUIDefaultResourceProvider.h"
+
 // BoyLib
 #include "BoyLib/BoyUtil.h"
 #include "BoyLib/Vector2.h"
@@ -32,6 +39,7 @@
 #include "Boy/Game.h"
 #include "Boy/Graphics.h"
 #include "Boy/KeyboardListener.h"
+#include "Boy/MouseListener.h"
 #include "Boy/Mouse.h"
 #include "Boy/ResourceManager.h"
 #include "Boy/SoundPlayer.h"
@@ -43,5 +51,7 @@
 #include "States.h"
 #include "Unit.h"
 #include "Map.h"
+#include "BattleGui.h"
 #include "BattleBoy.h"
 #include "Controller.h"
+

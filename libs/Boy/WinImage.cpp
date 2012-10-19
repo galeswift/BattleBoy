@@ -26,7 +26,7 @@ WinImage::WinImage(WinD3DInterface *d3dInterface, SDL_Surface* source) : Image(N
 		// set the texture:
 		if (tex!=NULL)
 		{	
-			setTexture(tex, true);
+			setTexture(tex, false);
 		}
 	}
 	else

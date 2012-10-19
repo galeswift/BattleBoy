@@ -382,7 +382,7 @@ void WinGraphics::drawLineStrip(TriStrip *strip)
 
 void WinGraphics::drawString(std::string text, int size)
 {
-	TTF_Font* m_Font = TTF_OpenFont("res/DefaultFont.ttf", size );
+	static TTF_Font* m_Font = TTF_OpenFont("res/cour.ttf", size );
 	SDL_Color fontColor;
 	fontColor.r = 255;
 	fontColor.g = 255;
@@ -395,6 +395,7 @@ void WinGraphics::drawString(std::string text, int size)
 		winImg, 
 		mColorizationEnabled ? mColor : 0xffffffff,
 		mZ);
+	//TTF_CloseFont(m_Font);
 }
 
 int WinGraphics::getWidth()

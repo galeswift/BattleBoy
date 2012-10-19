@@ -9,6 +9,7 @@ BattleBoy::BattleBoy()
 	mRole = Networking::ROLE_None;
 	mDebugDrawMode = EDebugDrawMode_ALL;
 	mNetInterface = NULL;
+	mGui = NULL;
 }
 
 BattleBoy::~BattleBoy()
@@ -69,6 +70,18 @@ void BattleBoy::init(int argc, char* argv[])
 	mKeyToCommand['P'] = &BattleBoy::togglePause;
 	mKeyToCommand['O'] = &BattleBoy::toggleDebugDraw;
 	mKeyToCommand['R'] = &BattleBoy::reset;
+
+	initGui();
+}
+
+void BattleBoy::initGui()
+{
+	mGui = new BattleGui(this);
+	mGui->init();
+
+	// Start listening to the mouse
+	Boy::Environment::instance()->getKeyboard(0)->addListener(mGui);
+	Boy::Environment::instance()->getMouse(0)->addListener(mGui);
 }
 
 void BattleBoy::togglePause()
@@ -166,6 +179,12 @@ void BattleBoy::update(float dt)
 	{
 		return;
 	}
+	
+	if( mGui )
+	{
+		mGui->update(dt);
+	}
+
 	for( unsigned int i=0 ; i<mActors.size() ; )
 	{
 		Actor* actor = mActors[i];

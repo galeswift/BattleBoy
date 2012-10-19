@@ -1,9 +1,9 @@
 TODO:
-
+Add AI for enemy behaviors
 Projectile System
 Pathing System
+Fix up performance on font (it's loading every frame for every drawstring call)
 UI
-New Font
 Animation
 Win/Loss
 Make executable available to Yvonne and Zoey

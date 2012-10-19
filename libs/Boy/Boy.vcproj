@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(VCInstallDir)/PlatformSDK/include;..;../ode-0.8/include;../dxsdk/200806/Include;../dxsdk/200806/Samples/C++/DXUT/Core;../SDL-1.2.12/include;../irrKlang-1.1.0/include"
+				AdditionalIncludeDirectories="&quot;$(VCInstallDir)/PlatformSDK/include&quot;;..;&quot;../ode-0.8/include&quot;;../dxsdk/200806/Include;&quot;../dxsdk/200806/Samples/C++/DXUT/Core&quot;;&quot;../SDL-1.2.12/include&quot;;&quot;../irrKlang-1.1.0/include&quot;;&quot;../CEGui/CEGUI-0.7.7/cegui/include&quot;;&quot;../CEGui/CEGUI-0.7.7/cegui/include/RendererModules/Direct3D9&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_CRTDBG_MAP_ALLOC;_LIB;GOO_PLATFORM_WIN32;D3D_DEBUG_INFO"
 				MinimalRebuild="true"
 				ExceptionHandling="2"
@@ -106,7 +106,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="$(VCInstallDir)/PlatformSDK/include;..;../ode-0.8/include;../popcap13/source;../dxsdk/200806/Include;../dxsdk/200806/Samples/C++/DXUT/Core;../SDL-1.2.12/include;../irrKlang-1.1.0/include"
+				AdditionalIncludeDirectories="&quot;$(VCInstallDir)/PlatformSDK/include&quot;;..;&quot;../ode-0.8/include&quot;;../popcap13/source;../dxsdk/200806/Include;&quot;../dxsdk/200806/Samples/C++/DXUT/Core&quot;;&quot;../SDL-1.2.12/include&quot;;&quot;../irrKlang-1.1.0/include&quot;;&quot;../CEGui/CEGUI-0.7.7/cegui/include&quot;;&quot;../CEGui/CEGUI-0.7.7/cegui/include/RendererModules/Direct3D9&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB;GOO_PLATFORM_WIN32"
 				ExceptionHandling="2"
 				RuntimeLibrary="2"
