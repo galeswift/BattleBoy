@@ -99,13 +99,13 @@ void WinGraphics::drawCircle(float x0, float y0, float r, int s)
 		x = (float)(x0 + r * cos(Theta));
 		y = (float)(y0 - r * sin(Theta));
 		triStrip->setVertPos(i,x,y,0.0f);
-		triStrip->setVertColor(i,0xFFFF0000);
+		triStrip->setVertColor(i,mColor);
 	}
 	
 	drawLineStrip(triStrip);
 }
 
-void WinGraphics::fillRect(int x0, int y0, int w, int h)
+void WinGraphics::fillRect(float x0, float y0, float w, float h)
 {
 	pushTransform();
 		D3DXMATRIX identity;

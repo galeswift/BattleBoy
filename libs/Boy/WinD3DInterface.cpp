@@ -686,10 +686,10 @@ void WinD3DInterface::drawImage(WinImage *image, DWORD color, float z, int x, in
 	drawImage(image->getTexture());
 }
 
-void WinD3DInterface::drawRect(int x, int y, int w, int h, float z, DWORD color)
+void WinD3DInterface::drawRect(float x, float y, float w, float h, float z, DWORD color)
 {
-	float minX = (float)x;
-	float minY = (float)y;
+	float minX = x;
+	float minY = y;
 	float maxX = minX + w;
 	float maxY = minY + h;
 

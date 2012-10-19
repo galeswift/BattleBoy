@@ -1,4 +1,1 @@
- - initializing CEGUI
-Using scheme directory '../libs/CEGUI/CEGUI-0.7.7/datafiles/schemes/'
- - creating the GUI
 Debug console created.

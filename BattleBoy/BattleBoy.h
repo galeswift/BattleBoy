@@ -102,4 +102,7 @@ private:
 
 	// What spawnInfo to spawn next
 	SpawnInfo mPendingSpawnInfo;
+
+	// The current map
+	BoyLib::tImageTGA* mMapData;
 };

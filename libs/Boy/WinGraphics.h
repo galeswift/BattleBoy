@@ -25,7 +25,7 @@ namespace Boy
 
 		virtual void drawLine(float x0, float y0, float x1, float y1);
 		virtual void drawCircle(float x0, float y0, float r, int s);
-		virtual void fillRect(int x0, int y0, int w, int h);
+		virtual void fillRect(float x0, float y0, float w, float h);
 		virtual void drawTriStrip(TriStrip *strip);
 		virtual void drawLineStrip(TriStrip *strip);
 		virtual void drawString(std::string text, int size);
