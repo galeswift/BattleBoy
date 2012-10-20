@@ -433,7 +433,7 @@ WinD3DInterface::WinD3DInterface(Game *game, int width, int height, const char *
 
 	// create window:
 	DXUTDeviceSettings settings = DXUTGetDeviceSettings();
-	settings.d3d9.BehaviorFlags = D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
+	settings.d3d9.BehaviorFlags = D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
 	getPresentationParameters(settings.d3d9.pp,width,height,windowed);
 	settings.d3d9.pp.FullScreen_RefreshRateInHz = refreshRate;
 	if (windowed)
@@ -686,10 +686,10 @@ void WinD3DInterface::drawImage(WinImage *image, DWORD color, float z, int x, in
 	drawImage(image->getTexture());
 }
 
-void WinD3DInterface::drawRect(int x, int y, int w, int h, float z, DWORD color)
+void WinD3DInterface::drawRect(float x, float y, float w, float h, float z, DWORD color)
 {
-	float minX = (float)x;
-	float minY = (float)y;
+	float minX = x;
+	float minY = y;
 	float maxX = minX + w;
 	float maxY = minY + h;
 

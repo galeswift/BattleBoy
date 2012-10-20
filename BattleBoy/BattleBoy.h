@@ -112,6 +112,9 @@ private:
 	// What spawnInfo to spawn next
 	SpawnInfo mPendingSpawnInfo;
 
+	// The current map
+	BoyLib::tImageTGA* mMapData;
+
 	// What kind of game it is, coop or pvp
 	EGameType mGameType;
 };

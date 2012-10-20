@@ -32,7 +32,7 @@
 // BoyLib
 #include "BoyLib/BoyUtil.h"
 #include "BoyLib/Vector2.h"
-
+#include "BoyLib/TGAlib.h"
 // Boy
 #include "Boy/Environment.h"
 #include "Boy/Font.h"

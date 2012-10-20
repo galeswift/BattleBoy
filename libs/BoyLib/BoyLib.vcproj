@@ -323,6 +323,18 @@
 				>
 			</File>
 		</Filter>
+		<Filter
+			Name="tga"
+			>
+			<File
+				RelativePath=".\TGAlib.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\TGAlib.h"
+				>
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\BoyMath.h"
 			>

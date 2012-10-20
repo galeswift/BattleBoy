@@ -40,7 +40,7 @@ namespace Boy
 		void endScene();
 		void drawImage(WinImage *image, DWORD color, float z);
 		void drawImage(WinImage *image, DWORD color, float z, int x, int y, int w, int h);
-		void drawRect(int x, int y, int w, int h, float z, DWORD color);
+		void drawRect(float x, float y, float w, float h, float z, DWORD color);
 		void drawStrip(WinTriStrip *strip, D3DPRIMITIVETYPE type);
 		void drawTriStrip(WinTriStrip *strip);
 		void drawLineStrip(WinTriStrip *strip);
