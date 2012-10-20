@@ -20,6 +20,7 @@ public:
 	virtual void mouseWheel(Boy::Mouse *mouse, int wheelDelta);
 	virtual void mouseEnter(Boy::Mouse *mouse);
 	virtual void mouseLeave(Boy::Mouse *mouse);
+	bool BattleGui::handleMineButtonClicked(const CEGUI::EventArgs& event);
 
 private:
 	BattleBoy* mOwner;

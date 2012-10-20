@@ -565,8 +565,8 @@ void create_gui( WindowManager & winManager )
 void BattleGui::init()
 {
 	WindowManager & winManager = init_CEGUI( ) ;
-  create_gui( winManager ) ;
-/*
+	//create_gui( winManager ) ;
+
 	DefaultWindow & rootWin = * static_cast<DefaultWindow*>(
 		winManager.createWindow( "DefaultWindow", "Root" ) ) ;
 
@@ -583,5 +583,40 @@ void BattleGui::init()
 	myWin.setMaxSize( UVector2( cegui_reldim(1.0f), cegui_reldim(1.0f) ) ) ;
 	myWin.setMinSize( UVector2( cegui_reldim(0.1f), cegui_reldim(0.1f) ) ) ;
 
-	myWin.setText( "Hello World! This is a minimal SDL+OpenGL+CEGUI test." ) ;*/
+	myWin.setText( "Battle Boy Control Panel" ) ;
+
+    Window* spawnRockButton = winManager.createWindow("TaharezLook/Button");
+	myWin.addChildWindow(spawnRockButton);
+	spawnRockButton->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
+	//spawnRockButton->subscribeEvent(Window::EventMouseButtonDown, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
+	spawnRockButton->setArea(URect(UDim(0, 0), UDim(0,0), UDim(0.2f, 0), UDim(0.2f,0)));
+	//spawnRockButton.setEnabled(true);
+
+	 // create a container for each row
+       /* Window* row = winMgr.createWindow("DefaultWindow");
+        row->setArea(URect(UDim(0,0), UDim(d_inc * i, 0),
+            UDim(1,0), UDim(d_inc * (i + 1), 0)));
+        grid->addChildWindow(row);*/
+        //for(size_t j = 0 ; j < MinesweeperSize ; ++j)
+        //{
+            // Initialize buttons coordinate
+            //d_buttonsMapping[i][j].d_col = j;
+            //d_buttonsMapping[i][j].d_row = i;
+            //d_buttons[i][j] = (PushButton*)winMgr.createWindow("Vanilla/Button");
+            //row->addChildWindow(d_buttons[i][j]);
+           // d_buttons[i][j]->setArea(URect(UDim(d_inc * j, 0), UDim(0,0), UDim(d_inc * (j + 1), 0), UDim(1,0)));
+           // d_buttons[i][j]->setEnabled(false);
+            // Associate user data
+            //d_buttons[i][j]->setUserData(&(d_buttonsMapping[i][j]));
+            //d_buttons[i][j]->setID(0);
+            // Connect event handlers
+           // d_buttons[i][j]->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&MinesweeperSample::handleMineButtonClicked, this));
+            //d_buttons[i][j]->subscribeEvent(Window::EventMouseButtonDown, Event::Subscriber(&MinesweeperSample::handleMineButtonDown, this));
+        //}
+}
+
+bool BattleGui::handleMineButtonClicked(const CEGUI::EventArgs& event)
+{
+	mOwner->spawnUnit(ESpawnType_ROCK, 0);
+	return true;
 }
