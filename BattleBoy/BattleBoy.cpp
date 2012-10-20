@@ -200,9 +200,9 @@ void BattleBoy::draw(Boy::Graphics *g)
 	{
 		for( std::vector<Actor*>::iterator it = mActors.begin(); it != mActors.end() ; ++it )
 		{
-		//	(*it)->draw(g);
+			(*it)->draw(g);
 		}
-
+		return;
 		for(int i=0 ; i<mMapData->width; i++ )
 		{
 			for(int j=0 ; j<mMapData->height ; j++ )

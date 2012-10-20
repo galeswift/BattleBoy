@@ -433,7 +433,7 @@ WinD3DInterface::WinD3DInterface(Game *game, int width, int height, const char *
 
 	// create window:
 	DXUTDeviceSettings settings = DXUTGetDeviceSettings();
-	settings.d3d9.BehaviorFlags = D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
+	settings.d3d9.BehaviorFlags = D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED;
 	getPresentationParameters(settings.d3d9.pp,width,height,windowed);
 	settings.d3d9.pp.FullScreen_RefreshRateInHz = refreshRate;
 	if (windowed)
