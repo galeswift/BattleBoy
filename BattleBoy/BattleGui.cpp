@@ -182,7 +182,6 @@ WindowManager & init_CEGUI( )
 	debug_con << " - initializing CEGUI" << "" ;
 
 	set_CEGUI_paths() ;
-
 	SchemeManager::getSingleton().create( "TaharezLook.scheme" ) ;
 
 	System::getSingleton().setDefaultMouseCursor( "TaharezLook", "MouseArrow" ) ;
@@ -562,6 +561,12 @@ void create_gui( WindowManager & winManager )
 	create_advanced_widgets_frame( winManager, backgroundWin ) ;
 
 }
+
+bool handleMineButtonClicked(const CEGUI::EventArgs& event)
+{
+	//mOwner->spawnUnit(ESpawnType_ROCK, 0);
+	return true;
+}
 void BattleGui::init()
 {
 	WindowManager & winManager = init_CEGUI( ) ;
@@ -585,11 +590,13 @@ void BattleGui::init()
 
 	myWin.setText( "Battle Boy Control Panel" ) ;
 
-    Window* spawnRockButton = winManager.createWindow("TaharezLook/Button");
-	myWin.addChildWindow(spawnRockButton);
-	spawnRockButton->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
-	//spawnRockButton->subscribeEvent(Window::EventMouseButtonDown, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
+    PushButton* spawnRockButton = (PushButton*)winManager.createWindow("TaharezLook/Button");
 	spawnRockButton->setArea(URect(UDim(0, 0), UDim(0,0), UDim(0.2f, 0), UDim(0.2f,0)));
+	spawnRockButton->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&handleMineButtonClicked, this));
+     //gJumpBtnWindow->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&OurPlayer::Jump,this));
+	//spawnRockButton->subscribeEvent(Window::EventMouseButtonDown, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
+	myWin.addChildWindow(spawnRockButton);
+
 	//spawnRockButton.setEnabled(true);
 
 	 // create a container for each row
@@ -613,10 +620,12 @@ void BattleGui::init()
            // d_buttons[i][j]->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&MinesweeperSample::handleMineButtonClicked, this));
             //d_buttons[i][j]->subscribeEvent(Window::EventMouseButtonDown, Event::Subscriber(&MinesweeperSample::handleMineButtonDown, this));
         //}
-}
-
-bool BattleGui::handleMineButtonClicked(const CEGUI::EventArgs& event)
-{
-	mOwner->spawnUnit(ESpawnType_ROCK, 0);
-	return true;
+	/*void CreateJumpButton()
+	{
+	  gJumpBtnWindow = CEGUI::WindowManager::getSingleton().createWindow("TaharezLook/Button","JumpPushButton");  // Create Window
+	  gJumpBtnWindow->setPosition(CEGUI::UVector2(CEGUI::UDim(0.75,0),CEGUI::UDim(0.50,0)));
+	  gJumpBtnWindow->setSize(CEGUI::UVector2(CEGUI::UDim(0,50),CEGUI::UDim(0,50)));
+	  gJumpBtnWindow->setText("Jump!");
+	  CEGUI::System::getSingleton().getGUISheet()->addChildWindow(gJumpBtnWindow);  
+	}*/
 }

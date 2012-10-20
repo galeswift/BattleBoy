@@ -71,7 +71,7 @@ void BattleBoy::init(int argc, char* argv[])
 	mKeyToCommand['O'] = &BattleBoy::toggleDebugDraw;
 	mKeyToCommand['R'] = &BattleBoy::reset;
 
-	//initGui();
+	initGui();
 }
 
 void BattleBoy::initGui()
