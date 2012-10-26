@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIOpenGLRenderer"
-	ProjectGUID="{A3B9CA08-51E6-1F4C-8DE4-604A3E3208E3}"
+	ProjectGUID="{7867E192-12A3-D845-A5B1-C63C2B2C5A39}"
 	RootNamespace="CEGUIOpenGLRenderer"
 	Keyword="Win32Proj"
 	>

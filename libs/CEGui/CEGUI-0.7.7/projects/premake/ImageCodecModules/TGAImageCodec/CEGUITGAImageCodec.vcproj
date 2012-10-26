@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUITGAImageCodec"
-	ProjectGUID="{609F8601-34CD-0A4D-A150-32ACE78EF059}"
+	ProjectGUID="{7F38E493-D548-5240-9036-EBE476AFEA9D}"
 	RootNamespace="CEGUITGAImageCodec"
 	Keyword="Win32Proj"
 	>

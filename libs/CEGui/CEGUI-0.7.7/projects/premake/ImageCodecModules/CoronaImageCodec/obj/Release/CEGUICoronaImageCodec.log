@@ -1,4 +1,4 @@
-﻿Build started 10/18/2012 12:20:05 AM.
+﻿Build started 10/25/2012 11:02:53 PM.
      1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\CEGUICoronaImageCodec.vcxproj" on node 8 (build target(s)).
      1>Building with tools version "4.0".
      1>Target "_CheckForInvalidConfigurationAndPlatform" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\CEGUICoronaImageCodec.vcxproj" (entry point):
@@ -22,7 +22,7 @@
      1>Target "SetBuildDefaultEnvironmentVariables" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.Cpp.targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\CEGUICoronaImageCodec.vcxproj" (target "Build" depends on it):
        Using "SetEnv" task from assembly "Microsoft.Build.CppTasks.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
        Task "SetEnv"
-         PATH=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\tools;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;c:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Windows\SysWow64;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Steam;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;;
+         PATH=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\tools;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;c:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Windows\SysWow64;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Steam;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;C:\Program Files\Common Files\Microsoft Shared\Windows Live;
        Done executing task "SetEnv".
        Task "SetEnv" skipped, due to false condition; ('$(_IsNativeEnvironment)' == 'true') was evaluated as ('' == 'true').
        Task "SetEnv"
@@ -369,12 +369,12 @@
          	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUICORONAIMAGECODEC.EXP
          Source compilation required: input C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIBASE.LIB is newer than output C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODEC.DLL.INTERMEDIATE.MANIFEST.
          Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=728
+           VS_UNICODE_OUTPUT=1252
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../../../bin\CEGUICoronaImageCodec.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../lib /LIBPATH:../../../../dependencies/lib/dynamic ../../../../lib/CEGUIBase.lib corona.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\CEGUICoronaImageCodec.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\CEGUICoronaImageCodec.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../lib/CEGUICoronaImageCodec.lib" /MACHINE:X86 /DLL obj/Release\CEGUICoronaImageCodec.obj
          obj/Release\CEGUICoronaImageCodecModule.obj
          "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\lib\CEGUIBase.lib"
          Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /a /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIBASE.LIB|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODEC.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODECMODULE.OBJ" /b MSBuildConsole_CancelEventa3ab15be43284a939d25fd074fd964fa  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"../../../../bin\CEGUICoronaImageCodec.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../lib /LIBPATH:../../../../dependencies/lib/dynamic ../../../../lib/CEGUIBase.lib corona.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\CEGUICoronaImageCodec.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\CEGUICoronaImageCodec.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../lib/CEGUICoronaImageCodec.lib" /MACHINE:X86 /DLL obj/Release\CEGUICoronaImageCodec.obj
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /a /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIBASE.LIB|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODEC.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODECMODULE.OBJ" /b MSBuildConsole_CancelEventc026ec2d9d9b48d5a7d9e69129f887a4  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"../../../../bin\CEGUICoronaImageCodec.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../lib /LIBPATH:../../../../dependencies/lib/dynamic ../../../../lib/CEGUIBase.lib corona.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\CEGUICoronaImageCodec.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\CEGUICoronaImageCodec.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../lib/CEGUICoronaImageCodec.lib" /MACHINE:X86 /DLL obj/Release\CEGUICoronaImageCodec.obj
          obj/Release\CEGUICoronaImageCodecModule.obj
          "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\lib\CEGUIBase.lib"
             Creating library ../../../../lib/CEGUICoronaImageCodec.lib and object ../../../../lib/CEGUICoronaImageCodec.exp
@@ -406,8 +406,13 @@
        Task "Mt"
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"../../../../bin\CEGUICoronaImageCodec.dll;#2" /manifest obj/Release\CEGUICoronaImageCodec.dll.intermediate.manifest
          Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\obj\Release /r C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODEC.DLL.INTERMEDIATE.MANIFEST /b MSBuildConsole_CancelEventb5d1e2962bb544f481ccf84ee3cd7991  /c "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe"  /nologo /verbose /outputresource:"../../../../bin\CEGUICoronaImageCodec.dll;#2" /manifest obj/Release\CEGUICoronaImageCodec.dll.intermediate.manifest
-       Done executing task "Mt".
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\obj\Release /r C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\CORONAIMAGECODEC\OBJ\RELEASE\CEGUICORONAIMAGECODEC.DLL.INTERMEDIATE.MANIFEST /b MSBuildConsole_CancelEvent6e037ded403e47c8afea83eb2117af29  /c "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe"  /nologo /verbose /outputresource:"../../../../bin\CEGUICoronaImageCodec.dll;#2" /manifest obj/Release\CEGUICoronaImageCodec.dll.intermediate.manifest
+     1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\CEGUICoronaImageCodec.vcxproj" (1) is building "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (2:4) on node 2 (GetCopyToOutputDirectoryItems target(s)).
+   2:4>Building with tools version "4.0".
+       Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
+       Target "GetCopyToOutputDirectoryItems" skipped. Previously built successfully.
+   2:4>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetCopyToOutputDirectoryItems target(s)).
+     1>Done executing task "Mt".
        Task "RC" skipped, due to false condition; ('$(EmbedManifestby)'=='LINK') was evaluated as ('MT'=='LINK').
      1>Done building target "Manifest" in project "CEGUICoronaImageCodec.vcxproj".
        Target "ComputeManifestGeneratedLinkerInputs" skipped. Previously built successfully.
@@ -464,12 +469,6 @@
        Target "_SplitProjectReferencesByFileExistence" skipped. Previously built successfully.
      1>Target "GetCopyToOutputDirectoryItems" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\CEGUICoronaImageCodec.vcxproj" (target "_CopySourceItemsToOutputDirectory" depends on it):
        Task "MSBuild"
-     1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\CoronaImageCodec\CEGUICoronaImageCodec.vcxproj" (1) is building "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (2:4) on node 2 (GetCopyToOutputDirectoryItems target(s)).
-   2:4>Building with tools version "4.0".
-       Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
-       Target "GetCopyToOutputDirectoryItems" skipped. Previously built successfully.
-   2:4>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetCopyToOutputDirectoryItems target(s)).
-     1>GetCopyToOutputDirectoryItems:
          Global Properties:
            Configuration=Release
            Platform=Win32
@@ -520,4 +519,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.08
+Time Elapsed 00:00:00.83

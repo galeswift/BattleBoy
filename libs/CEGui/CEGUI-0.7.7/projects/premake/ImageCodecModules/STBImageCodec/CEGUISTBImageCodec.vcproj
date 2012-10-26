@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUISTBImageCodec"
-	ProjectGUID="{20D47F71-AED0-D54E-8866-3B54FAB90320}"
+	ProjectGUID="{90699504-8BCF-714F-9342-0E954695FA82}"
 	RootNamespace="CEGUISTBImageCodec"
 	Keyword="Win32Proj"
 	>

@@ -21,6 +21,8 @@ public:
 	virtual void mouseEnter(Boy::Mouse *mouse);
 	virtual void mouseLeave(Boy::Mouse *mouse);
 
+	bool handleMineButtonClicked(const CEGUI::EventArgs& event);
+
 private:
 	BattleBoy* mOwner;
 };

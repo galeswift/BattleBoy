@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="9.00"
 	Name="CEGUIDirect3D9Renderer"
-	ProjectGUID="{25D1BAE7-2AF4-1C41-892F-E3D3B1345978}"
+	ProjectGUID="{963FB9D9-AEC8-534C-8148-AFC1C7A28C63}"
 	RootNamespace="CEGUIDirect3D9Renderer"
 	Keyword="Win32Proj"
 	>

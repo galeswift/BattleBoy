@@ -1,4 +1,4 @@
-﻿Build started 10/17/2012 10:01:55 PM.
+﻿Build started 10/25/2012 10:48:19 PM.
      1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\tolua++.vcxproj" on node 3 (build target(s)).
      1>Building with tools version "4.0".
      1>Target "_CheckForInvalidConfigurationAndPlatform" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\tolua++.vcxproj" (entry point):
@@ -22,7 +22,7 @@
      1>Target "SetBuildDefaultEnvironmentVariables" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.Cpp.targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\tolua++.vcxproj" (target "Build" depends on it):
        Using "SetEnv" task from assembly "Microsoft.Build.CppTasks.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
        Task "SetEnv"
-         PATH=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\tools;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;c:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Windows\SysWow64;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Steam;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;;
+         PATH=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\tools;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;c:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Windows\SysWow64;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Steam;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;C:\Program Files\Common Files\Microsoft Shared\Windows Live;
        Done executing task "SetEnv".
        Task "SetEnv" skipped, due to false condition; ('$(_IsNativeEnvironment)' == 'true') was evaluated as ('' == 'true').
        Task "SetEnv"
@@ -176,18 +176,15 @@
        Task "CL" skipped, due to false condition; ('%(ClCompile.PrecompiledHeader)' == 'Create' and '%(ClCompile.ExcludedFromBuild)'!='true') was evaluated as ('' == 'Create' and ''!='true').
        Using "CL" task from assembly "Microsoft.Build.CppTasks.Win32, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
        Task "CL"
-         Forcing rebuild of all source files due to missing command tlog "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release\cl.command.1.tlog".
-         Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=716
-         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../../../../../../cegui/include /I../../../../../../dependencies/include /I../../../../../../cegui/include/ScriptingModules/LuaScriptModule/support/tolua++/ /nologo /W3 /WX- /O2 /Oy /D _CRT_SECURE_NO_DEPRECATE /D HAVE_CONFIG_H /D TOLUA_EXPORTS /D _WINDLL /D _MBCS /GF /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"obj/Release\\" /Fd"obj/Release\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_event.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_is.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_map.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_push.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_to.c
-         Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_EVENT.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_IS.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_MAP.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_PUSH.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_TO.C" /b MSBuildConsole_CancelEvent4d473f66e1624394a62972d0a1fceb23  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\CL.exe"  /c /I../../../../../../cegui/include /I../../../../../../dependencies/include /I../../../../../../cegui/include/ScriptingModules/LuaScriptModule/support/tolua++/ /nologo /W3 /WX- /O2 /Oy /D _CRT_SECURE_NO_DEPRECATE /D HAVE_CONFIG_H /D TOLUA_EXPORTS /D _WINDLL /D _MBCS /GF /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"obj/Release\\" /Fd"obj/Release\vc100.pdb" /Gd /TC /analyze- /errorReport:prompt ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_event.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_is.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_map.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_push.c ..\..\..\..\..\..\cegui\src\ScriptingModules\LuaScriptModule\support\tolua++\tolua_to.c
-         tolua_event.c
-         tolua_is.c
-         tolua_map.c
-         tolua_push.c
-         tolua_to.c
-         Generating Code...
+         Read Tracking Logs:
+         	obj/Release\cl.read.1.tlog
+         Outputs for C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_EVENT.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_IS.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_MAP.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_PUSH.C|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\CEGUI\SRC\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\TOLUA_TO.C:
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_EVENT.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_IS.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_MAP.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_PUSH.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_TO.OBJ
+         All outputs are up-to-date.
        Done executing task "CL".
      1>Done building target "ClCompile" in project "tolua++.vcxproj".
      1>Target "AfterClCompile" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\tolua++.vcxproj" (target "_ClCompile" depends on it):
@@ -290,16 +287,49 @@
      1>Target "Link" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Platforms\Win32\Microsoft.Cpp.Win32.Targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\tolua++.vcxproj" (target "_Link" depends on it):
        Using "Link" task from assembly "Microsoft.Build.CppTasks.Win32, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
        Task "Link"
-         Forcing rebuild of all source files due to missing command tlog "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release\link.command.1.tlog".
+         Write Tracking Logs:
+         	obj\Release\link.write.1.tlog
+         Read Tracking Logs:
+         	obj\Release\link.read.1.tlog
+         Outputs for C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_EVENT.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_IS.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_MAP.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_PUSH.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_TO.OBJ:
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\BIN\TOLUA++.DLL
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA++.DLL.INTERMEDIATE.MANIFEST
+         Inputs for C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_EVENT.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_IS.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_MAP.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_PUSH.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_TO.OBJ:
+         	C:\PROGRAMDATA\NVIDIA CORPORATION\DRS\NVDRSDB1.BIN
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\DEPENDENCIES\LIB\DYNAMIC\LUA.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\KERNEL32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\USER32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\GDI32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\WINSPOOL.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\COMDLG32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\ADVAPI32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\SHELL32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\OLE32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\OLEAUT32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\UUID.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\ODBC32.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT SDKS\WINDOWS\V7.0A\LIB\ODBCCP32.LIB
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_EVENT.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_IS.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_MAP.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_PUSH.OBJ
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_TO.OBJ
+         	C:\WINDOWS\GLOBALIZATION\SORTING\SORTDEFAULT.NLS
+         	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 10.0\VC\LIB\MSVCRT.LIB
+         	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 10.0\VC\LIB\OLDNAMES.LIB
+         	C:\WINDOWS\SYSTEM32\TZRES.DLL
+         	C:\PROGRAM FILES (X86)\MICROSOFT VISUAL STUDIO 10.0\VC\BIN\1033\LINKUI.DLL
+         	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\TOLUA++.EXP
+         Source compilation required: input C:\PROGRAMDATA\NVIDIA CORPORATION\DRS\NVDRSDB1.BIN is newer than output C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA++.DLL.INTERMEDIATE.MANIFEST.
          Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=1000
+           VS_UNICODE_OUTPUT=728
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../../../../../bin\tolua++.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../../../lib /LIBPATH:../../../../../../dependencies/lib/dynamic lua.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\tolua++.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\tolua++.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../../../lib/tolua++.lib" /MACHINE:X86 /DLL obj/Release\tolua_event.obj
          obj/Release\tolua_is.obj
          obj/Release\tolua_map.obj
          obj/Release\tolua_push.obj
          obj/Release\tolua_to.obj
          Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /a /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_EVENT.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_IS.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_MAP.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_PUSH.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_TO.OBJ" /b MSBuildConsole_CancelEvent01d57148d6ee44e0af94b736bc02d3f1  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"../../../../../../bin\tolua++.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../../../lib /LIBPATH:../../../../../../dependencies/lib/dynamic lua.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\tolua++.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\tolua++.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../../../lib/tolua++.lib" /MACHINE:X86 /DLL obj/Release\tolua_event.obj
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /a /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_EVENT.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_IS.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_MAP.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_PUSH.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA_TO.OBJ" /b MSBuildConsole_CancelEvente59967bb38c845348a62d5a4b270adee  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"../../../../../../bin\tolua++.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../../../lib /LIBPATH:../../../../../../dependencies/lib/dynamic lua.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\tolua++.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\tolua++.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../../../lib/tolua++.lib" /MACHINE:X86 /DLL obj/Release\tolua_event.obj
          obj/Release\tolua_is.obj
          obj/Release\tolua_map.obj
          obj/Release\tolua_push.obj
@@ -333,7 +363,7 @@
        Task "Mt"
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"../../../../../../bin\tolua++.dll;#2" /manifest obj/Release\tolua++.dll.intermediate.manifest
          Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release /r C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA++.DLL.INTERMEDIATE.MANIFEST /b MSBuildConsole_CancelEvent6a358948f63c49bab31e133656241abc  /c "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe"  /nologo /verbose /outputresource:"../../../../../../bin\tolua++.dll;#2" /manifest obj/Release\tolua++.dll.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ScriptingModules\LuaScriptModule\support\tolua++\obj\Release /r C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\SCRIPTINGMODULES\LUASCRIPTMODULE\SUPPORT\TOLUA++\OBJ\RELEASE\TOLUA++.DLL.INTERMEDIATE.MANIFEST /b MSBuildConsole_CancelEvent0510704225f8472ca2c6e7701dc71e4c  /c "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe"  /nologo /verbose /outputresource:"../../../../../../bin\tolua++.dll;#2" /manifest obj/Release\tolua++.dll.intermediate.manifest
        Done executing task "Mt".
        Task "RC" skipped, due to false condition; ('$(EmbedManifestby)'=='LINK') was evaluated as ('MT'=='LINK').
      1>Done building target "Manifest" in project "tolua++.vcxproj".
@@ -437,4 +467,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.77
+Time Elapsed 00:00:00.58

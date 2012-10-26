@@ -1,4 +1,4 @@
-﻿Build started 10/18/2012 12:20:05 AM.
+﻿Build started 10/25/2012 11:02:53 PM.
      1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" on node 7 (build target(s)).
      1>Building with tools version "4.0".
      1>Target "_CheckForInvalidConfigurationAndPlatform" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (entry point):
@@ -22,7 +22,7 @@
      1>Target "SetBuildDefaultEnvironmentVariables" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.Cpp.targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (target "Build" depends on it):
        Using "SetEnv" task from assembly "Microsoft.Build.CppTasks.Common, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a".
        Task "SetEnv"
-         PATH=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\tools;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;c:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Windows\SysWow64;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Steam;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;;
+         PATH=C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\Tools\bin;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\tools;c:\Program Files (x86)\Microsoft Visual Studio 10.0\Common7\ide;C:\Program Files (x86)\HTML Help Workshop;C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\\bin;C:\Windows\Microsoft.NET\Framework\v4.0.30319\;c:\Program Files (x86)\Microsoft Visual Studio 10.0\;C:\Windows\SysWow64;;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Microsoft Shared\Windows Live;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Git\cmd;C:\Program Files\TortoiseSVN\bin;C:\Program Files (x86)\Steam;C:\Program Files (x86)\Common Files\Acronis\SnapAPI\;C:\Program Files (x86)\MiKTeX 2.9\miktex\bin\;C:\Program Files\Common Files\Microsoft Shared\Windows Live;
        Done executing task "SetEnv".
        Task "SetEnv" skipped, due to false condition; ('$(_IsNativeEnvironment)' == 'true') was evaluated as ('' == 'true').
        Task "SetEnv"
@@ -65,18 +65,18 @@
        Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
        Target "GetTargetPath" skipped. Previously built successfully.
      2>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetTargetPath target(s)).
-     1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (1) is building "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (2:2) on node 2 (GetNativeManifest target(s)).
-   2:2>Building with tools version "4.0".
-       Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
-       Target "GetNativeManifest" skipped. Previously built successfully.
-   2:2>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetNativeManifest target(s)).
      1>Done executing task "MSBuild".
        Task "MSBuild" skipped, due to false condition; ('%(_MSBuildProjectReferenceExistent.BuildReference)' == 'true' and '@(ProjectReferenceWithConfiguration)' != '' and '$(BuildingInsideVisualStudio)' != 'true' and '$(BuildProjectReferences)' == 'true' and '@(_MSBuildProjectReferenceExistent)' != '') was evaluated as ('true' == 'true' and '..\..\BaseSystem\CEGUIBase.vcxproj' != '' and 'true' != 'true' and 'true' == 'true' and '..\..\BaseSystem\CEGUIBase.vcxproj' != '').
        Task "MSBuild"
          Global Properties:
            Configuration=Release
            Platform=Win32
-       Done executing task "MSBuild".
+     1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (1) is building "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (2:2) on node 2 (GetNativeManifest target(s)).
+   2:2>Building with tools version "4.0".
+       Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
+       Target "GetNativeManifest" skipped. Previously built successfully.
+   2:2>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetNativeManifest target(s)).
+     1>Done executing task "MSBuild".
        Task "Warning" skipped, due to false condition; ('@(ProjectReferenceWithConfiguration)' != '' and '@(_MSBuildProjectReferenceNonexistent)' != '') was evaluated as ('..\..\BaseSystem\CEGUIBase.vcxproj' != '' and '' != '').
      1>Done building target "ResolveProjectReferences" in project "CEGUIDevILImageCodec.vcxproj".
        Target "ResolveNativeReferences" skipped, due to false condition; ('@(NativeReference)'!='') was evaluated as (''!='').
@@ -370,12 +370,12 @@
          	C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIDEVILIMAGECODEC.EXP
          Source compilation required: input C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIBASE.LIB is newer than output C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODEC.DLL.INTERMEDIATE.MANIFEST.
          Environment Variables passed to tool:
-           VS_UNICODE_OUTPUT=908
+           VS_UNICODE_OUTPUT=388
          C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"../../../../bin\CEGUIDevILImageCodec.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../lib /LIBPATH:../../../../dependencies/lib/dynamic ../../../../lib/CEGUIBase.lib DevIL.lib ILU.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\CEGUIDevILImageCodec.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\CEGUIDevILImageCodec.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../lib/CEGUIDevILImageCodec.lib" /MACHINE:X86 /DLL obj/Release\CEGUIDevILImageCodec.obj
          obj/Release\CEGUIDevILImageCodecModule.obj
          "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\lib\CEGUIBase.lib"
          Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /a /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIBASE.LIB|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODEC.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODECMODULE.OBJ" /b MSBuildConsole_CancelEvent04ba2116198c4db88aa9b4375f1229c9  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"../../../../bin\CEGUIDevILImageCodec.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../lib /LIBPATH:../../../../dependencies/lib/dynamic ../../../../lib/CEGUIBase.lib DevIL.lib ILU.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\CEGUIDevILImageCodec.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\CEGUIDevILImageCodec.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../lib/CEGUIDevILImageCodec.lib" /MACHINE:X86 /DLL obj/Release\CEGUIDevILImageCodec.obj
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /a /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\obj\Release /r "C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\LIB\CEGUIBASE.LIB|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODEC.OBJ|C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODECMODULE.OBJ" /b MSBuildConsole_CancelEvent7decebf52af847b1843340ccaf347d3d  /c "C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\link.exe"  /ERRORREPORT:PROMPT /OUT:"../../../../bin\CEGUIDevILImageCodec.dll" /INCREMENTAL:NO /NOLOGO /LIBPATH:../../../../lib /LIBPATH:../../../../dependencies/lib/dynamic ../../../../lib/CEGUIBase.lib DevIL.lib ILU.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"obj/Release\CEGUIDevILImageCodec.dll.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /PDB:"C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\bin\CEGUIDevILImageCodec.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"../../../../lib/CEGUIDevILImageCodec.lib" /MACHINE:X86 /DLL obj/Release\CEGUIDevILImageCodec.obj
          obj/Release\CEGUIDevILImageCodecModule.obj
          "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\lib\CEGUIBase.lib"
             Creating library ../../../../lib/CEGUIDevILImageCodec.lib and object ../../../../lib/CEGUIDevILImageCodec.exp
@@ -407,7 +407,7 @@
        Task "Mt"
          C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"../../../../bin\CEGUIDevILImageCodec.dll;#2" /manifest obj/Release\CEGUIDevILImageCodec.dll.intermediate.manifest
          Tracking command:
-         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\obj\Release /r C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODEC.DLL.INTERMEDIATE.MANIFEST /b MSBuildConsole_CancelEvent6f565542eddd4db1a318b9d788ff590b  /c "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe"  /nologo /verbose /outputresource:"../../../../bin\CEGUIDevILImageCodec.dll;#2" /manifest obj/Release\CEGUIDevILImageCodec.dll.intermediate.manifest
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools\Tracker.exe /d C:\Windows\Microsoft.NET\Framework\v4.0.30319\FileTracker.dll /i C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\obj\Release /r C:\PROJECTS\BATTLEBOY\LIBS\CEGUI\CEGUI-0.7.7\PROJECTS\PREMAKE\IMAGECODECMODULES\DEVILIMAGECODEC\OBJ\RELEASE\CEGUIDEVILIMAGECODEC.DLL.INTERMEDIATE.MANIFEST /b MSBuildConsole_CancelEvent0991505a810748e9ada9d288471910f7  /c "C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe"  /nologo /verbose /outputresource:"../../../../bin\CEGUIDevILImageCodec.dll;#2" /manifest obj/Release\CEGUIDevILImageCodec.dll.intermediate.manifest
        Done executing task "Mt".
        Task "RC" skipped, due to false condition; ('$(EmbedManifestby)'=='LINK') was evaluated as ('MT'=='LINK').
      1>Done building target "Manifest" in project "CEGUIDevILImageCodec.vcxproj".
@@ -453,6 +453,11 @@
      1>Done building target "_GenerateSatelliteAssemblyInputs" in project "CEGUIDevILImageCodec.vcxproj".
        Target "ComputeIntermediateSatelliteAssemblies" skipped, due to false condition; (@(ReferenceSatellitePaths->'%(DestinationSubDirectory)') != '') was evaluated as ( != '').
        Target "GenerateSatelliteAssemblies" skipped, due to false condition; ('@(_SatelliteAssemblyResourceInputs)' != '') was evaluated as ('' != '').
+     1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (1) is building "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (2:4) on node 2 (GetCopyToOutputDirectoryItems target(s)).
+   2:4>Building with tools version "4.0".
+       Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
+       Target "GetCopyToOutputDirectoryItems" skipped. Previously built successfully.
+   2:4>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetCopyToOutputDirectoryItems target(s)).
      1>Target "CreateSatelliteAssemblies" in file "C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (target "BuildLink" depends on it):
      1>Done building target "CreateSatelliteAssemblies" in project "CEGUIDevILImageCodec.vcxproj".
      1>Target "_Appverifier" in file "C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets" from project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (target "BuildLink" depends on it):
@@ -468,12 +473,7 @@
          Global Properties:
            Configuration=Release
            Platform=Win32
-     1>Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\ImageCodecModules\DevILImageCodec\CEGUIDevILImageCodec.vcxproj" (1) is building "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (2:4) on node 2 (GetCopyToOutputDirectoryItems target(s)).
-   2:4>Building with tools version "4.0".
-       Target "_CheckForInvalidConfigurationAndPlatform" skipped. Previously built successfully.
-       Target "GetCopyToOutputDirectoryItems" skipped. Previously built successfully.
-   2:4>Done Building Project "C:\Projects\BattleBoy\libs\CEGui\CEGUI-0.7.7\projects\premake\BaseSystem\CEGUIBase.vcxproj" (GetCopyToOutputDirectoryItems target(s)).
-     1>Done executing task "MSBuild".
+       Done executing task "MSBuild".
        Task "AssignTargetPath"
        Done executing task "AssignTargetPath".
      1>Done building target "GetCopyToOutputDirectoryItems" in project "CEGUIDevILImageCodec.vcxproj".
@@ -520,4 +520,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:00.82
+Time Elapsed 00:00:00.90
