@@ -562,9 +562,9 @@ void create_gui( WindowManager & winManager )
 
 }
 
-bool handleMineButtonClicked(const CEGUI::EventArgs& event)
+bool BattleGui::handleMineButtonClicked(const CEGUI::EventArgs& event)
 {
-	//mOwner->spawnUnit(ESpawnType_ROCK, 0);
+	mOwner->spawnUnit(ESpawnType_ROCK, 0);
 	return true;
 }
 void BattleGui::init()
@@ -592,7 +592,7 @@ void BattleGui::init()
 
     PushButton* spawnRockButton = (PushButton*)winManager.createWindow("TaharezLook/Button");
 	spawnRockButton->setArea(URect(UDim(0, 0), UDim(0,0), UDim(0.2f, 0), UDim(0.2f,0)));
-	spawnRockButton->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&handleMineButtonClicked, this));
+	spawnRockButton->subscribeEvent(PushButton::EventClicked, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
      //gJumpBtnWindow->subscribeEvent(CEGUI::PushButton::EventClicked,CEGUI::Event::Subscriber(&OurPlayer::Jump,this));
 	//spawnRockButton->subscribeEvent(Window::EventMouseButtonDown, Event::Subscriber(&BattleGui::handleMineButtonClicked, this));
 	myWin.addChildWindow(spawnRockButton);
