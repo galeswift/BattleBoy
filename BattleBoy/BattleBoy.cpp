@@ -10,6 +10,7 @@ BattleBoy::BattleBoy()
 	mDebugDrawMode = EDebugDrawMode_ALL;
 	mNetInterface = NULL;
 	mGui = NULL;
+	mMap = NULL;
 }
 
 BattleBoy::~BattleBoy()
@@ -39,6 +40,14 @@ void BattleBoy::destroy()
 void BattleBoy::init(int argc, char* argv[])
 {
 	parseCommandArgs(argc, argv);
+	initNetworking();
+	initKeyBindings();
+	initMapData();
+//	initGui();
+}
+
+void BattleBoy::initNetworking()
+{
 	if( mRole == Networking::ROLE_Authority)
 	{
 		printf("Starting server...\n");
@@ -58,7 +67,10 @@ void BattleBoy::init(int argc, char* argv[])
 	{
 		printf("Starting offline game...\n");
 	}
+}
 
+void BattleBoy::initKeyBindings()
+{
 	mKeyToSpawnInfo['Q'] = SpawnInfo(ESpawnType_ROCK,1);
 	mKeyToSpawnInfo['W'] = SpawnInfo(ESpawnType_PAPER,1);
 	mKeyToSpawnInfo['E'] = SpawnInfo(ESpawnType_SCISSORS,1);
@@ -70,8 +82,12 @@ void BattleBoy::init(int argc, char* argv[])
 	mKeyToCommand['P'] = &BattleBoy::togglePause;
 	mKeyToCommand['O'] = &BattleBoy::toggleDebugDraw;
 	mKeyToCommand['R'] = &BattleBoy::reset;
+}
 
-	initGui();
+void BattleBoy::initMapData()
+{
+	mMap = new BattleMap(this);
+	mMap->init();
 }
 
 void BattleBoy::initGui()
@@ -171,9 +187,6 @@ void BattleBoy::loadComplete()
 
 	// Reset the game
 	reset();
-
-	// Load the test map
-	mMapData = BoyLib::tgaLoad("res/Map_1Lane.tga");
 }
 
 void BattleBoy::update(float dt)
@@ -211,22 +224,10 @@ void BattleBoy::draw(Boy::Graphics *g)
 		{
 			(*it)->draw(g);
 		}
-		return;
-		for(int i=0 ; i<mMapData->width; i++ )
+
+		if( mMap )
 		{
-			for(int j=0 ; j<mMapData->height ; j++ )
-			{
-				BoyLib::tColorInfo* tData = (BoyLib::tColorInfo*)(mMapData->imageData);
-				BoyLib::tColorInfo tValue = tData[i + mMapData->width * j];										
-				Boy::Color color = (0xff << 24)| ((tValue.r&0xff) << 16) | ((tValue.g&0xff)<< 8) | (tValue.b & 0xff);
-				g->setColorizationEnabled(true);
-				g->setColor(color);
-				g->pushTransform();
-				float strideX = (float)Boy::Environment::screenWidth()/mMapData->width;	
-				float strideY = (float)Boy::Environment::screenHeight()/mMapData->height;	
-				g->fillRect(i * strideX , j * strideY, strideX, strideY);
-				g->popTransform();
-			}
+			mMap->draw(g);
 		}
 	}
 }

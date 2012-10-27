@@ -213,6 +213,14 @@
 			>
 		</File>
 		<File
+			RelativePath=".\BattleMap.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\BattleMap.h"
+			>
+		</File>
+		<File
 			RelativePath=".\CommandOptions.h"
 			>
 		</File>

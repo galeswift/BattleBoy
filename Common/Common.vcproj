@@ -159,14 +159,6 @@
 				RelativePath="..\libs\AI\Debug\DebugConsole.h"
 				>
 			</File>
-			<File
-				RelativePath="..\libs\AI\Goals\Goal.h"
-				>
-			</File>
-			<File
-				RelativePath="..\libs\AI\Goals\Goal_Composite.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

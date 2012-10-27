@@ -1,3 +1,3 @@
- - initializing CEGUI
-Using scheme directory '../libs/CEGUI/CEGUI-0.7.7/datafiles/schemes/'
+Creating navigation grid...
+Finished creating navigation grid.
 Debug console created.

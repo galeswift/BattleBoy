@@ -19,6 +19,13 @@
 #include "Debug/DebugConsole.h"
 #include "CommandOptions.h"
 
+// Pathfinding
+#include "Graph/SparseGraph.h"
+#include "Graph/GraphAlgorithms.h"
+#include "misc/utils.h"
+#include "graph/GraphEdgeTypes.h"
+#include "graph/GraphNodeTypes.h"
+
 // Networking
 #include "Networking.h"
 
@@ -33,6 +40,7 @@
 #include "BoyLib/BoyUtil.h"
 #include "BoyLib/Vector2.h"
 #include "BoyLib/TGAlib.h"
+
 // Boy
 #include "Boy/Environment.h"
 #include "Boy/Font.h"
@@ -52,6 +60,7 @@
 #include "Unit.h"
 #include "Map.h"
 #include "BattleGui.h"
+#include "BattleMap.h"
 #include "BattleBoy.h"
 #include "Controller.h"
 

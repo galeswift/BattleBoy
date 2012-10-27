@@ -44,6 +44,16 @@ public:
 
 	// implementation of Game:
 	virtual void init(int argc, char* argv[]);
+	
+	// Server/client support
+	virtual void initNetworking();
+
+	// Cheats and spawning
+	virtual void initKeyBindings();
+
+	// Load our pathfinding map
+	virtual void initMapData();
+
 	// Crazy Eddie's gui
 	virtual void initGui();
 	// Pause/unpause the game
@@ -83,11 +93,12 @@ private:
 	Boy::Font *mFont;
 	bool mLoadComplete;
 	BattleGui* mGui;
+	BattleMap* mMap;
 
 	typedef void (BattleBoy::*keyCommand)(void);
 	std::map<wchar_t,keyCommand> mKeyToCommand;
 	std::map<wchar_t,SpawnInfo> mKeyToSpawnInfo;
-private:
+
 	// Static instance of the battleboy class
 	static BattleBoy *gInstance;
 
@@ -111,9 +122,6 @@ private:
 
 	// What spawnInfo to spawn next
 	SpawnInfo mPendingSpawnInfo;
-
-	// The current map
-	BoyLib::tImageTGA* mMapData;
 
 	// What kind of game it is, coop or pvp
 	EGameType mGameType;
