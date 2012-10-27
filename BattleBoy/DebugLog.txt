@@ -1,3 +1,0 @@
-Creating navigation grid...
-Finished creating navigation grid.
-Debug console created.

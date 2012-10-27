@@ -149,6 +149,10 @@
 				RelativePath="..\libs\AI\Debug\DebugConsole.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\libs\AI\Time\PrecisionTimer.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
