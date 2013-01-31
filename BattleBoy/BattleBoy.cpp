@@ -7,7 +7,7 @@ BattleBoy::BattleBoy()
 	mLoadComplete = false;
 	bPaused = false;
 	mRole = Networking::ROLE_None;
-	mDebugDrawMode = EDebugDrawMode_ALL;
+	mDebugDrawMode = EDebugDrawMode_NONE;
 	mNetInterface = NULL;
 	mGui = NULL;
 	mMap = NULL;
@@ -225,9 +225,12 @@ void BattleBoy::draw(Boy::Graphics *g)
 			(*it)->draw(g);
 		}
 
-		if( mMap )
+		if( getDebugDrawMode() == EDebugDrawMode_MAP )
 		{
-			mMap->draw(g);
+			if( mMap )
+			{
+				mMap->draw(g);
+			}
 		}
 	}
 }
@@ -307,11 +310,11 @@ void BattleBoy::spawnUnit(ESpawnType unitType, int teamIdx)
 	}
 
 	if( newUnit != NULL )
-	{
-		addActor(newUnit);	
+	{	
+		addActor(newUnit);
 		newUnit->setOwningGame(this);
 		newUnit->setTeamIdx(teamIdx);
-		newUnit->getSteering()->setTarget(targetPos);
+		newUnit->getStateManager()->pushState(new State_Moving(newUnit,targetPos));
 	}
 }
 

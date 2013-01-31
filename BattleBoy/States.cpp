@@ -22,6 +22,7 @@ void StateManager::pushState( State* state )
 		mStack.back()->end();
 	}
 
+	state->setStateManager(this);
 	state->begin();
 	mStack.push_back(state);
 }
@@ -55,7 +56,7 @@ void StateManager::draw(Boy::Graphics* g)
 		mStack.back()->draw(g);
 
 		BattleBoy* game = BattleBoy::instance();
-		if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
+		if( game->getDebugDrawMode() == EDebugDrawMode_STATES )
 		{
 			g->pushTransform();
 			g->translate(getOwner()->getPos().x,getOwner()->getPos().y);
@@ -86,14 +87,34 @@ std::string StateManager::getCurrentStateName() const
 
 void State_Moving::begin()
 {
-	getUnitOwner()->getSteering()->arriveOn();
+	getUnitOwner()->getSteering()->seekOn();
 	getUnitOwner()->getSteering()->separationOn();
-	mDest = getUnitOwner()->getSteering()->target();
+	mPath = BattleBoy::getMap()->getPath(getUnitOwner()->getPos(), mFinalDest);
+	setNextWaypoint(true);
+}
+
+// if bInit is true, don't remove the first path 
+void State_Moving::setNextWaypoint(bool bInit)
+{
+	if( mPath.size() > 1 )
+	{
+		if( !bInit )
+		{
+			mPath.erase(mPath.begin());
+		}
+
+		mCurrentDest = *mPath.begin();
+		getUnitOwner()->getSteering()->setTarget(mCurrentDest);
+	}
+	else
+	{
+		getStateManager()->popState();
+	}
 }
 
 void State_Moving::end()
 {
-	getUnitOwner()->getSteering()->arriveOff();
+	getUnitOwner()->getSteering()->seekOff();
 	getUnitOwner()->getSteering()->separationOff();
 }
 
@@ -101,8 +122,16 @@ void State_Moving::draw(Boy::Graphics* g)
 {
 	BattleBoy* game = BattleBoy::instance();
 
-	if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
+	if( game->getDebugDrawMode() == EDebugDrawMode_STATES )
 	{
+		for(std::list<BoyLib::Vector2>::iterator it = mPath.begin() ; it != mPath.end() ; it++ )
+		{	
+			g->setColorizationEnabled(true);
+			g->pushTransform();
+			g->fillRect((*it).x, (*it).y, 5, 5);
+			g->popTransform();
+		}
+
 		g->pushTransform();
 		g->setColorizationEnabled(false);
 		g->translate(getOwner()->getPos().x, getOwner()->getPos().y);
@@ -121,6 +150,7 @@ void State_Moving::draw(Boy::Graphics* g)
 	
 		g->setColorizationEnabled(true);
 		g->drawLine(getOwner()->getPos().x, getOwner()->getPos().y,  getOwner()->getPos().x + getUnitOwner()->getSteering()->force().x, getOwner()->getPos().y + getUnitOwner()->getSteering()->force().y);
+		g->fillRect(mCurrentDest.x, mCurrentDest.y, 5,5);
 		g->setColorizationEnabled(false);
 		g->popTransform();
 	}
@@ -135,6 +165,15 @@ void State_Moving::update(float dt)
 	{
 		getUnitOwner()->getStateManager()->pushState( new State_Attacking( getOwner(), enemy ) );
 	}
+	else 
+	{
+		BoyLib::Vector2 to = getUnitOwner()->getPos() - mCurrentDest;
+
+		if (to.magnitudeSquared() < 20.0f * 20.0f)
+		{
+			setNextWaypoint();
+		}
+	}
 }
 
 void State_Attacking::begin()
@@ -147,7 +186,7 @@ void State_Attacking::draw(Boy::Graphics* g)
 	if( mCurrentTarget != NULL)
 	{
 		BattleBoy* game = BattleBoy::instance();
-		if( game->getDebugDrawMode() == EDebugDrawMode_ALL )
+		if( game->getDebugDrawMode() == EDebugDrawMode_STATES )
 		{
 			g->pushTransform();	
 			g->drawLine(getOwner()->getPos().x,getOwner()->getPos().y, mCurrentTarget->getPos().x, mCurrentTarget->getPos().y);

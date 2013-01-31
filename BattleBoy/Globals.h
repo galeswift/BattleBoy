@@ -33,9 +33,6 @@
 #undef min // use __min instead inside this source file
 #undef max // use __max instead inside this source file
 
-#include "CEGUI.h"
-#include "CEGUIDefaultResourceProvider.h"
-
 // BoyLib
 #include "BoyLib/BoyUtil.h"
 #include "BoyLib/Vector2.h"

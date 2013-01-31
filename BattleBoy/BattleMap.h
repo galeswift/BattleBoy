@@ -46,10 +46,14 @@ public:
 	//converts a vector to an index into the graph. Returns false if p
 	//is invalid
 	bool vecToIndex(const BoyLib::Vector2& v, int& NodeIndex);
+	bool indexToVec(BoyLib::Vector2& v, int& NodeIndex);
 	void updateGraphFromBrush(int brush, int cellIndex);
 	double getTerrainCost(const EPathType brush);
+	
 	//this calls the appropriate algorithm	
 	void  updateAlgorithm();
+
+	std::list<BoyLib::Vector2> getPath(const BoyLib::Vector2& from, const BoyLib::Vector2& to);
 private:
 	// Owning game
 	BattleBoy* mOwner;

@@ -188,7 +188,6 @@ void Unit_Building::init()
 void Unit_Mob::init()
 {
 	Unit::init();
-	mStateManager->pushState(new State_Moving(this));
 }
 
 void Unit_Mob::draw(Boy::Graphics *g)

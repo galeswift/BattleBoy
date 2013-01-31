@@ -38,6 +38,18 @@ void BattleMap::init()
 
 				updateGraphFromBrush(tValue.g, t);
 			}
+			else if( tValue.r == TT_SPAWN )
+			{
+				switch( tValue.g )
+				{
+				case ST_PLAYER1:
+					m_iSourceCell = t;
+					break;
+				case ST_PLAYER2:
+					m_iTargetCell = t;
+					break;
+				}
+			}
 		}
 	}
 
@@ -47,22 +59,48 @@ void BattleMap::init()
 
 void BattleMap::draw( Boy::Graphics* g )
 {
-	for(int i=0 ; i<mMapData->width; i++ )
+	//return;
+
+	//render all the cells
+	for (int nd=0; nd<m_pGraph->NumNodes(); ++nd)
 	{
-		for(int j=0 ; j<mMapData->height ; j++ )
+		int left   = (int)(m_pGraph->GetNode(nd).Pos().x - m_dCellWidth/2.0);
+		int top    = (int)(m_pGraph->GetNode(nd).Pos().y - m_dCellHeight/2.0);
+		int right  = (int)(1+m_pGraph->GetNode(nd).Pos().x + m_dCellWidth/2.0);
+		int bottom = (int)(1+m_pGraph->GetNode(nd).Pos().y + m_dCellHeight/2.0);
+
+		g->setColorizationEnabled(true);
+		switch (m_TerrainType[nd])
 		{
-			BoyLib::tColorInfo* tData = (BoyLib::tColorInfo*)(mMapData->imageData);
-			BoyLib::tColorInfo tValue = tData[i + mMapData->width * j];										
-			Boy::Color color = (0xff << 24)| ((tValue.r&0xff) << 16) | ((tValue.g&0xff)<< 8) | (tValue.b & 0xff);
-			g->setColorizationEnabled(true);
-			g->setColor(color);
-			g->pushTransform();
-			float strideX = (float)Boy::Environment::screenWidth()/mMapData->width;	
-			float strideY = (float)Boy::Environment::screenHeight()/mMapData->height;	
-			g->fillRect(i * strideX , j * strideY, strideX, strideY);
-			g->popTransform();
+		case BT_NORMAL:
+			g->setColor(0xff00ffff);
+			break;
+		case BT_OBSTACLE:
+			g->setColor(0xffff0000);
+			break;
+		default:
+			g->setColor(0xff000fff);
+			break;
+
+		}//end switch
+
+		g->fillRect(left, top, m_dCellWidth, m_dCellHeight); 
+	}
+	//draw the path (if any)  
+	if (m_Path.size() > 0)
+	{
+		g->setColor(0xff000f0f);
+
+		std::list<int>::iterator it = m_Path.begin();
+		std::list<int>::iterator nxt = it; ++nxt;
+
+		for (it; nxt != m_Path.end(); ++it, ++nxt)
+		{
+		  g->drawLine(m_pGraph->GetNode(*it).Pos().x,m_pGraph->GetNode(*it).Pos().y , m_pGraph->GetNode(*nxt).Pos().x,  m_pGraph->GetNode(*nxt).Pos().y);
 		}
 	}
+	g->setColorizationEnabled(false);
+
 }
 
 void BattleMap::createGraph(int numCellsX, int numCellsY)
@@ -70,8 +108,8 @@ void BattleMap::createGraph(int numCellsX, int numCellsY)
 	m_icxClient = Boy::Environment::screenWidth();
 	m_icyClient = Boy::Environment::screenHeight();
 
-	//initialize the terrain vector with blocked terrain
-	m_TerrainType.assign(numCellsY * numCellsX, BT_OBSTACLE);
+	//initialize the terrain vector with normal terrain
+	m_TerrainType.assign(numCellsY * numCellsX, BT_NORMAL);
 
 	m_iCellsX     = numCellsX;
 	m_iCellsY     = numCellsY;
@@ -111,12 +149,11 @@ void BattleMap::updateGraphFromBrush(int brush, int cellIndex)
 
   //if current brush is an obstacle then this node must be removed
   //from the graph
-  if (brush == BT_OBSTACLE)
+ /* if (brush == BT_OBSTACLE)
   {
     m_pGraph->RemoveNode(cellIndex);
   }
-
-  else
+  else*/
   {
     //make the node active again if it is currently inactive
     if (!m_pGraph->isNodePresent(cellIndex))
@@ -158,6 +195,20 @@ bool BattleMap::vecToIndex(const BoyLib::Vector2& v, int& nodeIndex)
   return true;
 }
 
+bool BattleMap::indexToVec(BoyLib::Vector2& v, int& nodeIndex)
+{
+	if( nodeIndex > m_iCellsX * m_iCellsY )
+	{
+		return false;
+	}
+
+	float x = (float)(nodeIndex % m_iCellsX);
+	float y = (float)(nodeIndex / m_iCellsX);
+	
+	v.x = (float)(x * m_dCellWidth + m_dCellWidth/2.0f);
+	v.y = (float)(y * m_dCellHeight + m_dCellHeight/2.0f);
+	return true;
+}
 //----------------- GetTerrainCost ---------------------------------------
 //
 //  returns the cost of the terrain represented by the current brush type
@@ -200,6 +251,38 @@ void BattleMap::updateAlgorithm()
 	default: 
 		break;
 	}
+}
+
+std::list<BoyLib::Vector2> BattleMap::getPath(const BoyLib::Vector2& from, const BoyLib::Vector2& to)
+{
+	//reset path and tree records
+	m_SubTree.clear();
+	m_Path.clear();
+
+	//initialize source and target indexes to mid top and bottom of grid 
+	vecToIndex(from, m_iSourceCell);
+	vecToIndex(to, m_iTargetCell);
+
+	updateAlgorithm();
+
+	std::list<BoyLib::Vector2> result;
+	BoyLib::Vector2 point;
+
+	// Convert the points into vectors
+	for( std::list<int>::iterator it = m_Path.begin() ; it != m_Path.end() ; it++ )
+	{
+		if( indexToVec(point, *it) )
+		{
+			result.push_back(point);
+		}
+		else
+		{
+			result.clear();
+			break;
+		}
+	}
+
+	return result;
 }
 
 //------------------------- CreatePathDFS --------------------------------

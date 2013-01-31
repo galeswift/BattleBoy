@@ -12,7 +12,7 @@ void Steering::update(float dt )
 	m_vSteeringForce.truncate(owner->getMaxAccel());
 
 	// Update our acceleration
-	owner->setAccel(m_vSteeringForce);
+	owner->setVel(m_vSteeringForce);
 }
 
 

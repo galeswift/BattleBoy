@@ -18,8 +18,9 @@ enum EGameType
 enum EDrawMode
 {
 	EDebugDrawMode_NONE = 0,
-	EDebugDrawMode_ALL = 1,
-	EDebugDrawMode_MAX = 2,
+	EDebugDrawMode_MAP = 1,
+	EDebugDrawMode_STATES = 2,
+	EDebugDrawMode_MAX = 3,
 };
 
 struct SpawnInfo
@@ -89,6 +90,7 @@ public:
 	virtual EGameType getGameType() { return mGameType; }
 	virtual void setGameType(EGameType gameType) { mGameType = gameType; }
 
+	static BattleMap* getMap() { return instance()->mMap; }
 private:
 	Boy::Font *mFont;
 	bool mLoadComplete;

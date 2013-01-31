@@ -17,8 +17,6 @@
 #include "WinImage.h"
 #include "WinTriStrip.h"
 
-#include "CEGUI.h"
-#include "CEGUIDirect3D9Renderer.h"
 using namespace Boy;
 
 #define PROJECTION_Z_NEAR 0
@@ -446,10 +444,6 @@ WinD3DInterface::WinD3DInterface(Game *game, int width, int height, const char *
 	// initialize d3d:
 	initD3D();
 
-	
-	CEGUI::Direct3D9Renderer& myRenderer = CEGUI::Direct3D9Renderer::create( DXUTGetD3D9Device() );
-	CEGUI::System::create( myRenderer );
-
 	// create the vertex buffer to be used 
 	// for drawing subrects of images:
 	mVertexBuffer = createVertexBuffer(4);
@@ -558,10 +552,6 @@ bool WinD3DInterface::beginScene()
 	DXUTGetD3D9Device()->SetRenderState(D3DRS_BLENDOP,D3DBLENDOP_ADD);	
 	DXUTGetD3D9Device()->SetRenderState(D3DRS_SRCBLEND,D3DBLEND_SRCALPHA);
 	DXUTGetD3D9Device()->SetRenderState(D3DRS_DESTBLEND,D3DBLEND_INVSRCALPHA);
-
-	// draw GUI
-    CEGUI::System::getSingleton().renderGUI();
-
 	return true;
 }
 
