@@ -692,7 +692,7 @@ template <class node_type, class edge_type>
 void SparseGraph<node_type, edge_type>::SetEdgeCost(int from, int to, double NewCost)
 {
   //make sure the nodes given are valid
-  assert( (from < m_Nodes.size()) && (to < m_Nodes.size()) &&
+  assert( ((unsigned int)from < m_Nodes.size()) && ((unsigned int)to < m_Nodes.size()) &&
         "<SparseGraph::SetEdgeCost>: invalid index");
 
   //visit each neighbour and erase any edges leading to this node

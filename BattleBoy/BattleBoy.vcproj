@@ -176,18 +176,6 @@
 	<References>
 	</References>
 	<Files>
-		<Filter
-			Name="States"
-			>
-			<File
-				RelativePath=".\States.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\States.h"
-				>
-			</File>
-		</Filter>
 		<File
 			RelativePath=".\Actor.cpp"
 			>
@@ -266,6 +254,14 @@
 		</File>
 		<File
 			RelativePath=".\res\resources.xml"
+			>
+		</File>
+		<File
+			RelativePath=".\States.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\States.h"
 			>
 		</File>
 		<File

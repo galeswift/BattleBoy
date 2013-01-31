@@ -37,6 +37,8 @@ public:
 
 	void setShouldErase(bool value){ bShouldErase = value; }
 	bool shouldErase() { return bShouldErase; }
+
+	virtual bool collidedWith(Actor* other);
 protected:
 	BattleBoy *game;
 	BoyLib::Vector2 pos, dir, vel, accel;
@@ -48,10 +50,11 @@ protected:
 class Projectile : public Actor
 {
 public:
-	Projectile(BoyLib::Vector2 _pos, BoyLib::Vector2& dir) : Actor(_pos), mDir(dir) {}
+	Projectile(Unit* instigator, BoyLib::Vector2 _pos, BoyLib::Vector2& dir) : Actor(_pos), mDir(dir), mInstigator(instigator) {}
 	virtual void init();
 	virtual void update(float dt);
-	virtual void draw(Boy::Graphics *g);
+	virtual void draw(Boy::Graphics *g);	
 private:
 	BoyLib::Vector2& mDir;
+	Unit* mInstigator;
 };

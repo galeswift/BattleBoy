@@ -84,7 +84,7 @@ void BattleMap::draw( Boy::Graphics* g )
 
 		}//end switch
 
-		g->fillRect(left, top, m_dCellWidth, m_dCellHeight); 
+		g->fillRect((float)left, (float)top, (float)m_dCellWidth, (float)m_dCellHeight); 
 	}
 	//draw the path (if any)  
 	if (m_Path.size() > 0)
@@ -96,7 +96,7 @@ void BattleMap::draw( Boy::Graphics* g )
 
 		for (it; nxt != m_Path.end(); ++it, ++nxt)
 		{
-		  g->drawLine(m_pGraph->GetNode(*it).Pos().x,m_pGraph->GetNode(*it).Pos().y , m_pGraph->GetNode(*nxt).Pos().x,  m_pGraph->GetNode(*nxt).Pos().y);
+		  g->drawLine((float)m_pGraph->GetNode(*it).Pos().x,(float)m_pGraph->GetNode(*it).Pos().y , (float)m_pGraph->GetNode(*nxt).Pos().x, (float) m_pGraph->GetNode(*nxt).Pos().y);
 		}
 	}
 	g->setColorizationEnabled(false);

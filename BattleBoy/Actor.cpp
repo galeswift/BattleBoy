@@ -17,6 +17,11 @@ void Actor::init()
 	game = NULL;
 }
 
+bool Actor::collidedWith(Actor* other)
+{
+	return dist(getPos().x,getPos().y,other->getPos().x,other->getPos().y) < getSize()+other->getSize();
+}
+
 void Projectile::init()
 {
 	Actor::init();
@@ -42,5 +47,17 @@ void Projectile::update(float dt)
 	if( game->isOutOfBounds(this) )
 	{
 		setDestroyed(true);
+	}
+	else
+	{
+		// check for collisions
+		for( std::vector<Actor*>::iterator it = game->getActors().begin(); it != game->getActors().end(); it++ )
+		{
+			if( (*it)->collidedWith(this) )
+			{
+				dynamic_cast<Unit*>(*it)->takeDamage(mInstigator);
+				setDestroyed(true);
+			}
+		}
 	}
 }

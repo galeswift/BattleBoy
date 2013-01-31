@@ -215,8 +215,7 @@ void State_Attacking::update(float dt)
 		if( mAttackDelay <= 0 )
 		{
 			mAttackDelay = getUnitOwner()->getAttackRate();
-			mCurrentTarget->takeDamage(getUnitOwner());
-			game->addActor(new Projectile( getOwner()->getPos(),  mCurrentTarget->getPos() - getOwner()->getPos() ));
+			game->addActor(new Projectile( getUnitOwner(), getOwner()->getPos(),  mCurrentTarget->getPos() - getOwner()->getPos() ));
 		}
 	}
 	else
