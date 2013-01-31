@@ -15,7 +15,7 @@ public:
 	Actor() : pos() , speed(){ };
 	Actor(BoyLib::Vector2 _pos) : pos(_pos) { };
 	Actor(BoyLib::Vector2 _pos, float _speed) : pos(_pos), speed(_speed) {};
-	virtual void draw(Boy::Graphics *g) {};
+	virtual void draw(Boy::Graphics *g);
 	virtual void update(float dt);
 	virtual void init();
 	void setOwningGame(BattleBoy *_game){ game=_game; }

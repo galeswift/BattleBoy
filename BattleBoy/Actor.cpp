@@ -11,7 +11,7 @@ void Actor::update(float dt )
 
 void Actor::init()
 {
-	size = 50;
+	size = 20;
 	setDestroyed(false);
 	setShouldErase(true);
 	game = NULL;
@@ -20,6 +20,16 @@ void Actor::init()
 bool Actor::collidedWith(Actor* other)
 {
 	return dist(getPos().x,getPos().y,other->getPos().x,other->getPos().y) < getSize()+other->getSize();
+}
+
+void Actor::draw(Boy::Graphics* g)
+{
+	if( game && game->getDebugDrawMode() == EDebugDrawMode_STATES )
+	{
+		g->pushTransform();
+		g->drawCircle(pos.x, pos.y, getSize(), 5);
+		g->popTransform();
+	}
 }
 
 void Projectile::init()
@@ -55,8 +65,12 @@ void Projectile::update(float dt)
 		{
 			if( (*it)->collidedWith(this) )
 			{
-				dynamic_cast<Unit*>(*it)->takeDamage(mInstigator);
-				setDestroyed(true);
+				Unit* otherUnit = dynamic_cast<Unit*>(*it);
+				if( otherUnit && otherUnit->getTeamIdx() != mInstigator->getTeamIdx() )
+				{
+					otherUnit->takeDamage(mInstigator);
+					setDestroyed(true);
+				}
 			}
 		}
 	}
