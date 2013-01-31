@@ -68,8 +68,10 @@ void Projectile::update(float dt)
 				Unit* otherUnit = dynamic_cast<Unit*>(*it);
 				if( otherUnit && otherUnit->getTeamIdx() != mInstigator->getTeamIdx() )
 				{
+					game->addActor(new Explosion(getPos().x, getPos().y, 2, 5, otherUnit->getTeamIdx() == 0 ? 0xff00ffff : 0xffff0000));
 					otherUnit->takeDamage(mInstigator);
 					setDestroyed(true);
+					break;
 				}
 			}
 		}

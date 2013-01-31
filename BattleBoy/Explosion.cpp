@@ -3,10 +3,17 @@
 #define PARTICLE_MIN_SPEED 100.0f
 #define PARTICLE_MAX_SPEED 200.0f
 
-Explosion::Explosion(float x, float y, float radius)
+Explosion::Explosion(float x, float y, float radius, int numParticles, Boy::Color color) : 
+	mNumParticles(numParticles),
+	mColor(color)
 {
+	if( mNumParticles >= MAX_PARTICLES )
+	{
+		mNumParticles = MAX_PARTICLES - 1;
+	}
+
 	// initialize the particles:
-	for (int i=0 ; i<NUM_PARTICLES ; i++)
+	for (int i=0 ; i<mNumParticles ; i++)
 	{
 		mParticlePositions[i] = rotate(
 			BoyLib::Vector2(0, radius),
@@ -24,13 +31,13 @@ Explosion::Explosion(float x, float y, float radius)
 
 void Explosion::draw(Boy::Graphics *g)
 {
-	g->setColor(0xFFFFFFFF);
+	g->setColor(mColor);
 	g->setColorizationEnabled(true); // required for alpha to affect rendering
 	float alpha = 1 - (Boy::Environment::instance()->getTime() - mStartTime) / mDuration;
 	g->setAlpha(alpha);
 	g->setDrawMode(Boy::Graphics::DRAWMODE_ADDITIVE);
 
-	for (int i=0 ; i<NUM_PARTICLES ; i++)
+	for (int i=0 ; i<mNumParticles ; i++)
 	{
 		g->pushTransform();
 			g->translate(
@@ -47,7 +54,7 @@ void Explosion::draw(Boy::Graphics *g)
 void Explosion::update(float dt)
 {
 	// move particles:
-	for (int i=0 ; i<NUM_PARTICLES ; i++)
+	for (int i=0 ; i<mNumParticles ; i++)
 	{
 		mParticlePositions[i] += mParticleVelocities[i] * dt;
 		mParticleVelocities[i] *= 1 - (2.7f * dt);

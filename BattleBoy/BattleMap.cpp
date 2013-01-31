@@ -20,7 +20,7 @@ BattleMap::BattleMap(BattleBoy* owner) :
 void BattleMap::init()
 {
 	// Load the test map
-	mMapData = BoyLib::tgaLoad("res/Map_1Lane.tga");
+	mMapData = BoyLib::tgaLoad("res/Map_1Laneb.tga");
 	createGraph( mMapData->width, mMapData->height);
 
 	//save the terrain
@@ -256,7 +256,7 @@ void BattleMap::updateAlgorithm()
 std::list<BoyLib::Vector2> BattleMap::getPath(const BoyLib::Vector2& from, const BoyLib::Vector2& to)
 {
 	//reset path and tree records
-	m_SubTree.clear();
+	//m_SubTree.clear();
 	m_Path.clear();
 
 	//initialize source and target indexes to mid top and bottom of grid 
@@ -397,6 +397,6 @@ void BattleMap::createPathAStar()
 	//record the time taken  
 	m_dTimeTaken = timer.TimeElapsed();
 	m_Path = AStar.GetPathToTarget();
-	m_SubTree = AStar.GetSPT();
+	//m_SubTree = AStar.GetSPT();
 	m_dCostToTarget = AStar.GetCostToTarget();
 }

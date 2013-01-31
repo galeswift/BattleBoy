@@ -49,7 +49,7 @@ void Unit::takeDamage(Unit* attacker)
 		health = 0;
 		setDestroyed(true);	
 		BattleBoy* game = BattleBoy::instance();
-		game->addActor(new Explosion(getPos().x, getPos().y, getRange()/2.0f));
+		game->addActor(new Explosion(getPos().x, getPos().y, getRange()/2.0f, 20, getTeamIdx() == 0 ? 0xff00ffff : 0xffff0000));
 	}
 }
 
