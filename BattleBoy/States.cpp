@@ -97,7 +97,7 @@ void State_Moving::begin()
 // if bInit is true, don't remove the first path 
 void State_Moving::setNextWaypoint(bool bInit)
 {
-	if( mPath.size() >= 1 )
+	if( mPath.size() > 1 )
 	{
 		if( !bInit )
 		{
